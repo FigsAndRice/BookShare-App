@@ -1,5 +1,5 @@
 {
-  "name": "BookShare-App",
+  "name": "BookShare",
   "version": "1.0.0",
   "description": "",
   "main": "server/app.js",
