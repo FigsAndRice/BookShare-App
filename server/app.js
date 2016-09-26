@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // ROUTES
-//app.use('/api', require('./routes/api'));
+app.use('/api', require('./routes/api'));
 
 app.get('*', (req, res) => {
   let indexPath = path.join(__dirname, '../index.html');
