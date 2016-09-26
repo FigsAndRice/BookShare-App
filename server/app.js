@@ -1,6 +1,6 @@
 // CONSTANTS
 const PORT = process.env.PORT || 8000;
-const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost/YOUR_DB_NAME';
+const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost/bookshare-app';
 
 // PACKAGE REQUIRES
 const bodyParser = require('body-parser');
