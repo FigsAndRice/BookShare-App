@@ -11,14 +11,15 @@ const ImageSchema = new mongoose.Schema({
 const path = require('path');
 
 const async = require('async');
+<<<<<<< HEAD
 AWS.config.loadFromPath(__dirname + '/credential.json');
+=======
+AWS.config.loadFromPath(path.join(__dirname,'./credential.json'));
+>>>>>>> 04129a9eb13b0c3c58f1411cbf9c2467411c19c5
 
 
 ImageSchema.statics.upload = function(fileObj, name, cb) {
-  //1.Upload the data to s3
-  //2. To determine the url of the image on S3
-  //3. We can save an image document, with the url (and fileName)
-  //4 Callback with saved image doc.
+
   let {originalname, buffer} = fileObj;
 
 
@@ -60,18 +61,18 @@ ImageSchema.statics.RemoveMiddleware = function(req , res, next) {
     async.each(books, (book, asyncCb) => {
 
       book.pictures = book.pictures.filter(picture => picture != id)
-      
+
       book.save(err => {
       if (err) return res.status(400).send(err)
         asyncCb();
       });
-      
+
     }, err => {
       if (err) res.status(400).send(err);
-      next(); 
+      next();
     });
   });
-}; 
+};
 
 const Image = mongoose.model('Image', ImageSchema);
 
