@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/juancafe4/BookShare-App#readme",
   "dependencies": {
+    "async": "^2.0.1",
     "aws-sdk": "^2.6.4",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",

@@ -10,8 +10,10 @@ const ImageSchema = new mongoose.Schema({
 });
 const path = require('path');
 
-
+const async = require('async');
 AWS.config.loadFromPath('./credential.json');
+
+
 ImageSchema.statics.upload = function(fileObj, name, cb) {
   //1.Upload the data to s3
   //2. To determine the url of the image on S3
@@ -54,7 +56,7 @@ ImageSchema.statics.RemoveMiddleware = function(req , res, next) {
   console.log('here middleware')
   let id = req.params.id;
   mongoose.model('Book').find({}, (err, books) => {
-    if(err) return res.status(400).send('Error finding albums')
+    if(err) return res.status(400).send('Error finding books')
 
     async.each(books, (book, asyncCb) => {
 
@@ -71,6 +73,27 @@ ImageSchema.statics.RemoveMiddleware = function(req , res, next) {
     });
   });
 };
+
+ImageSchema.statics.RemoveMiddleware = function(req , res, next) {
+  let id = req.params.id
+  mongoose.model('Book').find({}, (err, books) => {
+    if(err) return res.status(400).send('Error finding books')
+
+    async.each(books, (book, asyncCb) => {
+
+      book.pictures = book.pictures.filter(picture => picture != id)
+      
+      book.save(err => {
+      if (err) return res.status(400).send(err)
+        asyncCb();
+      });
+      
+    }, err => {
+      if (err) res.status(400).send(err);
+      next(); 
+    });
+  });
+}; 
 
 const Image = mongoose.model('Image', ImageSchema);
 
