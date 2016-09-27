@@ -59,29 +59,15 @@ router.route('/register')
     })
   })
 
-router.route('/login')
-  .get((req, res) => {
-    console.log ('res:', res.data);
-  })
-  .post(passport.authenticate('local'), (req, res) => {
-    // console.log ('req:', req.body);
-    // console.log ('res:', res.req.user._id);
-    //console.log ('res:', res);
-    res.redirect(`/users/${res.req.user._id}`);
-  })
+router.post('/login', passport.authenticate('local'), ((req, res) => {
+  res.redirect(`/users/${res.req.user._id}`);
+}));
 
-router.route('/logout')
-  .get((req, res) => {
-    console.log('hi');
-    req.session.destroy(function() {
-      res.clearCookie('connect.sid');
-      res.redirect('/');
-    });
-    // req.logOut();
-    // res.redirect('/');
-    // req.session.destroy(function(err) {
-    //   res.redirect('/');
-    // })
-  })
+router.post('/logout', ((req,res) => {
+  req.logOut();
+  req.session.destroy((err) => {
+    res.redirect('/');
+  });
+}));
 
 module.exports = router;
