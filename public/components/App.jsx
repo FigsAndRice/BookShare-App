@@ -6,7 +6,7 @@ class App extends React.Component {
         this.displayName = 'App';
     }
     render() {
-      return <div className="container" style={{ height: '100%'}}>
+      return <div style={{ height: '100%'}}>
         {this.props.children}
       </div>
     }
