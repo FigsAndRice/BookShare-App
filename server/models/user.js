@@ -9,7 +9,7 @@ let validateEmail = function(email) {
 
 var User = new Schema({
   username: {type: String, required: true},
-  password: {type: String, required: true},
+  password: {type: String},
   firstName: {type: String, required: true},
   lastName: {type: String, required: true},
   email: {
@@ -22,9 +22,9 @@ var User = new Schema({
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
   },
   phone: {type: Number, required: true},
-  books: {type: Schema.Types.ObjectId, ref: 'Book'},
-  favorites: {type: Schema.Types.ObjectId, ref: 'Book'},
-  cart: {type: Schema.Types.ObjectId, ref: 'Book'}
+  books: [{type: Schema.Types.ObjectId, ref: 'Book'}],
+  favorites: [{type: Schema.Types.ObjectId, ref: 'Book'}],
+  cart: [{type: Schema.Types.ObjectId, ref: 'Book'}]
 });
 
 User.plugin(passportLocalMongoose);
