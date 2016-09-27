@@ -10,8 +10,8 @@ const ImageSchema = new mongoose.Schema({
 });
 const path = require('path');
 
-const async = require('async');
 
+AWS.config.loadFromPath('./credential.json');
 ImageSchema.statics.upload = function(fileObj, name, cb) {
   //1.Upload the data to s3
   //2. To determine the url of the image on S3
@@ -70,7 +70,7 @@ ImageSchema.statics.RemoveMiddleware = function(req , res, next) {
       next();
     });
   });
-}; 
+};
 
 const Image = mongoose.model('Image', ImageSchema);
 
