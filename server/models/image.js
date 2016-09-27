@@ -11,12 +11,8 @@ const ImageSchema = new mongoose.Schema({
 const path = require('path');
 
 const async = require('async');
-<<<<<<< HEAD
-AWS.config.loadFromPath(__dirname + '/credential.json');
-=======
-AWS.config.loadFromPath(path.join(__dirname,'./credential.json'));
->>>>>>> 04129a9eb13b0c3c58f1411cbf9c2467411c19c5
 
+AWS.config.loadFromPath(path.join(__dirname,'./credential.json'));
 
 ImageSchema.statics.upload = function(fileObj, name, cb) {
 
