@@ -13,6 +13,12 @@ router.get('/', (req, res) => {
   })
 })
 
+router.post('/', (req, res) => {
+  Book.create(req.body, (err, book) => {
+    res.status(err ? 400 : 200).send(err || book);
+  })
+})
+
 router.get('/:isbn', (req, res) => {
   Book.find({ isbn: req.params.isbn }, (err, books) => {
     res.status(err ? 400 : 200).send(err || books)
@@ -39,6 +45,12 @@ router.put('/:bookid/addImage', upload.single('image'), (req, res) =>{
       })
     })
   })
+})
+
+router.put('/:bookid/:classid', (req, res) =>{
+  Book.findByIdAndUpdate(req.params.id, { $set : { class_name: req.params.classid } }, { new : true }, (err,book) => {
+   res.status(err ? 400 : 200).send(err || book)
+ })
 })
 
 router.delete('/:bookid/:imageid', Image.RemoveMiddleware, (req , res) => {
