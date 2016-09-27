@@ -1,2 +1,3 @@
 node_modules
-routes/api.js
+.env
+credential.json

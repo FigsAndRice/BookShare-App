@@ -10,8 +10,8 @@ const ImageSchema = new mongoose.Schema({
 });
 const path = require('path');
 
-const async = require('async');
 
+AWS.config.loadFromPath('./credential.json');
 ImageSchema.statics.upload = function(fileObj, name, cb) {
   //1.Upload the data to s3
   //2. To determine the url of the image on S3
@@ -49,28 +49,6 @@ ImageSchema.statics.deleteLink = function(url, cb) {
     else  cb(null, data)// deleted
   });
 }
-
-ImageSchema.statics.RemoveMiddleware = function(req , res, next) {
-  console.log('here middleware')
-  let id = req.params.id
-  mongoose.model('Album').find({}, (err, albums) => {
-    if(err) return res.status(400).send('Error finding albums')
-
-    async.each(albums, (album, asyncCb) => {
-
-      album.photos = album.photos.filter(Image => Image != id)
-      console.log('after filter ',  album.photos)
-      album.save(err => {
-      if (err) return res.status(400).send(err)
-        asyncCb();
-      });
-      
-    }, err => {
-      if (err) res.status(400).send(err);
-      next(); 
-    });
-  });
-}; 
 
 const Image = mongoose.model('Image', ImageSchema);
 
