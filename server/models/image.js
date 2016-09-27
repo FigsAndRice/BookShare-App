@@ -15,10 +15,7 @@ AWS.config.loadFromPath(path.join(__dirname,'./credential.json'));
 
 
 ImageSchema.statics.upload = function(fileObj, name, cb) {
-  //1.Upload the data to s3
-  //2. To determine the url of the image on S3
-  //3. We can save an image document, with the url (and fileName)
-  //4 Callback with saved image doc.
+
   let {originalname, buffer} = fileObj;
 
 
