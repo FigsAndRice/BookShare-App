@@ -21,7 +21,7 @@ ImageSchema.statics.upload = function(fileObj, name, cb) {
 
 
   let Key = uuid() + path.extname(originalname)
-  
+
   let params = {
     Bucket: BUCKET_NAME,
     Key,
@@ -29,10 +29,10 @@ ImageSchema.statics.upload = function(fileObj, name, cb) {
     ACL: 'public-read'
   }
 
-  
+
   s3.putObject(params, (err, result) => {
     if (err) return cb(err);
-    let url = `${AWS_URL_BASE}/${BUCKET_NAME}/${Key}`    
+    let url = `${AWS_URL_BASE}/${BUCKET_NAME}/${Key}`
     this.create( {name: name, url}, cb)
   });
 };
@@ -52,22 +52,22 @@ ImageSchema.statics.deleteLink = function(url, cb) {
 
 ImageSchema.statics.RemoveMiddleware = function(req , res, next) {
   console.log('here middleware')
-  let id = req.params.id
-  mongoose.model('Album').find({}, (err, albums) => {
+  let id = req.params.id;
+  mongoose.model('Book').find({}, (err, books) => {
     if(err) return res.status(400).send('Error finding albums')
 
-    async.each(albums, (album, asyncCb) => {
+    async.each(books, (book, asyncCb) => {
 
-      album.photos = album.photos.filter(Image => Image != id)
-      console.log('after filter ',  album.photos)
-      album.save(err => {
+      book.photos = book.photos.filter(Image => Image != id)
+      console.log('after filter ',  book.photos)
+      book.save(err => {
       if (err) return res.status(400).send(err)
         asyncCb();
       });
-      
+
     }, err => {
       if (err) res.status(400).send(err);
-      next(); 
+      next();
     });
   });
 }; 

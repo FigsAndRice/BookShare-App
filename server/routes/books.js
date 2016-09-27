@@ -42,17 +42,19 @@ router.put('/:bookid/addImage', upload.single('image'), (req, res) =>{
 })
 
 router.delete('/:bookid/:imageid', Image.RemoveMiddleware, (req , res) => {
-  Image.findOneAndremove({ _id: req.params.imageid })
-    .exec((err, removed) => {
-      Book.findOneAndUpdate(
-        { _id: req.params.bookid },
-        { $pull: { pictures: req.params.imageid } },
-        { new: true },
-        function(err, removedFromBook) {
-          if (err) res.status(400).send(err)
-          res.status(200).send()
-        }
-      )
+  Image.findOneById({ _id: req.params.imageid })
+    .exec((err, image) => {
+      Image.deleteLink(image.url, err => {
+        Book.findOneAndUpdate(
+          { _id: req.params.bookid },
+          { $pull: { pictures: req.params.imageid } },
+          { new: true },
+          function(err, removedFromBook) {
+            if (err) res.status(400).send(err)
+            res.status(200).send()
+          }
+        )
+      })
     })
 })
 
