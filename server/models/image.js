@@ -11,7 +11,7 @@ const ImageSchema = new mongoose.Schema({
 const path = require('path');
 
 const async = require('async');
-AWS.config.loadFromPath('./credential.json');
+AWS.config.loadFromPath(path.join(__dirname,'./credential.json'));
 
 
 ImageSchema.statics.upload = function(fileObj, name, cb) {
@@ -52,16 +52,16 @@ ImageSchema.statics.deleteLink = function(url, cb) {
   });
 }
 
+
 ImageSchema.statics.RemoveMiddleware = function(req , res, next) {
-  console.log('here middleware')
-  let id = req.params.id;
+  let id = req.params.id
   mongoose.model('Book').find({}, (err, books) => {
     if(err) return res.status(400).send('Error finding books')
 
     async.each(books, (book, asyncCb) => {
 
-      book.photos = book.photos.filter(Image => Image != id)
-      console.log('after filter ',  book.photos)
+      book.pictures = book.pictures.filter(picture => picture != id)
+
       book.save(err => {
       if (err) return res.status(400).send(err)
         asyncCb();
@@ -73,27 +73,6 @@ ImageSchema.statics.RemoveMiddleware = function(req , res, next) {
     });
   });
 };
-
-ImageSchema.statics.RemoveMiddleware = function(req , res, next) {
-  let id = req.params.id
-  mongoose.model('Book').find({}, (err, books) => {
-    if(err) return res.status(400).send('Error finding books')
-
-    async.each(books, (book, asyncCb) => {
-
-      book.pictures = book.pictures.filter(picture => picture != id)
-      
-      book.save(err => {
-      if (err) return res.status(400).send(err)
-        asyncCb();
-      });
-      
-    }, err => {
-      if (err) res.status(400).send(err);
-      next(); 
-    });
-  });
-}; 
 
 const Image = mongoose.model('Image', ImageSchema);
 
