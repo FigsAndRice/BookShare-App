@@ -6,7 +6,7 @@ class Main extends React.Component {
         this.displayName = 'Main';
     }
     render() {
-        return <h1>This is the Main Page</h1>
+        return <h1>This is the Splash Page</h1>
     }
 }
 

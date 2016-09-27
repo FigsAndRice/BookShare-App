@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from './NavBar.jsx'
 
 class App extends React.Component {
     constructor(props) {
@@ -6,9 +7,14 @@ class App extends React.Component {
         this.displayName = 'App';
     }
     render() {
-      return <div className="container" style={{ height: '100%'}}>
-        {this.props.children}
-      </div>
+      return (
+        <div>
+          <NavBar />
+          <div className="container" style={{ height: '100%'}}>
+            {this.props.children}
+          </div>
+        </div>
+      )
     }
 }
 

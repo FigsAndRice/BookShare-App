@@ -16,14 +16,14 @@ import NotFound from './components/NotFound.jsx';
 injectTapEventPlugin();
 render(
   <MuiThemeProvider>
-   
+
       <Router history={browserHistory}>
-        <Route path="/" component={App}>
+        <Route path="/" component={App} >
         	<IndexRoute component={Main} />
         </Route>
         <Route path="*" component={NotFound} />
       </Router>
- 
+
   </MuiThemeProvider>,
   document.getElementById('root')
 );
