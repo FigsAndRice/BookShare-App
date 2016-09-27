@@ -12,13 +12,27 @@ import Results from './components/Results.jsx';
 import NotFound from './components/NotFound.jsx';
 import ShowBooks from './components/library/ShowBooks.jsx';
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {lightBlue900} from 'material-ui/styles/colors';
+
 //import store from './store';
+
 
 //Please include the Provider
 injectTapEventPlugin();
-render(
-  <MuiThemeProvider>
 
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: lightBlue900,
+
+  },
+  floatingActionButton: {
+
+  }
+});
+render(
+  <MuiThemeProvider muiTheme={muiTheme}>
       <Router history={browserHistory}>
         <Route path="/" component={App} >
         	<IndexRoute component={Main} />
