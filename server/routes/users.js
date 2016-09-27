@@ -72,8 +72,16 @@ router.route('/login')
 
 router.route('/logout')
   .get((req, res) => {
-    req.logout();
-    res.redirect('/');
+    console.log('hi');
+    req.session.destroy(function() {
+      res.clearCookie('connect.sid');
+      res.redirect('/');
+    });
+    // req.logOut();
+    // res.redirect('/');
+    // req.session.destroy(function(err) {
+    //   res.redirect('/');
+    // })
   })
 
 module.exports = router;

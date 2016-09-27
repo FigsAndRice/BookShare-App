@@ -26,7 +26,7 @@
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "debug": "^2.2.0",
-    "express": "^4.14.0",
+    "express": "~4.13.4",
     "express-session": "^1.14.1",
     "font-awesome": "^4.6.3",
     "jquery": "^3.1.0",

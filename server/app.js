@@ -14,6 +14,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+mongoose.Promise = global.Promise;
+
 // DB CONNECT
 require('mongoose').connect(MONGO_URI, err => {
   if(err) throw err;
