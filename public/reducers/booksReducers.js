@@ -1,9 +1,9 @@
-export default function bookReducer(state = [], action){
+export default function bookReducer(state = {}, action){
   switch(action.type) {
 
-    case 'GET_RESULTS':
+    case 'GET_BOOK':
       return	{
-        results: action.payload.results
+        book: action.payload.book
       }
 
     default:

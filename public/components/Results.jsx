@@ -14,7 +14,7 @@ class Results extends React.Component {
     }
 
     selectBook(book) {
-    	console.log(book);
+    	this.props.getBook(book);
     }
     render() {
     	let { results } = this.props.results
