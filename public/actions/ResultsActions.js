@@ -22,9 +22,10 @@ export function getResults(query) {
 	        		let isbn = val.volumeInfo.industryIdentifiers[0].identifier;
 
 	        		let picture = val.volumeInfo.imageLinks.smallThumbnail;
+	        		let pictureNormal = val.volumeInfo.imageLinks.thumbnail;
 	        		let description =  val.volumeInfo.description;
 	        		
-	        		let book = {title, authors, isbn, picture, description};
+	        		let book = {title, authors, isbn, picture, pictureNormal, description};
 	        		books.push(book);
 	        	});
 
