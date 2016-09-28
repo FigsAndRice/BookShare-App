@@ -35,7 +35,11 @@ class Results extends React.Component {
 
 	        		let book = {title, authors, isbn, picture}
 	        		books.push(book);
-	        	})
+	        	});
+
+	        	this.setState({
+	        		results: books
+	        	});
 	        }
 	        else {
 	        	this.setState({
@@ -51,11 +55,32 @@ class Results extends React.Component {
     		let actionStyle = {
     			marginTop: "45px"
     		}
-    		//let img = <img className="img-responsive" src="http://books.google.com/books/content?id=RJxWIQOvoZUC&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE71ema0EayCQkQ7HS2nqnUVvLP_t80kSWA011JCg8atZRt7cG3cN8Sxm-fB3eA5di9GXySS2MWFHKbEnz4yBmjFJOnaVykxstmbqPKuNqTccj1GRCaj4wcAy5bPIy6dyvy6RItY8&source=gbs_api" />
+    		
         
         if (results) {
         	if (results.length) {
 
+        		let lists = results.map(book => {
+        			var img = <img className="img-responsive" src={book.picture} />
+        			return <ListItem style={{borderStyle: "solid", borderRadius: "15px", borderWidth: "1px", borderColor: amber600, marginBottom: "10px"}}>
+		        			<div className="row">
+		        				<div className="col-xs-2">{img}</div>
+		  							<div className="col-xs-8">
+		  								<h2>Title: {book.title}</h2>
+		  								<h3>Author(s): {book.authors}</h3>
+		  								<h3>ISBN: {book.isbn	}</h3>
+		  							</div>
+		  							<div className="col-xs-2">
+		  								<FloatingActionButton style={actionStyle} iconStyle={{color: "#FBC02D "}}>
+		      							<FontIcon className='material-icons'>arrow_forward</FontIcon>
+		    							</FloatingActionButton>
+		  							</div>
+		        			</div>
+        			</ListItem>
+        		})
+        		return <List>
+        				{lists}
+        			</List>
         	} else {
         		return <h1>Sorry Book were not found 😔</h1>
         	}
