@@ -24,6 +24,7 @@ import store from './store';
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
+	fontFamily: 'Roboto, sans-serif',
   palette: {
     primary1Color: lightBlue900,
     accentColor: yellow50

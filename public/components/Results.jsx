@@ -3,12 +3,18 @@ import {List, ListItem, FloatingActionButton, FontIcon} from 'material-ui';
 import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 
 import {connect} from 'react-redux';
+import {getBook} from '../actions/BookActions'
 
 class Results extends React.Component {
     constructor(props) {
         super(props);
 
         this.displayName = 'Results';
+        this.selectBook = this.selectBook.bind(this);
+    }
+
+    selectBook(book) {
+    	console.log(book);
     }
     render() {
     	let { results } = this.props.results
@@ -19,7 +25,7 @@ class Results extends React.Component {
         if (results) {
         	if (results.length) {
 
-        		let lists = results.map((book, index) => {
+        		let lists = results.map((book, index	) => {
         			var img = <img className="img-responsive" src={book.picture} />
         			return <ListItem key={index + 1} style={{borderStyle: "solid", borderRadius: "15px", borderWidth: "1px", borderColor: amber600, marginBottom: "10px"}}>
 		        			<div className="row">
@@ -30,7 +36,7 @@ class Results extends React.Component {
 		  								<h3>ISBN: {book.isbn	}</h3>
 		  							</div>
 		  							<div className="col-xs-2">
-		  								<FloatingActionButton  style={actionStyle} iconStyle={{color: "#FBC02D "}}>
+		  								<FloatingActionButton onClick={this.selectBook.bind(null, book)} style={actionStyle} iconStyle={{color: "#FBC02D "}}>
 		      							<FontIcon className='material-icons'>arrow_forward</FontIcon>
 		    							</FloatingActionButton>
 		  							</div>
@@ -51,7 +57,8 @@ class Results extends React.Component {
 export default connect(state => ({
   	results: state.results
 	}),
-	dispatch => ({
-
-	})
-)(Results)
+	dispatch => {
+    return {
+      getBook: book => dispatch(getBook(book)),
+    }
+})(Results)
