@@ -17,11 +17,11 @@ class Results extends React.Component {
     	this.props.getBook(book);
     }
     render() {
-    	let { results } = this.props.results
+    	let { results } = this.props;
     		let actionStyle = {
     			marginTop: "45px"
     		}
-    		
+
         if (results) {
         	if (results.length) {
 

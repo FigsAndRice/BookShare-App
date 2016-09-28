@@ -51,7 +51,7 @@ class Book extends Component {
   }
 
   render() {
-    let {book} = this.props.book;
+    let {book} = this.props;
     const userBooks = this.state.books.map((book, index) => {
       return (
         <ListItem>
@@ -111,6 +111,6 @@ export default connect(state => ({
   }),
   dispatch => {
     return {
-      
+
     }
 })(Book)
