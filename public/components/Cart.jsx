@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getOwner } from '../actions/OwnerActions';
+import { getUser } from '../actions/UserActions';
 
 class Cart extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class Cart extends Component {
   }
 
   componentWillMount() {
-    this.props.getOwner();
+    this.props.getUser();
   }
 
   render() {
@@ -25,7 +25,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = () => {
-  getOwner: () => dispatch(getOwner())
+  getUser: () => dispatch(getUser())
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

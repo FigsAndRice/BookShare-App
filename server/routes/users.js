@@ -28,6 +28,7 @@ router.route('/register')
     res.redirect('/');
   })
   .post((req, res) => {
+    console.log ('req.body:', req.body);
     User.register(new User({
       username: req.body.username,
       firstName: req.body.firstName,
