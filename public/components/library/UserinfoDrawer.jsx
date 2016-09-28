@@ -22,7 +22,7 @@ export default class UserinfoDrawer extends Component {
   render(){
     return (
       <div>
-          <Drawer>
+          <Drawer className="drawerStyle">
             <MenuItem style={title}><Link to="/profile"><FlatButton label='Profile' icon={<Dash />} /></Link></MenuItem>
             <UserProfile/>
           </Drawer>

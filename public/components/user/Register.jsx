@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { TextField, RaisedButton } from 'material-ui';
+import { register } from '../../actions/UserActions';
 
-
-export default class Register extends Component {
-  constructor(){
-    super()
+class Register extends Component {
+  constructor(props) {
+    super(props)
 
     this.state = {
       username: '',
       password1: '',
       password2: '',
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       email: '',
       phone: ''
     }
+
     this._onInputChange = this._onInputChange.bind(this)
     this._submit = this._submit.bind(this)
   }
-  _onInputChange(e){
+
+  _onInputChange(e) {
     let key = e.target.dataset.statekey;
     let value = e.target.value;
 
@@ -26,14 +29,24 @@ export default class Register extends Component {
       [key]: value
     });
   }
-  _submit(e){
-      e.preventDefault();
-    console.log('this.state:', this.state)
-  }
-  render(){
-    let { username, password1, password2, firstname, lastname, email, phone } = this.state
 
-    return(
+  _submit(e) {
+    e.preventDefault();
+    let { username, password1, password2, firstName, lastName, email, phone} = this.state;
+    if (password1 !== password2) {
+      alert('Passwords do not match. Please enter passwords that match.')
+    } else {
+      const newUser = {
+        username, password: password1, firstName, lastName, email, phone
+      }
+      this.props.register(newUser);
+    }
+  }
+
+  render() {
+    let { username, password1, password2, firstName, lastName, email, phone } = this.state
+
+    return (
       <div>
         <form onSubmit={this._submit}>
           <TextField
@@ -62,15 +75,15 @@ export default class Register extends Component {
           />
           <TextField
           hintText='First Name' floatingLabelText="First Name"
-          className="editInput" floatingLabelFixed={false} id='firstname'
-          required onChange={this._onInputChange} data-statekey="firstname"
-           value={firstname}
+          className="editInput" floatingLabelFixed={false} id='firstName'
+          required onChange={this._onInputChange} data-statekey="firstName"
+           value={firstName}
           />
           <TextField
           hintText='Last Name' floatingLabelText="Last Name"
-          className="editInput" floatingLabelFixed={false} id='lastname'
-          required onChange={this._onInputChange} data-statekey="lastname"
-           value={lastname}
+          className="editInput" floatingLabelFixed={false} id='lastName'
+          required onChange={this._onInputChange} data-statekey="lastName"
+           value={lastName}
           />
           <TextField
           hintText='Phone Number' floatingLabelText="Phone Number"
@@ -90,3 +103,17 @@ export default class Register extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    register: (state) => dispatch(register(state))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
