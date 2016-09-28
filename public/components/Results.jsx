@@ -11,7 +11,7 @@ class Results extends React.Component {
         super(props);
 
         this.state = {
-        	results: null 
+        	results: null
         }
         this.displayName = 'Results';
         this.getResults = this.getResults.bind(this);
@@ -21,7 +21,7 @@ class Results extends React.Component {
     	console.log('mounting...')
     	let {query} = this.props.params;
     	let url = GOOGLE_BOOKS + query + '&key=AIzaSyAYnqQyGfVNTDzBa77PhNx4Rq9qhGNgD7A';
-    
+
 	    axios.get(url)
 	      .then(res => res.data)
 	      .then(data => {
@@ -58,7 +58,7 @@ class Results extends React.Component {
     		let actionStyle = {
     			marginTop: "45px"
     		}
-    	
+
         if (results) {
         	if (results.length) {
 
@@ -92,5 +92,3 @@ class Results extends React.Component {
 }
 
 export default Results;
-
-
