@@ -4,11 +4,11 @@ import UserProfile from './UserProfile.jsx'
 export default class ShowBooks extends Component {
   render(){
     return (
-      <div className="row">
-        <div>
+      <div>
+        <div style={showbook} >
           <UserProfile />
         </div>
-        <div style={showbook}>
+        <div>
           Hello from ShowBooks
         </div>
       </div>
@@ -28,6 +28,6 @@ const sideBar = {
 
 const showbook = {
   // paddingLeft: 3,
-  // marginLeft : '25%',
+  marginLeft : '256px',
   height : '1000px',
 }

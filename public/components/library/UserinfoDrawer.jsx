@@ -1,0 +1,27 @@
+import React , { Component } from 'react'
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router';
+import { FlatButton, FontIcon, TextField } from 'material-ui';
+import { yellow600 } from 'material-ui/styles/colors';
+import Dash from 'material-ui/svg-icons/action/dashboard';
+
+
+export default class UserinfoDrawer extends Component {
+  render(){
+    return (
+      <div>
+        <Drawer>
+          <MenuItem style={title}><Link to="/profile"><FlatButton label='Profile' icon={<Dash />} /></Link></MenuItem>
+        </Drawer>
+      </div>
+    );
+  }
+}
+
+
+const title = {
+  backgroundColor : yellow600,
+  height : 68,
+};

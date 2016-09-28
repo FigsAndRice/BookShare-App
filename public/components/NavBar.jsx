@@ -26,9 +26,9 @@ const NavBar = () => (
       <div className="collapse navbar-collapse" id="collapsable-buttons">
         <ul className="nav navbar-nav">
           <li><Link to="/profile"><FlatButton label='Profile' icon={<Dash />} /></Link></li>
-          <li><SearchBar /></li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
+          <li><SearchBar /></li>
           <li><Link to="/"><FlatButton label='Cart' icon={<ShoppingCart />} /></Link></li>
           <li><Link to="/logout"><FlatButton label='Logout' icon={<Logout />}/></Link></li>
         </ul>
