@@ -28,7 +28,6 @@ router.route('/register')
     res.redirect('/');
   })
   .post((req, res) => {
-    console.log ('req.body:', req.body);
     User.register(new User({
       username: req.body.username,
       firstName: req.body.firstName,
@@ -87,7 +86,9 @@ router.route('/register')
   })
 
 router.post('/login', passport.authenticate('local'), ((req, res) => {
-  console.log('User logged in.');
+  User.findOne({username: req.body.username}, (err, user) => {
+    res.status(err ? 400 : 200).send(err || user);
+  })
 }));
 
 router.post('/logout', ((req,res) => {

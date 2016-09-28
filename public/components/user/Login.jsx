@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, RaisedButton } from 'material-ui';
 import { login } from '../../actions/UserActions';
+import RouteActions from '../../actions/RouteActions';
 
 class Login extends Component {
   constructor(props) {

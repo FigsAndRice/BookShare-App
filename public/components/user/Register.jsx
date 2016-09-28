@@ -17,8 +17,10 @@ class Register extends Component {
       phone: ''
     }
 
-    this._onInputChange = this._onInputChange.bind(this)
-    this._submit = this._submit.bind(this)
+    this._onInputChange = this._onInputChange.bind(this);
+    this._validatePassword = this._validatePassword.bind(this);
+    this._validateEmail = this._validateEmail.bind(this);
+    this._submit = this._submit.bind(this);
   }
 
   _onInputChange(e) {
@@ -30,16 +32,38 @@ class Register extends Component {
     });
   }
 
+  _validatePassword(password) {
+    let regEx = /^(?=.*[\d])(?=.*[A-Z])(?=.*["\-\\;:,.'<>!\[{(*)}\]_|`+~@#$%^&\=\?*])[\w"\-\\;:,.'<>!\[{(*)}\]_|`+~@#$%^&\=\?*]{8,16}$/;
+    if (!regEx.test(password)) {
+      alert("Password must contain 8-16 characters, 1 number, 1 uppercase letter, and 1 special character");
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  _validateEmail(email) {
+    let regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!regEx.test(email)) {
+      alert("Invalid email. Please enter a correct email address.");
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   _submit(e) {
     e.preventDefault();
     let { username, password1, password2, firstName, lastName, email, phone} = this.state;
     if (password1 !== password2) {
       alert('Passwords do not match. Please enter passwords that match.')
     } else {
-      const newUser = {
-        username, password: password1, firstName, lastName, email, phone
+      if (this._validatePassword(password1) && this._validateEmail(email)) {
+        const newUser = {
+          username, password: password1, firstName, lastName, email, phone
+        }
+        this.props.register(newUser);
       }
-      this.props.register(newUser);
     }
   }
 
@@ -50,46 +74,46 @@ class Register extends Component {
       <div>
         <form onSubmit={this._submit}>
           <TextField
-          hintText='Username' floatingLabelText="Username"
-          className="editInput" floatingLabelFixed={false} id='username'
-          required onChange={this._onInputChange} data-statekey="username"
-           value={username}
+            hintText='Username' floatingLabelText="Username"
+            className="editInput" floatingLabelFixed={false} id='username'
+            required onChange={this._onInputChange} data-statekey="username"
+             value={username}
           />
           <TextField
-          hintText='Password' floatingLabelText="Password" type='password'
-          className="editInput" floatingLabelFixed={false} id='password1'
-          required onChange={this._onInputChange} data-statekey="password1"
-          value={password1}
+            hintText='Password' floatingLabelText="Password" type='password'
+            className="editInput" floatingLabelFixed={false} id='password1'
+            required onChange={this._onInputChange} data-statekey="password1"
+            value={password1}
           />
           <TextField
-          hintText='Password' floatingLabelText="Password (again)" type='password'
-          className="editInput" floatingLabelFixed={false} id='password2'
-          required onChange={this._onInputChange} data-statekey="password2"
-           value={password2}
+            hintText='Password' floatingLabelText="Password (again)" type='password'
+            className="editInput" floatingLabelFixed={false} id='password2'
+            required onChange={this._onInputChange} data-statekey="password2"
+             value={password2}
           />
           <TextField
-          hintText='Email' floatingLabelText="Email" type='email'
-          className="editInput" floatingLabelFixed={false} id='email'
-          required onChange={this._onInputChange} data-statekey="email"
-           value={email}
+            hintText='Email' floatingLabelText="Email" type='email'
+            className="editInput" floatingLabelFixed={false} id='email'
+            required onChange={this._onInputChange} data-statekey="email"
+             value={email}
           />
           <TextField
-          hintText='First Name' floatingLabelText="First Name"
-          className="editInput" floatingLabelFixed={false} id='firstName'
-          required onChange={this._onInputChange} data-statekey="firstName"
-           value={firstName}
+            hintText='First Name' floatingLabelText="First Name"
+            className="editInput" floatingLabelFixed={false} id='firstName'
+            required onChange={this._onInputChange} data-statekey="firstName"
+             value={firstName}
           />
           <TextField
-          hintText='Last Name' floatingLabelText="Last Name"
-          className="editInput" floatingLabelFixed={false} id='lastName'
-          required onChange={this._onInputChange} data-statekey="lastName"
-           value={lastName}
+            hintText='Last Name' floatingLabelText="Last Name"
+            className="editInput" floatingLabelFixed={false} id='lastName'
+            required onChange={this._onInputChange} data-statekey="lastName"
+             value={lastName}
           />
           <TextField
-          hintText='Phone Number' floatingLabelText="Phone Number"
-          className="editInput" floatingLabelFixed={false} id='phone'
-          required onChange={this._onInputChange} data-statekey="phone"
-           value={phone}
+            hintText='Phone Number' floatingLabelText="Phone Number"
+            className="editInput" floatingLabelFixed={false} id='phone'
+            required onChange={this._onInputChange} data-statekey="phone"
+             value={phone}
           />
           <div className="col-xs-12 text-center">
             <RaisedButton
