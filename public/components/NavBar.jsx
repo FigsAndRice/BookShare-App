@@ -5,7 +5,7 @@ import { FlatButton, FontIcon, TextField } from 'material-ui'
 import { yellow600 } from 'material-ui/styles/colors'
 import Logout from 'material-ui/svg-icons/action/exit-to-app';
 import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
-import Dash from 'material-ui/svg-icons/action/dashboard';
+import Home from 'material-ui/svg-icons/action/home';
 import { logout } from '../actions/UserActions';
 
 import SearchBar from './SearchBar'
@@ -33,11 +33,11 @@ class NavBar extends Component {
         </div>
         <div className="collapse navbar-collapse" id="collapsable-buttons">
           <ul className="nav navbar-nav">
-            <li><Link to="/profile"><FlatButton label='Profile' icon={<Dash />} /></Link></li>
+            <li><Link to="/"><FlatButton label='Home' icon={<Home />} /></Link></li>
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li><SearchBar /></li>
-            <li><Link to="/"><FlatButton label='Cart' icon={<ShoppingCart />} /></Link></li>
+            <li><Link to="/cart"><FlatButton label='Cart' icon={<ShoppingCart />} /></Link></li>
             <li><Link to="/"><FlatButton onClick={this.props.logout} label='Logout' icon={<Logout />}/></Link></li>
           </ul>
         </div>

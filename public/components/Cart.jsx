@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getUser } from '../actions/UserActions';
-
 class Cart extends Component {
   constructor(props) {
     super(props);
   }
 
-  componentWillMount() {
-    this.props.getUser();
-  }
-
   render() {
     let { cart } = this.props;
+    console.log ('cart:', cart);
     return (
-
+      <div></div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  cart: state.user.cart
+  return {
+    cart: state.user.cart
+  }
 }
 
-const mapDispatchToProps = () => {
-  getUser: () => dispatch(getUser())
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUser: (state) => dispatch(getUser(state))
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
