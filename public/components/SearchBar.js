@@ -13,6 +13,7 @@ export default class SearchBar extends Component {
   }
   _searchSubmit(e){
     e.preventDefault();
+    console.log('searching...')
     let query = this.state.bookTitle.replace(/\s/g, '+');
     this.setState({
       bookTitle: ''

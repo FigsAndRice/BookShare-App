@@ -14,9 +14,11 @@ class Results extends React.Component {
         	results: null 
         }
         this.displayName = 'Results';
+        this.getResults = this.getResults.bind(this);
     }
 
-    componentDidMount() {
+    getResults() {
+    	console.log('mounting...')
     	let {query} = this.props.params;
     	let url = GOOGLE_BOOKS + query;
     
@@ -51,12 +53,12 @@ class Results extends React.Component {
 
     }
     render() {
+    		this.getResults();
     		let {results} = this.state;
     		let actionStyle = {
     			marginTop: "45px"
     		}
-    		
-        
+    	
         if (results) {
         	if (results.length) {
 
@@ -71,7 +73,7 @@ class Results extends React.Component {
 		  								<h3>ISBN: {book.isbn	}</h3>
 		  							</div>
 		  							<div className="col-xs-2">
-		  								<FloatingActionButton style={actionStyle} iconStyle={{color: "#FBC02D "}}>
+		  								<FloatingActionButton  style={actionStyle} iconStyle={{color: "#FBC02D "}}>
 		      							<FontIcon className='material-icons'>arrow_forward</FontIcon>
 		    							</FloatingActionButton>
 		  							</div>
