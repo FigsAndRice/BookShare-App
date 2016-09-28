@@ -22,34 +22,7 @@ class Results extends React.Component {
     	let {query} = this.props.params;
     	let url = GOOGLE_BOOKS + query + '&key=AIzaSyAYnqQyGfVNTDzBa77PhNx4Rq9qhGNgD7A';
     
-	    axios.get(url)
-	      .then(res => res.data)
-	      .then(data => {
-	        if (data.items) {
-	        	let {items} = data;
-	        	let books = []
-	        	items.forEach(val => {
-	        		let title = val.volumeInfo.title;
-	        		let authors = val.volumeInfo.authors.reduce((prev, curr) => prev + ' ' + curr)
-	        		let isbn = val.volumeInfo.industryIdentifiers[0].identifier
-
-	        		let picture = val.volumeInfo.imageLinks.smallThumbnail
-
-	        		let book = {title, authors, isbn, picture}
-	        		books.push(book);
-	        	});
-
-	        	this.setState({
-	        		results: books
-	        	});
-	        }
-	        else {
-	        	this.setState({
-	        		results: []
-	        	});
-	        }
-	      })
-	      .catch(error => console.error);
+	    
 
     }
     render() {
