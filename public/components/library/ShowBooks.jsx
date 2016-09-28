@@ -1,38 +1,28 @@
 import React , { Component } from 'react'
-import UserinfoDrawer from './UserinfoDrawer.jsx'
 import RaisedButton from 'material-ui/RaisedButton'
+
+import Book from './Book.jsx'
 
 export default class ShowBooks extends Component {
   render(){
+    let bookView;
+    if(!this.props.books){
+      bookView = (
+        <div>
+          <h3>No Books</h3>
+        </div>
+      )
+    } else {
+      let { books } = this.props
+      bookView = books.map((book, index) => {
+        return <Book key={index+1} book={book}/>
+      })
+    }
     return (
       <div>
-        <UserinfoDrawer />
         <div className="showbook">
           <div className="row">
-            <div className="col-sm-4 col-md-4 col-lg-4 bookbox">
-                <img width="150px" src="http://1615.info/images/red-book.jpg" alt="NO_IMG"/>
-                <div>Book Name</div>
-                <RaisedButton>Buy</RaisedButton>
-                <RaisedButton>Edit</RaisedButton>
-            </div>
-            <div className="col-sm-4 col-md-4 col-lg-4 bookbox">
-              <img width="150px" src="http://1615.info/images/red-book.jpg" alt="NO_IMG"/>
-              <div>Book Name</div>
-              <RaisedButton>Buy</RaisedButton>
-              <RaisedButton>Edit</RaisedButton>
-            </div>
-            <div className="col-sm-4 col-md-4 col-lg-4 bookbox">
-              <img width="150px" src="http://1615.info/images/red-book.jpg" alt="NO_IMG"/>
-              <div>Book Name</div>
-              <RaisedButton>Buy</RaisedButton>
-              <RaisedButton>Edit</RaisedButton>
-            </div>
-            <div className="col-sm-4 col-md-4 col-lg-4 bookbox">
-              <img width="150px" src="http://1615.info/images/red-book.jpg" alt="NO_IMG"/>
-              <div>Book Name</div>
-              <RaisedButton>Buy</RaisedButton>
-              <RaisedButton>Edit</RaisedButton>
-            </div>
+            {bookView}
           </div>
         </div>
       </div>
