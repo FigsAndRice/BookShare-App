@@ -3,7 +3,7 @@ export default function resultReducer(state = [], action){
 
     case 'GET_RESULTS':
       return	{
-        state: action.payload.results
+        results: action.payload.results
       }
 
     default:

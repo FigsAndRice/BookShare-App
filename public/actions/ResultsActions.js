@@ -1,16 +1,15 @@
 import axios from 'axios';
-
+import {browserHistory} from 'react-router';
 //GOOGLE_BOOK url
 const GOOGLE_BOOKS = 'https://www.googleapis.com/books/v1/volumes?q=';
 //API_KEY for Google Book API
-const API_KEY = '&key=AIzaSyAYnqQyGfVNTDzBa77PhNx4Rq9qhGNgD7A';
+const API_KEY = '&key=AIzaSyAL7QIn3DNBGLz8NjPQVkTNnU7Fp_CtsGo&country=DK';
 
 
 export function getResults(query) { 
-	let url = GOOGLE_BOOKS + query + API_KEY 
-
+	let url = GOOGLE_BOOKS + query;
 	//get the results from google books
-	return dispatch => {
+	return dispatch => 
 		axios.get(url)
 	      .then(res => res.data)
 	      .then(data => {
@@ -33,12 +32,13 @@ export function getResults(query) {
 	        else {
 	        	dispatch(showResults([]))
 	        }
+	       
 	      })
 	      .catch(error => console.error);
-	};
 }
 
 export function showResults(results) {
+	browserHistory.push(`/results`)
 	return {
 		type:'GET_RESULTS',
     payload: {

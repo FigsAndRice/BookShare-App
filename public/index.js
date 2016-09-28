@@ -23,8 +23,6 @@ import store from './store';
 
 injectTapEventPlugin();
 
-//Added the provider to the entire project so now able to connect the store ect...
-
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: lightBlue900,
@@ -34,13 +32,14 @@ const muiTheme = getMuiTheme({
 
   }
 });
+
 render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={muiTheme}>
       <Router history={browserHistory}>
         <Route path="/" component={App} >
           <IndexRoute component={Main} />
-          <Route path="/results/:query" component={Results} />
+          <Route path="/results" component={Results} />
           <Route path="/showbooks" component={ShowBooks} />
           <Route path="/register" component={Register} />
           <Route path="/Login" component={Login} />

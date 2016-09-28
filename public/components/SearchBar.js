@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { TextField } from 'material-ui';
-import {browserHistory} from 'react-router';
 import {getResults} from '../actions/ResultsActions'
-
+import {connect} from 'react-redux';
 class SearchBar extends Component {
   constructor(props){
     super(props)
@@ -18,8 +17,7 @@ class SearchBar extends Component {
     this.setState({
       bookTitle: ''
     });
-    browserHistory.push(`/results/${query}`)
-    
+    this.props.getResults(query);
   }
   _onChange(e){
     this.setState({
@@ -37,3 +35,10 @@ class SearchBar extends Component {
     )
   }
 }
+
+export default connect(state => ({
+  }),dispatch => {
+    return {
+      getResults : query => dispatch(getResults(query)),
+    }
+  })(SearchBar);

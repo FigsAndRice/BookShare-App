@@ -2,41 +2,26 @@ import React from 'react';
 import {List, ListItem, FloatingActionButton, FontIcon} from 'material-ui';
 import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 
-import axios from 'axios';
-
-const GOOGLE_BOOKS = 'https://www.googleapis.com/books/v1/volumes?q='
+import {connect} from 'react-redux';
 
 class Results extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-        	results: null
-        }
         this.displayName = 'Results';
-        this.getResults = this.getResults.bind(this);
-    }
-
-    getResults() {
-    	console.log('mounting...')
-    	let {query} = this.props.params;
-    	let url = GOOGLE_BOOKS + query + '&key=AIzaSyAYnqQyGfVNTDzBa77PhNx4Rq9qhGNgD7A';
-    	
-
     }
     render() {
-    		this.getResults();
-    		let {results} = this.state;
+    	let { results } = this.props.results
     		let actionStyle = {
     			marginTop: "45px"
     		}
-
+    		
         if (results) {
         	if (results.length) {
 
-        		let lists = results.map(book => {
+        		let lists = results.map((book, index) => {
         			var img = <img className="img-responsive" src={book.picture} />
-        			return <ListItem style={{borderStyle: "solid", borderRadius: "15px", borderWidth: "1px", borderColor: amber600, marginBottom: "10px"}}>
+        			return <ListItem key={index + 1} style={{borderStyle: "solid", borderRadius: "15px", borderWidth: "1px", borderColor: amber600, marginBottom: "10px"}}>
 		        			<div className="row">
 		        				<div className="col-xs-2">{img}</div>
 		  							<div className="col-xs-8">
@@ -63,4 +48,10 @@ class Results extends React.Component {
     }
 }
 
-export default Results;
+export default connect(state => ({
+  	results: state.results
+	}),
+	dispatch => ({
+
+	})
+)(Results)
