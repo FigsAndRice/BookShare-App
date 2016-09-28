@@ -8,12 +8,16 @@ class Main extends Component {
 
     }
     render() {
-        return <h1>This is the Splash Page</h1>
+      console.log('this.props:', this.props.user)
+        return <h1>This is the Page</h1>
     }
 }
 
 
 export default connect(state => ({
   user: state.user
-  }),dispatch => {
-  })(Main);
+  }),
+  dispatch => ({
+  
+  })
+)(Main);
