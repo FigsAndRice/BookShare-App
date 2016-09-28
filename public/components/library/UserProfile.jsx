@@ -1,19 +1,31 @@
-import React , { Component } from 'react'
-// import UserinfoDrawer from './UserinfoDrawer.jsx'
+import React , { Component } from 'react';
+import { connect } from 'react-redux';
+import { receiveUser } from '../../actions/UserActions';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 
 
-export default class UserProfile extends Component {
+class UserProfile extends Component {
+  constructor(props){
+    super(props);
+  }
+
+  componentWillMount(){
+    receiveUser();
+  }
 
   render(){
+    let {username , email ,firstName ,lastName ,phone ,picture} = this.props.user;
+    console.log(this.props.user);
     return (
         <div style={drawerContext}>
           <div>
-              <img style={imgstyle} src="https://avatars1.githubusercontent.com/u/10319796?v=3&s=400" alt="Profile pic"/>
-              <h3>Juan Carlos</h3>
+              <img style={imgstyle} src={picture} alt="Profile pic"/>
+              <h3>{firstName}</h3>
+              <h3>{lastName}</h3>
+              <p>{email}</p>
               <p>Edit Profile</p>
               <p>Favourite Books</p>
           </div>
@@ -21,6 +33,21 @@ export default class UserProfile extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    receiveUser: (state) => dispatch(receiveUser(state))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+
 
 const imgstyle = {
   border: '0px solid',
