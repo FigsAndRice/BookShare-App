@@ -37,7 +37,7 @@ class NavBar extends Component {
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li><SearchBar /></li>
-            <li><Link to="/"><FlatButton label='Cart' icon={<ShoppingCart />} /></Link></li>
+            <li><Link to="/cart"><FlatButton label='Cart' icon={<ShoppingCart />} /></Link></li>
             <li><Link to="/"><FlatButton onClick={this.props.logout} label='Logout' icon={<Logout />}/></Link></li>
           </ul>
         </div>
