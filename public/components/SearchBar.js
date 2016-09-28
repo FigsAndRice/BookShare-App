@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { TextField } from 'material-ui';
 import {browserHistory} from 'react-router';
+import {getResults} from '../actions/ResultsActions'
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -13,7 +14,6 @@ export default class SearchBar extends Component {
   }
   _searchSubmit(e){
     e.preventDefault();
-    console.log('searching...')
     let query = this.state.bookTitle.replace(/\s/g, '+');
     this.setState({
       bookTitle: ''
