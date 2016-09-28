@@ -24,7 +24,8 @@ var User = new Schema({
   phone: {type: Number, required: true},
   books: [{type: Schema.Types.ObjectId, ref: 'Book'}],
   favorites: [{type: Schema.Types.ObjectId, ref: 'Book'}],
-  cart: [{type: Schema.Types.ObjectId, ref: 'Book'}]
+  cart: [{type: Schema.Types.ObjectId, ref: 'Book'}],
+  picture: {type: String}
 });
 
 User.plugin(passportLocalMongoose);

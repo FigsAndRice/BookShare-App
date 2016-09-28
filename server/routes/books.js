@@ -10,7 +10,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 router.get('/', (req, res) => {
   Book.find({}, (err, books) => {
     res.status(err ? 400 : 200).send(err || books)
-  })
+  }).populate('owner')
 })
 
 router.post('/', (req, res) => {
@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
 router.get('/:isbn', (req, res) => {
   Book.find({ isbn: req.params.isbn }, (err, books) => {
     res.status(err ? 400 : 200).send(err || books)
-  })
+  }).populate('owner')
 })
 
 router.delete('/:id', (req, res) =>{
