@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import { FlatButton, FontIcon, TextField } from 'material-ui';
 import { yellow600 } from 'material-ui/styles/colors';
 import Dash from 'material-ui/svg-icons/action/dashboard';
+import UserProfile from './UserProfile.jsx'
 
 
 export default class UserinfoDrawer extends Component {
@@ -14,6 +15,7 @@ export default class UserinfoDrawer extends Component {
       <div>
         <Drawer>
           <MenuItem style={title}><Link to="/profile"><FlatButton label='Profile' icon={<Dash />} /></Link></MenuItem>
+          <UserProfile/>
         </Drawer>
       </div>
     );

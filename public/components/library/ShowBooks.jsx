@@ -1,15 +1,16 @@
 import React , { Component } from 'react'
-import UserProfile from './UserProfile.jsx'
+import UserinfoDrawer from './UserinfoDrawer.jsx'
+import RaisedButton from 'material-ui/RaisedButton'
 
 export default class ShowBooks extends Component {
   render(){
     return (
       <div>
-        <div style={showbook} >
-          <UserProfile />
-        </div>
-        <div>
-          Hello from ShowBooks
+          <UserinfoDrawer />
+        <div style={showbook}>
+          <p>
+            Hello from ShowBooks
+          </p>
         </div>
       </div>
     );
@@ -28,6 +29,6 @@ const sideBar = {
 
 const showbook = {
   // paddingLeft: 3,
-  marginLeft : '256px',
+  marginLeft : '26%',
   height : '1000px',
 }
