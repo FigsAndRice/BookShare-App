@@ -1,3 +1,7 @@
 import { combineReducers } from 'redux'
 
-export default combineReducers({})
+import results from './resultsReducer'
+
+export default combineReducers({
+  results
+})

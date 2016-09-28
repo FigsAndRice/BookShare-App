@@ -11,17 +11,19 @@ import Main from './components/Main.jsx';
 import Results from './components/Results.jsx';
 import NotFound from './components/NotFound.jsx';
 import ShowBooks from './components/library/ShowBooks.jsx';
+import Register from './components/user/Register.jsx';
+import Login from './components/user/Login.jsx';
 import Book from './components/Book.jsx';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {lightBlue900, yellow50} from 'material-ui/styles/colors';
 
-//import store from './store';
+import './style.css'
+import store from './store';
 
-
-//Please include the Provider
 injectTapEventPlugin();
 
+//Added the provider to the entire project so now able to connect the store ect...
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -33,17 +35,20 @@ const muiTheme = getMuiTheme({
   }
 });
 render(
-  <MuiThemeProvider muiTheme={muiTheme}>
+  <Provider store={store}>
+    <MuiThemeProvider muiTheme={muiTheme}>
       <Router history={browserHistory}>
         <Route path="/" component={App} >
-        	<IndexRoute component={Main} />
-        	<Route path="/results/:query" component={Results} />
-        	<Route path="/showbooks" component={ShowBooks} />
+          <IndexRoute component={Main} />
+          <Route path="/results/:query" component={Results} />
+          <Route path="/showbooks" component={ShowBooks} />
+          <Route path="/register" component={Register} />
+          <Route path="/Login" component={Login} />
           <Route path="/books" component={Book} />
-        </Route>
+          </Route>
         <Route path="*" component={NotFound} />
       </Router>
-
-  </MuiThemeProvider>,
+    </MuiThemeProvider>
+  </Provider>,
   document.getElementById('root')
 );
