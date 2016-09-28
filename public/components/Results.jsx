@@ -20,7 +20,7 @@ class Results extends React.Component {
     getResults() {
     	console.log('mounting...')
     	let {query} = this.props.params;
-    	let url = GOOGLE_BOOKS + query;
+    	let url = GOOGLE_BOOKS + query + '&key=AIzaSyAYnqQyGfVNTDzBa77PhNx4Rq9qhGNgD7A';
     
 	    axios.get(url)
 	      .then(res => res.data)
