@@ -11,7 +11,7 @@ export default class UserProfile extends Component {
   render(){
     return (
         <div style={drawerContext}>
-          <div >
+          <div>
               <img style={imgstyle} src="https://avatars1.githubusercontent.com/u/10319796?v=3&s=400" alt="Profile pic"/>
               <h3>Juan Carlos</h3>
               <p>Edit Profile</p>
