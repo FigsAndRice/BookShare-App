@@ -36,7 +36,7 @@ render(
       <Router history={browserHistory}>
         <Route path="/" component={App} >
         	<IndexRoute component={Main} />
-        	<Route path="/results" component={Results} />
+        	<Route path="/results/:query" component={Results} />
         	<Route path="/showbooks" component={ShowBooks} />
         </Route>
         <Route path="*" component={NotFound} />
