@@ -13,7 +13,7 @@ import NotFound from './components/NotFound.jsx';
 import ShowBooks from './components/library/ShowBooks.jsx';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {lightBlue900} from 'material-ui/styles/colors';
+import {lightBlue900, yellow50} from 'material-ui/styles/colors';
 
 //import store from './store';
 
@@ -25,7 +25,7 @@ injectTapEventPlugin();
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: lightBlue900,
-
+    accentColor: yellow50
   },
   floatingActionButton: {
 
