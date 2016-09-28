@@ -3,11 +3,12 @@ import React from 'react';
 const style = {
   // backgroundColor : '#f0f0f0',
   background : 'linear-gradient(#f0f0f0,#757575)',
-  padding : '25px',
+  padding : '30px',
+  paddingBottom : 60,
   margin: 'auto',
   height: '80%',
   width: '90%',
-  marginTop: 20,
+  marginTop: 40,
   textAlign: 'center',
   border : '0px solid',
   boxShadow : '0px 5px 25px #7e7e7e'
