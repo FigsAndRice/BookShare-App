@@ -11,6 +11,7 @@ import Main from './components/Main.jsx';
 import Results from './components/Results.jsx';
 import NotFound from './components/NotFound.jsx';
 import ShowBooks from './components/library/ShowBooks.jsx';
+import Book from './components/Book.jsx';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {lightBlue900, yellow50} from 'material-ui/styles/colors';
@@ -38,6 +39,7 @@ render(
         	<IndexRoute component={Main} />
         	<Route path="/results/:query" component={Results} />
         	<Route path="/showbooks" component={ShowBooks} />
+          <Route path="/books" component={Book} />
         </Route>
         <Route path="*" component={NotFound} />
       </Router>
