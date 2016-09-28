@@ -12,6 +12,8 @@ import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Avatar from 'material-ui/Avatar';
 
+import {connect} from 'react-redux';
+
 const styles = {
   bookCover: {
     "width": "100%"
@@ -49,6 +51,7 @@ class Book extends Component {
   }
 
   render() {
+    let {book} = this.props.book;
     const userBooks = this.state.books.map((book, index) => {
       return (
         <ListItem>
@@ -72,28 +75,27 @@ class Book extends Component {
     })
 
     return (
+
       <div className='container text-center'>
         <div className="row">
           <div className="col-sm-12 col-md-12 col-lg-12">
-            <h1>Title</h1>
+            <h1>{book.title}</h1>
           </div>
         </div>
         <div className="row">
           <div className="col-sm-12 col-md-4 col-lg-3">
           </div>
           <div className="col-sm-12 col-md-8 col-lg-9">
-            <h2>Description</h2>
+            <span>{book.description}</span>
           </div>
         </div>
         <div className="row">
           <div className="col-sm-12 col-md-4 col-lg-3">
-            <img style={styles.bookCover} src="https://upload.wikimedia.org/wikipedia/en/b/bf/Harry_Potter_and_the_Sorcerer's_Stone.jpg"/>
+            <img style={styles.bookCover} src={book.picture}/>
           </div>
           <div className="col-sm-12 col-md-8 col-lg-9 text-left">
-            <h4>Author: </h4>
-            <h4>Synopsis: </h4>
-            <h4>ISBN: </h4>
-            <h4>Price (New): </h4>
+            <h4>Author: {book.authors}</h4>
+            <h4>ISBN: {book.isbn}</h4>
             <br/>
             <List>
               <Subheader>For Sale by Other Students</Subheader>
@@ -106,4 +108,11 @@ class Book extends Component {
   }
 }
 
-module.exports = Book;
+export default connect(state => ({
+    book: state.books
+  }),
+  dispatch => {
+    return {
+      
+    }
+})(Book)
