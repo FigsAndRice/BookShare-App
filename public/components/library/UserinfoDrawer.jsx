@@ -10,13 +10,22 @@ import UserProfile from './UserProfile.jsx'
 
 
 export default class UserinfoDrawer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {open: false};
+    this.handleToggle=this.handleToggle.bind(this);
+  }
+  handleToggle() {
+    console.log("sss");
+    this.setState({open: !this.state.open});
+  }
   render(){
     return (
       <div>
-        <Drawer>
-          <MenuItem style={title}><Link to="/profile"><FlatButton label='Profile' icon={<Dash />} /></Link></MenuItem>
-          <UserProfile/>
-        </Drawer>
+          <Drawer className="drawerStyle">
+            <MenuItem style={title}><Link to="/profile"><FlatButton label='Profile' icon={<Dash />} /></Link></MenuItem>
+            <UserProfile/>
+          </Drawer>
       </div>
     );
   }

@@ -1,3 +1,30 @@
 .editInput {
   width: 100% !important;
 }
+
+.drawerStyle{
+  display: block;
+}
+
+.showbook{
+  margin-left: 26%
+}
+
+.bookbox{
+    margin : 5px;
+    padding : 5px;
+    width : auto;
+    text-align : center;
+    height : 200px;
+    border : 1px solid #f1f1f1;
+    border-radius : 5px;
+}
+
+@media(max-width : 777px) {
+  .drawerStyle{
+    display: none;
+  }
+  .showbook{
+    margin:auto;
+  }
+}

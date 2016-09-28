@@ -28,7 +28,7 @@ const NavBar = () => (
           <li><Link to="/profile"><FlatButton label='Profile' icon={<Dash />} /></Link></li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
-          <li><SearchBar /></li>
+          {/* <li><SearchBar /></li> */}
           <li><Link to="/"><FlatButton label='Cart' icon={<ShoppingCart />} /></Link></li>
           <li><Link to="/logout"><FlatButton label='Logout' icon={<Logout />}/></Link></li>
         </ul>

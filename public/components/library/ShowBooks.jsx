@@ -6,11 +6,34 @@ export default class ShowBooks extends Component {
   render(){
     return (
       <div>
-          <UserinfoDrawer />
-        <div style={showbook}>
-          <p>
-            Hello from ShowBooks
-          </p>
+        <UserinfoDrawer />
+        <div className="showbook">
+          <div className="row">
+            <div className="col-sm-4 col-md-4 col-lg-4 bookbox">
+                <img width="150px" src="http://1615.info/images/red-book.jpg" alt="NO_IMG"/>
+                <div>Book Name</div>
+                <RaisedButton>Buy</RaisedButton>
+                <RaisedButton>Edit</RaisedButton>
+            </div>
+            <div className="col-sm-4 col-md-4 col-lg-4 bookbox">
+              <img width="150px" src="http://1615.info/images/red-book.jpg" alt="NO_IMG"/>
+              <div>Book Name</div>
+              <RaisedButton>Buy</RaisedButton>
+              <RaisedButton>Edit</RaisedButton>
+            </div>
+            <div className="col-sm-4 col-md-4 col-lg-4 bookbox">
+              <img width="150px" src="http://1615.info/images/red-book.jpg" alt="NO_IMG"/>
+              <div>Book Name</div>
+              <RaisedButton>Buy</RaisedButton>
+              <RaisedButton>Edit</RaisedButton>
+            </div>
+            <div className="col-sm-4 col-md-4 col-lg-4 bookbox">
+              <img width="150px" src="http://1615.info/images/red-book.jpg" alt="NO_IMG"/>
+              <div>Book Name</div>
+              <RaisedButton>Buy</RaisedButton>
+              <RaisedButton>Edit</RaisedButton>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -26,9 +49,3 @@ const sideBar = {
   position: 'fixed' ,
   overflow: 'auto',
 };
-
-const showbook = {
-  // paddingLeft: 3,
-  marginLeft : '26%',
-  height : '1000px',
-}
