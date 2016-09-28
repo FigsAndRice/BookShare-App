@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { TextField, RaisedButton } from 'material-ui'
+import { connect } from 'react-redux';
+import { TextField, RaisedButton } from 'material-ui';
+import { login } from '../../actions/UserActions';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.displayName = 'Login';
@@ -26,8 +28,7 @@ export default class Login extends Component {
 
   _submit(e) {
     e.preventDefault();
-    //this.props.login(this.state);
-    console.log('this.state:', this.state)
+    this.props.login(this.state);
   }
 
   render() {
@@ -58,3 +59,17 @@ export default class Login extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (state) => {dispatch(login(state))}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

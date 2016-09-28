@@ -16,7 +16,6 @@ export function getUsers() {
 export function register(newUser) {
   axios.post('/api/users/register', newUser)
     .then(() => {
-      
       RouteActions.route('/login')
     })
     .catch(console.error)
@@ -28,6 +27,16 @@ export function login(user) {
       .then(() => {
         dispatch(getProfile())
         RouteActions.route('/profile')
+      })
+      .catch(console.error)
+  }
+}
+
+export function logout() {
+  return dispatch => {
+    axios.post('/api/users/logout')
+      .then(() => {
+        RouteActions.route('/')
       })
       .catch(console.error)
   }

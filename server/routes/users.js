@@ -87,7 +87,7 @@ router.route('/register')
   })
 
 router.post('/login', passport.authenticate('local'), ((req, res) => {
-  res.redirect(`/users/${res.req.user._id}`);
+  console.log('User logged in.');
 }));
 
 router.post('/logout', ((req,res) => {
