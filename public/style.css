@@ -32,3 +32,12 @@ body {
     margin:auto;
   }
 }
+
+.splash {
+  background-image: url('https://images.unsplash.com/photo-1474932430478-367dbb6832c1');
+  background-size: cover;
+  height: 100vh;
+  justify-content: center;
+  text-align: center;
+  padding-top: 35vh;
+}
