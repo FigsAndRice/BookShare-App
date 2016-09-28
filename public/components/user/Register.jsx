@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { TextField, RaisedButton } from 'material-ui';
 
-class Register extends Component {
+
+export default class Register extends Component {
   constructor(){
     super()
 
@@ -17,53 +19,71 @@ class Register extends Component {
     this._submit = this._submit.bind(this)
   }
   _onInputChange(e){
+    let key = e.target.dataset.statekey;
+    let value = e.target.value;
 
+    this.setState({
+      [key]: value
+    });
   }
   _submit(e){
       e.preventDefault();
     console.log('this.state:', this.state)
   }
   render(){
-    let { username, password1, password2, firstname, lastname, email, phone }
+    let { username, password1, password2, firstname, lastname, email, phone } = this.state
+
     return(
       <div>
         <form onSubmit={this._submit}>
           <TextField
           hintText='Username' floatingLabelText="Username"
-          className="editInput" floatingLabelFixed={true} id='username'
+          className="editInput" floatingLabelFixed={false} id='username'
           required onChange={this._onInputChange} data-statekey="username"
-          underlineFocusStyle={style} value={username}
+           value={username}
           />
           <TextField
           hintText='Password' floatingLabelText="Password" type='password'
-          className="editInput" floatingLabelFixed={true} id='password1'
+          className="editInput" floatingLabelFixed={false} id='password1'
           required onChange={this._onInputChange} data-statekey="password1"
-          underlineFocusStyle={style} value={password1}
+          value={password1}
           />
           <TextField
           hintText='Password' floatingLabelText="Password (again)" type='password'
-          className="editInput" floatingLabelFixed={true} id='password2'
+          className="editInput" floatingLabelFixed={false} id='password2'
           required onChange={this._onInputChange} data-statekey="password2"
-          underlineFocusStyle={style} value={password2}
+           value={password2}
           />
           <TextField
-          hintText='email' floatingLabelText="email (again)" type='email'
-          className="editInput" floatingLabelFixed={true} id='email'
+          hintText='Email' floatingLabelText="Email" type='email'
+          className="editInput" floatingLabelFixed={false} id='email'
           required onChange={this._onInputChange} data-statekey="email"
-          underlineFocusStyle={style} value={email}
+           value={email}
           />
           <TextField
-          hintText='Password' floatingLabelText="Password (again)" type='password'
-          className="editInput" floatingLabelFixed={true} id='password2'
-          required onChange={this._onInputChange} data-statekey="password2"
-          underlineFocusStyle={style} value={password2}
+          hintText='First Name' floatingLabelText="First Name"
+          className="editInput" floatingLabelFixed={false} id='firstname'
+          required onChange={this._onInputChange} data-statekey="firstname"
+           value={firstname}
+          />
+          <TextField
+          hintText='Last Name' floatingLabelText="Last Name"
+          className="editInput" floatingLabelFixed={false} id='lastname'
+          required onChange={this._onInputChange} data-statekey="lastname"
+           value={lastname}
+          />
+          <TextField
+          hintText='Phone Number' floatingLabelText="Phone Number"
+          className="editInput" floatingLabelFixed={false} id='phone'
+          required onChange={this._onInputChange} data-statekey="phone"
+           value={phone}
           />
           <div className="col-xs-12 text-center">
             <RaisedButton
             label="Submit"
             labelPosition="before"
             type='submit'
-            className='editBtn'/>
+            />
           </div>
       </form>
     </div>
