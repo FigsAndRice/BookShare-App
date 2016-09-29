@@ -1,6 +1,5 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
-import { receiveUser } from '../../actions/UserActions';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -9,10 +8,6 @@ import { Link } from 'react-router';
 class UserProfile extends Component {
   constructor(props){
     super(props);
-  }
-
-  componentWillMount(){
-    receiveUser();
   }
 
   render(){
@@ -40,7 +35,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    receiveUser: (state) => dispatch(receiveUser(state))
   }
 }
 
@@ -63,6 +57,4 @@ const drawerContext = {
   margin: 7,
   padding: 15,
   width : '95%',
-  // height : '90%',
-  // backgroundColor : '#f1f1f1'
 };

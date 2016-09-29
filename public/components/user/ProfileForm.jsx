@@ -29,7 +29,6 @@ class ProfileForm extends Component {
  }
   _updateProfile(){
     let { _id } = this.props.user;
-    console.log("state",this.state);
     this.props.updateUser(_id,this.state);
   }
   render(){
