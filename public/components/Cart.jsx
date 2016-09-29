@@ -1,13 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {Checkbox, IconButton, FloatingActionButton, FontIcon, RaisedButton} from 'material-ui';
+import {Checkbox, IconButton, FloatingActionButton, FontIcon, RaisedButton, Snackbar} from 'material-ui';
 import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 class Cart extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      open: false,
+    }
+    this.showMessage = this.showMessage.bind(this);
+    this.hideMesaage = this.hideMesaage.bind(this);
   }
 
+  showMessage() {
+    this.setState({
+      open: true,
+    });
+  }
+  hideMesaage() {
+    this.setState({
+      open: false,
+    });
+  }
   render() {
     let { cart } = this.props;
     console.log ('cart:', cart);
@@ -121,7 +137,7 @@ class Cart extends Component {
                 <h3>$45.56</h3>
               </td>
               <td>
-                <FloatingActionButton  style={{marginTop: "65px"}}iconStyle={{color: yellow600}}>
+                <FloatingActionButton  onTouchTap={this.showMessage} style={{marginTop: "65px"}}iconStyle={{color: yellow600}}>
                   <FontIcon className='material-icons'>favorite </FontIcon>
                 </FloatingActionButton>
               </td>
@@ -130,7 +146,7 @@ class Cart extends Component {
                   <FontIcon className='material-icons'>delete</FontIcon>
                 </FloatingActionButton>
               </td>
-            </tr>
+            </tr> 
           </tbody>
         </table>
         <RaisedButton
@@ -142,6 +158,13 @@ class Cart extends Component {
           icon={<FontIcon className="material-icons">check_circle</FontIcon>}
         />
         <h4 style={{float: "right", marginRight: "15px"}}><b>Subtotal (2 items): $53.84</b></h4>
+
+        <Snackbar
+          open={this.state.open}
+          message= "Book added to favorite."
+          autoHideDuration={4000}
+          onRequestClose={this.hideMesaage}
+        />
       </div>
     )
   }

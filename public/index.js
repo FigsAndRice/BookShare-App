@@ -31,8 +31,9 @@ const muiTheme = getMuiTheme({
     primary1Color: lightBlue900,
     accentColor: yellow50
   },
-  floatingActionButton: {
-
+  snackbar: {
+      textColor: yellow600,
+      backgroundColor: lightBlue900,
   },
   appBar: {
   	textColor: yellow600
