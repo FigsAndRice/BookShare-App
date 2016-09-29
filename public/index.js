@@ -12,7 +12,7 @@ import NotFound from './components/NotFound.jsx';
 import Book from './components/booksearch/Book.jsx';
 import Results from './components/booksearch/Results.jsx';
 // import ShowBooks from './components/library/ShowBooks.jsx';
-import EditProfile from './components/user/ProfileForm.jsx';
+import EditProfile from './components/user/EditProfile.jsx';
 import Register from './components/user/Register.jsx';
 import Login from './components/user/Login.jsx';
 import Cart from './components/user/Cart.jsx';

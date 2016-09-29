@@ -6,7 +6,7 @@ export function updateUser(id,updateInfo) {
     axios.put(`/api/users/${id}`,updateInfo)
         .then(res => {
           dispatch(receiveUser(res.data))
-          RouteActions.route('/showbooks')
+          RouteActions.route('/')
         })
         .catch(console.error)
   }
