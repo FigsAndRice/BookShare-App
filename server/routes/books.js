@@ -43,12 +43,18 @@ router.put('/:bookid/addImage', upload.single('image'), (req, res) =>{
       book.save(err =>{
         res.send();
       })
-    })
+    }).populate('owner')
+  })
+})
+
+router.put('/:bookid/changeOwner/:ownerid', (req, res) => {
+  Book.findByIdAndUpdate(req.params.bookid, { $set: { owner: req.params.ownerid } }, { new: true }, (err, book) => {
+    res.status(err ? 400 : 200).send(err || book);
   })
 })
 
 router.put('/:bookid/:classid', (req, res) =>{
-  Book.findByIdAndUpdate(req.params.id, { $set : { class_name: req.params.classid } }, { new : true }, (err,book) => {
+  Book.findByIdAndUpdate(req.params.bookid, { $set : { class_name: req.params.classid } }, { new : true }, (err,book) => {
    res.status(err ? 400 : 200).send(err || book)
  })
 })

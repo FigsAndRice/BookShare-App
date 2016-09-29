@@ -22,9 +22,9 @@ var User = new Schema({
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
   },
   phone: {type: Number, required: true},
-  books: [{type: Schema.Types.ObjectId, ref: 'Book'}],
-  favorites: [{type: Schema.Types.ObjectId, ref: 'Book'}],
-  cart: [{type: Schema.Types.ObjectId, ref: 'Book'}],
+  //books: [{type: Schema.Types.ObjectId, ref: 'Book', unique: true}],
+  favorites: [{type: Schema.Types.ObjectId, ref: 'Book', unique: true}],
+  cart: [{type: Schema.Types.ObjectId, ref: 'Book', unique: true}],
   picture: {type: String}
 });
 

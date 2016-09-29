@@ -7,11 +7,12 @@ import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bu
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 
-
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import {AppBar, FontIcon} from 'material-ui';
 import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 import {connect} from 'react-redux';
+
+import { addToCart } from '../actions/UserActions';
 
 const styles = {
   bookCover: {
@@ -37,41 +38,59 @@ class Book extends Component {
     super(props);
 
     this.state = {
-      books: []
+      searchedBooks: this.props.searchedBooks
     }
+
+    this._addToCart = this._addToCart.bind(this);
+    this._addFavorite = this._addFavorite.bind(this);
   }
 
   componentDidMount() {
     this.setState({
-      books: [
-        {owner: "Danny", email: "danny@example.com", condition: "horrible"},
-        {owner: "Juan", email: "juancafe@example.com", condition: "brand new"}
-    ]
+      searchedBooks: this.props.searchedBooks
     })
   }
 
+  _addToCart(e) {
+    this.props.addToCart(this.props.user._id, e.target.dataset.bookid);
+  }
+
+  _addFavorite() {
+    console.log('FAVORITE');
+  }
+
   render() {
-    let {book} = this.props;
-    const userBooks = this.state.books.map((book, index) => {
+    let { book, searchedBooks } = this.props;
+
+    const userBooks = searchedBooks.map((existingBook, index) => {
+      let bookPicture;
+      if (existingBook.picture.length) {
+        bookPicture = <img src={existingBook.picture} className="img-responsive" style={styles.gridTile}/>
+      } else {
+        bookPicture = <img src={book.pictureNormal} className="img-responsive" style={styles.gridTile}/>
+      }
+
       return (
-        <ListItem>
-          <div className="row">
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-              <img src="http://67.media.tumblr.com/895efa32f439693be6b5ebbc9ad8afd8/tumblr_inline_nfmpciJcWi1t5wowo.jpg" className="img-responsive" style={styles.gridTile}/>
-            </div>
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-              <h3>Owned by: {book.owner}</h3>
-              <h3>Email: {book.email}</h3>
-              <h3>Condition: {book.condition}</h3>
-            </div>
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
-              <FloatingActionButton iconStyle={{color: "#FBC02D "}}>
-                <FontIcon className='material-icons'>add</FontIcon>
-              </FloatingActionButton>
-            </div>
+      <ListItem key={index}>
+        <div className="row">
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            {bookPicture}
           </div>
-        </ListItem>
-    )
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <h3>Owned by: {existingBook.owner.username}</h3>
+            <h3>Email: {existingBook.owner.email}</h3>
+          </div>
+          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+            <FloatingActionButton iconStyle={{color: "#FBC02D "}}>
+              <FontIcon className='material-icons' onClick={this._addToCart} data-bookid={existingBook._id}>add</FontIcon>
+            </FloatingActionButton>
+            <FloatingActionButton iconStyle={{color: "#FBC02D "}}>
+              <FontIcon className='material-icons' onClick={this._addFavorite}>favorite</FontIcon>
+            </FloatingActionButton>
+          </div>
+        </div>
+      </ListItem>
+      )
     })
 
     return (
@@ -107,10 +126,12 @@ class Book extends Component {
 }
 
 export default connect(state => ({
-    book: state.books
+    book: state.books,
+    user: state.user,
+    searchedBooks: state.searchedBooks
   }),
   dispatch => {
     return {
-
+      addToCart: (userId, bookId) => {dispatch(addToCart(userId, bookId))}
     }
 })(Book)

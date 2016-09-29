@@ -61,3 +61,13 @@ export function removeUser() {
     payload: {}
   }
 }
+
+export function addToCart(userId, bookId) {
+  return dispatch => {
+    axios.put(`/api/users/${userId}/addToCart/${bookId}`)
+      .then(res => {
+        dispatch(receiveUser(res.data))
+      })
+      .catch(console.error)
+  }
+}
