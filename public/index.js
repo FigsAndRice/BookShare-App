@@ -36,7 +36,8 @@ const muiTheme = getMuiTheme({
   },
   appBar: {
   	textColor: yellow600
-  }
+  },
+
 });
 
 render(
