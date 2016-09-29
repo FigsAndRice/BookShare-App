@@ -10,6 +10,7 @@ import App from './components/App.jsx';
 import Main from './components/Main.jsx';
 import Results from './components/Results.jsx';
 import NotFound from './components/NotFound.jsx';
+import ShowBooks from './components/library/ShowBooks.jsx';
 import Register from './components/user/Register.jsx';
 import Login from './components/user/Login.jsx';
 import Book from './components/Book.jsx';
@@ -47,6 +48,7 @@ render(
         <Route path="/" component={App} >
           <IndexRoute component={Main} />
           <Route path="/results" component={Results} />
+          <Route path="/showbooks" component={ShowBooks} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/book" component={Book} />

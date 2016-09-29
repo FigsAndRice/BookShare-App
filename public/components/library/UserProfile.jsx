@@ -1,10 +1,13 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
-import { Drawer, MenuItem, Paper, FloatingActionButton } from 'material-ui';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import { Link } from 'react-router';
-import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
-import FavIcon from 'material-ui/svg-icons/action/favorite';
-import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
+import ContentEdit from 'material-ui/svg-icons/editor/mode-edit';
+import ContentFav from 'material-ui/svg-icons/action/favorite';
+import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 
 class UserProfile extends Component {
   constructor(props){
@@ -14,6 +17,7 @@ class UserProfile extends Component {
   render(){
     let { username , email , firstName , lastName , phone , picture , _id } = this.props.user;
     let imgURL = 'http://www.biglunchextras.com/sites/default/files/user-default.png';
+    console.log("picture",picture);
     if (picture !== undefined){
         imgURL=picture;
     }
@@ -27,11 +31,11 @@ class UserProfile extends Component {
               <div style={{paddingLeft:20}}>
                 <Link to='/editProfile'>
                   <FloatingActionButton backgroundColor={lightBlue900} style={FloatingBtn}>
-                    <EditIcon color={yellow600}/>
+                    <ContentEdit color={yellow600}/>
                   </FloatingActionButton>
                 </Link>
                 <FloatingActionButton backgroundColor={lightBlue900} style={FloatingBtn}>
-                    <FavIcon color={yellow600}/>
+                    <ContentFav color={yellow600}/>
                 </FloatingActionButton>
               </div>
           </div>
@@ -69,6 +73,7 @@ const imgstyle = {
 };
 
 const drawerContext = {
+  textAlign : 'center',
   margin: 7,
   padding: 15,
   width : '95%',

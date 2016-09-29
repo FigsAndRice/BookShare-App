@@ -1,5 +1,5 @@
 body {
-  font-family: Roboto, sans-serif !important;
+  font-family: Roboto, sans-serif !important
 }
 
 .editInput {
@@ -11,12 +11,8 @@ body {
 }
 
 .showbook{
-<<<<<<< HEAD
-  margin-left: 15%;
-=======
   margin-left: 30%;
   padding: 10px;
->>>>>>> master
 }
 
 .bookbox{
