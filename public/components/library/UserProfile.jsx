@@ -12,10 +12,17 @@ class UserProfile extends Component {
 
   render(){
     let { username , email , firstName , lastName , phone , picture , _id } = this.props.user;
+    let imgURL = 'http://www.biglunchextras.com/sites/default/files/user-default.png';
+    console.log("picture",picture);
+    if (picture !== undefined){
+        imgURL=picture;
+    }
+    // if (picture != "") {
+    // }
     return (
         <div style={drawerContext}>
           <div>
-              <img style={imgstyle} src={picture} alt="Profile pic"/>
+              <img style={imgstyle} src={imgURL}/>
               <h3>{firstName}</h3>
               <h3>{lastName}</h3>
               <p>{email}</p>
