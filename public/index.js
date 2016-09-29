@@ -15,15 +15,9 @@ import Results from './components/booksearch/Results.jsx';
 import EditProfile from './components/user/EditProfile.jsx';
 import Register from './components/user/Register.jsx';
 import Login from './components/user/Login.jsx';
-<<<<<<< HEAD
-import Book from './components/Book.jsx';
-import Cart from './components/Cart.jsx';
-import EditProfile from './components/user/EditProfile.jsx';
 import Checkout from './components/Checkout.jsx'; 
-=======
 import Cart from './components/user/Cart.jsx';
 
->>>>>>> master
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { lightBlue900, yellow50, yellow600 } from 'material-ui/styles/colors';

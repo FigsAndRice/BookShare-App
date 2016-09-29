@@ -43,7 +43,8 @@ app.use(cookieParser());
 app.use(require('express-session')({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: { httpOnly: false }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
