@@ -18,7 +18,7 @@ import Cart from './components/Cart.jsx';
 import EditProfile from './components/user/EditProfile.jsx';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {lightBlue900, yellow50} from 'material-ui/styles/colors';
+import {lightBlue900, yellow50, yellow600} from 'material-ui/styles/colors';
 
 import './style.css'
 import store from './store';
@@ -33,6 +33,9 @@ const muiTheme = getMuiTheme({
   },
   floatingActionButton: {
 
+  },
+  appBar: {
+  	textColor: yellow600
   }
 });
 

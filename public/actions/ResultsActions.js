@@ -18,12 +18,14 @@ export function getResults(query) {
 	        	let books = []
 	        	items.forEach(val => {
 	        		let title = val.volumeInfo.title;
-	        		let authors = val.volumeInfo.authors.reduce((prev, curr) => prev + ' ' + curr)
-	        		let isbn = val.volumeInfo.industryIdentifiers[0].identifier
+	        		let authors = val.volumeInfo.authors.reduce((prev, curr) => prev + ' ' + curr);
+	        		let isbn = val.volumeInfo.industryIdentifiers[0].identifier;
 
-	        		let picture = val.volumeInfo.imageLinks.smallThumbnail
-
-	        		let book = {title, authors, isbn, picture}
+	        		let picture = val.volumeInfo.imageLinks.smallThumbnail;
+	        		let pictureNormal = val.volumeInfo.imageLinks.thumbnail;
+	        		let description =  val.volumeInfo.description;
+	        		
+	        		let book = {title, authors, isbn, picture, pictureNormal, description};
 	        		books.push(book);
 	        	});
 

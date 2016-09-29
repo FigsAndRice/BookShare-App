@@ -1,11 +1,8 @@
-import React , { Component } from 'react'
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router';
-import { FlatButton, FontIcon, TextField } from 'material-ui';
+import React , { Component } from 'react'
+import { RaisedButton, FlatButton, FontIcon, TextField, Drawer, MenuItem } from 'material-ui';
 import { yellow600 } from 'material-ui/styles/colors';
-import Dash from 'material-ui/svg-icons/action/dashboard';
+import Home from 'material-ui/svg-icons/action/home';
 import UserProfile from './UserProfile.jsx'
 
 
@@ -16,16 +13,15 @@ export default class UserinfoDrawer extends Component {
     this.handleToggle=this.handleToggle.bind(this);
   }
   handleToggle() {
-    console.log("sss");
     this.setState({open: !this.state.open});
   }
   render(){
     return (
       <div>
-          <Drawer className="drawerStyle">
-            <MenuItem style={title}><Link to="/profile"><FlatButton label='Profile' icon={<Dash />} /></Link></MenuItem>
-            <UserProfile/>
-          </Drawer>
+        <Drawer className="drawerStyle">
+          <MenuItem style={title}><Link to="/"><FlatButton label='Home' icon={<Home />} /></Link></MenuItem>
+          <UserProfile />
+        </Drawer>
       </div>
     );
   }

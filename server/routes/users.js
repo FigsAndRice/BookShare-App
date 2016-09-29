@@ -88,7 +88,7 @@ router.route('/register')
 router.post('/login', passport.authenticate('local'), ((req, res) => {
   User.findOne({username: req.body.username}, (err, user) => {
     res.status(err ? 400 : 200).send(err || user);
-  })
+  }).populate('books favorites cart')
 }));
 
 router.post('/logout', ((req,res) => {
