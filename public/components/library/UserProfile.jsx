@@ -31,11 +31,11 @@ class UserProfile extends Component {
               <div style={{paddingLeft:20}}>
                 <Link to='/editProfile'>
                   <FloatingActionButton backgroundColor={lightBlue900} style={FloatingBtn}>
-                    <ContentEdit color={yellow600}/>
+                    <ContentEdit/>
                   </FloatingActionButton>
                 </Link>
                 <FloatingActionButton backgroundColor={lightBlue900} style={FloatingBtn}>
-                    <ContentFav color={yellow600}/>
+                    <ContentFav />
                 </FloatingActionButton>
               </div>
           </div>

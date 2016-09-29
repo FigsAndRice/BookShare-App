@@ -36,7 +36,7 @@ class ProfileForm extends Component {
   render(){
     let { username , firstName , lastName , email ,phone } = this.state;
     return (
-      <div className="container">
+      <div className="container text-center">
         <form style={editform}>
           <div>
             <TextField
@@ -98,7 +98,6 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileForm);
 
 const editform = {
-  width : '250px',
   margin : 'auto'
 };
 
