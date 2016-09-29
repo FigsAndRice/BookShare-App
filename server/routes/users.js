@@ -15,7 +15,7 @@ router.route('/')
   .get((req,res) => {
     User.find({},(err, users) => {
       res.status(err ? 400 : 200).send(err || users);
-    }).populate('books favorites cart')
+    }).populate('favorites cart')
   })
   .post((req,res) => {
     User.create(req.body,(err, user) => {
@@ -88,7 +88,7 @@ router.route('/register')
 router.post('/login', passport.authenticate('local'), ((req, res) => {
   User.findOne({username: req.body.username}, (err, user) => {
     res.status(err ? 400 : 200).send(err || user);
-  }).populate('books favorites cart')
+  }).populate('favorites cart')
 }));
 
 router.post('/logout', ((req,res) => {
@@ -103,7 +103,7 @@ router.route('/:id')
   .get((req,res) => {
     User.find(req.params.id,(err, user) => {
       res.status(err ? 400 : 200).send(err || user);
-    }).populate('books favorites cart')
+    }).populate('favorites cart')
   })
   .put((req,res) => {
     User.findByIdAndUpdate(req.params.id, {$set : req.body}, {new : true}, (err, user) => {
@@ -120,20 +120,26 @@ router.route('/:id')
     })
   })
 
-router.put('/:userId/addBook/:bookId', (req, res) => {
-  User.findByIdAndUpdate(req.params.userId, {$push: {"books": req.params.bookId}}, {new: true}, (err, user) => {
-    res.status(err ? 400 : 200).send(err || user)
-  })
-})
-
 router.put('/:userId/addFavorite/:bookId', (req, res) => {
   User.findByIdAndUpdate(req.params.userId, {$push: {"favorites": req.params.bookId}}, {new: true}, (err, user) => {
     res.status(err ? 400 : 200).send(err || user)
   })
 })
 
+router.put('/:userId/removeFavorite/:bookId', (req, res) => {
+  User.findByIdAndUpdate(req.params.userId, {$pull: {"favorites": req.params.bookId}}, {new: true}, (err, user) => {
+    res.status(err ? 400 : 200).send(err || user)
+  })
+})
+
 router.put('/:userId/addToCart/:bookId', (req, res) => {
   User.findByIdAndUpdate(req.params.userId, {$push: {"cart": req.params.bookId}}, {new: true}, (err, user) => {
+    res.status(err ? 400 : 200).send(err || user)
+  })
+})
+
+router.put('/:userId/removeFromCart/:bookId', (req, res) => {
+  User.findByIdAndUpdate(req.params.userId, {$pull: {"cart": req.params.bookId}}, {new: true}, (err, user) => {
     res.status(err ? 400 : 200).send(err || user)
   })
 })

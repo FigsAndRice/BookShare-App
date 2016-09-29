@@ -1,9 +1,10 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
-import { RaisedButton, Drawer, MenuItem, Paper} from 'material-ui';
-import Favorite from 'material-ui/svg-icons/action/favorite'
-import Edit from 'material-ui/svg-icons/editor/mode-edit'
-
+import { Drawer, MenuItem, Paper, FloatingActionButton } from 'material-ui';
+import { Link } from 'react-router';
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import FavIcon from 'material-ui/svg-icons/action/favorite';
+import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
 
 class UserProfile extends Component {
   constructor(props){
@@ -11,17 +12,28 @@ class UserProfile extends Component {
   }
 
   render(){
-    let { username , email ,firstName ,lastName ,phone ,picture } = this.props.user;
-
+    let { username , email , firstName , lastName , phone , picture , _id } = this.props.user;
+    let imgURL = 'http://www.biglunchextras.com/sites/default/files/user-default.png';
+    if (picture !== undefined){
+        imgURL=picture;
+    }
     return (
         <div style={drawerContext}>
           <div>
-              <img style={imgstyle} src={picture} alt="Profile pic"/>
+              <img style={imgstyle} src={imgURL}/>
               <h3>{firstName}</h3>
               <h3>{lastName}</h3>
               <p>{email}</p>
-              <RaisedButton label='Profile' icon={<Edit />} primary={true} />
-              <RaisedButton label='Favs' icon={<Favorite />} secondary={true} />
+              <div style={{paddingLeft:20}}>
+                <Link to='/editProfile'>
+                  <FloatingActionButton backgroundColor={lightBlue900} style={FloatingBtn}>
+                    <EditIcon color={yellow600}/>
+                  </FloatingActionButton>
+                </Link>
+                <FloatingActionButton backgroundColor={lightBlue900} style={FloatingBtn}>
+                    <FavIcon color={yellow600}/>
+                </FloatingActionButton>
+              </div>
           </div>
         </div>
     );
@@ -35,11 +47,15 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
 
+const FloatingBtn = {
+  marginRight: 20,
+};
 
 const imgstyle = {
   border: '0px solid',

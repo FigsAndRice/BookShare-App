@@ -3,7 +3,7 @@ import {List, ListItem, FloatingActionButton, FontIcon} from 'material-ui';
 import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 
 import {connect} from 'react-redux';
-import {getBook} from '../actions/BookActions'
+import {getBook, searchBooks} from '../actions/BookActions';
 
 class Results extends React.Component {
     constructor(props) {
@@ -14,7 +14,8 @@ class Results extends React.Component {
     }
 
     selectBook(book) {
-    	this.props.getBook(book);
+      this.props.searchBooks(book.isbn);
+      this.props.getBook(book);
     }
     render() {
     	let { results } = this.props;
@@ -60,5 +61,6 @@ export default connect(state => ({
 	dispatch => {
     return {
       getBook: book => dispatch(getBook(book)),
+      searchBooks: isbn => dispatch(searchBooks(isbn))
     }
 })(Results)

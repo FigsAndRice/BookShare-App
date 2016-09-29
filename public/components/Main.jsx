@@ -15,9 +15,11 @@ class Main extends Component {
       if(!this.props.user){
         mainView = (
           <div className="splash">
-            <h1 className="splashTitle">Book Finder</h1>
-            <Link to='/login'><RaisedButton label='Login'/></Link>
-            <Link to='/register'><RaisedButton label='Register'/></Link>
+            {/* <div style={splashContext}> */}
+              <h1 className="splashTitle">Book Finder</h1>
+              <Link to='/login'><RaisedButton style={btnStyle} label='Login'/></Link>
+              <Link to='/register'><RaisedButton style={btnStyle} label='Register'/></Link>
+            {/* </div> */}
           </div>
         )
       } else {
@@ -41,3 +43,16 @@ export default connect(state => ({
 
   })
 )(Main);
+
+const splashContext = {
+  backgroundColor : 'rgba(0,0,0,0.23)',
+  boxShadow : '3px 3px 0px #FDD835',
+  border : '5px solid #01579B',
+  paddingBottom : '20px',
+  width : 600,
+  margin : 'auto'
+};
+
+const btnStyle = {
+  margin : 2,
+}
