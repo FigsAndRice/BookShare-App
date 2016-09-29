@@ -1,9 +1,10 @@
-import React , { Component } from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
-import UserinfoDrawer from './UserinfoDrawer.jsx'
-import Book from './Book.jsx'
-import UserProfile from './UserProfile.jsx'
-
+import React , { Component } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+import UserinfoDrawer from './UserinfoDrawer.jsx';
+import Book from './Book.jsx';
+import UserProfile from './UserProfile.jsx';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import { FontIcon } from 'material-ui';
 
 export default class ShowBooks extends Component {
   render(){
