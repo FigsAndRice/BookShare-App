@@ -1,9 +1,7 @@
-import React , { Component } from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
-import UserinfoDrawer from './UserinfoDrawer.jsx'
-import Book from './Book.jsx'
-import UserProfile from './UserProfile.jsx'
+import React , { Component } from 'react';
+import { FontIcon, FloatingActionButton } from 'material-ui';
 
+import Book from './Book.jsx';
 
 export default class ShowBooks extends Component {
   render(){
@@ -17,31 +15,15 @@ export default class ShowBooks extends Component {
     } else {
       let { books } = this.props
       bookView = books.map((book, index) => {
-        return <Book key={index+1} book={book}/>
+        return <Book key={index+1} book={book} />
       })
     }
     return (
-      <div>
-        <div className="mobileProfile">
-          <UserProfile />
-        </div>
-        <UserinfoDrawer />
-        <div className="showbook">
-          <div>
-            {bookView}
-          </div>
+      <div className="showbook">
+        <div>
+          {bookView}
         </div>
       </div>
     );
   }
 }
-
-const sideBar = {
-  paddding : 3,
-  margin: 0,
-  width : '25%',
-  backgroundColor : '#f1f1f1' ,
-  height : '100%' ,
-  position: 'fixed' ,
-  overflow: 'auto',
-};

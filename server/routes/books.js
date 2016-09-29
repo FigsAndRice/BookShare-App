@@ -25,6 +25,12 @@ router.get('/:isbn', (req, res) => {
   }).populate('owner')
 })
 
+router.get('/owner/:ownerid', (req, res) => {
+  Book.find({ owner: req.params.ownerid }, (err, books) => {
+    res.status(err ? 400 : 200).send(err || books)
+  })
+})
+
 router.delete('/:id', (req, res) =>{
   Book.findByIdAndRemove(req.params.id, err => {
     if(err) return res.status(400).send(err)

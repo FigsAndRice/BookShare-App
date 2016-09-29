@@ -1,9 +1,10 @@
 import React from 'react';
-import {List, ListItem, FloatingActionButton, FontIcon} from 'material-ui';
-import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
+import { connect } from 'react-redux';
 
-import {connect} from 'react-redux';
-import {getBook, searchBooks} from '../actions/BookActions';
+import { List, ListItem, FloatingActionButton, FontIcon } from 'material-ui';
+import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
+
+import { getBook, searchBooks } from '../../actions/BookActions';
 
 class Results extends React.Component {
     constructor(props) {

@@ -1,4 +1,4 @@
-import {browserHistory} from 'react-router';
+import { browserHistory } from 'react-router';
 import axios from 'axios';
 
 export function searchBooks(isbn) {
@@ -24,9 +24,19 @@ export function getBook(book) {
 	}
 }
 
-export function changeOwner(bookId, ownerId) {
+export function addBook(book, userId) {
+	let { isbn, title, authors, pictureNormal } = book;
+	let newBook = { isbn, title, author: authors, cover: pictureNormal, owner: userId };
 	return dispatch => {
-		axios.put(`/api/books/${bookId}/changeOwner/${ownerId}`)
+		axios.post(`/api/books`, newBook)
+			.then(res => getBook(res.data))
+			.catch(console.error)
+	}
+}
+
+export function changeOwner(bookId, userId) {
+	return dispatch => {
+		axios.put(`/api/books/${bookId}/changeOwner/${userId}`)
 			.then(res => {
 				console.log(res.data);
 			})

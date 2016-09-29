@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
+import { FloatingActionButton, AppBar, FontIcon, RaisedButton, List, ListItem, Subheader, Divider } from 'material-ui';
+import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
+
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
-
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import {AppBar, FontIcon} from 'material-ui';
-import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
-import {connect} from 'react-redux';
 
-import { addToCart, addFavorite } from '../actions/UserActions';
+import { addToCart, addFavorite } from '../../actions/UserActions';
+import { addBook } from '../../actions/BookActions';
 
 const styles = {
   bookCover: {
@@ -41,6 +37,7 @@ class Book extends Component {
       searchedBooks: this.props.searchedBooks
     }
 
+    this._addBook = this._addBook.bind(this);
     this._addToCart = this._addToCart.bind(this);
     this._addFavorite = this._addFavorite.bind(this);
   }
@@ -49,6 +46,10 @@ class Book extends Component {
     this.setState({
       searchedBooks: this.props.searchedBooks
     })
+  }
+
+  _addBook() {
+    this.props.addBook(this.props.book, this.props.user._id);
   }
 
   _addToCart(e) {
@@ -99,6 +100,17 @@ class Book extends Component {
           <div className="row" style={{borderStyle: "solid", borderColor: amber600}}>
             <div style={{paddingTop: "20px"}}className="col-sm-2 col-md-2 col-md-offset-1 col-xs-offset-4">
               <img src={book.pictureNormal} className="img-responsive"/>
+              <br />
+              <br />
+              <RaisedButton
+                onClick={this._addBook}
+                label="Add Book"
+                primary={false}
+                style={{float: "right"}}
+                labelColor={yellow600}
+                backgroundColor={lightBlue900}
+                icon={<FontIcon className="material-icons">add</FontIcon>}
+              />
             </div>
             <div className="col-md-9 col-sm-6">
               <div >
@@ -112,7 +124,6 @@ class Book extends Component {
             </div>
           </div>
         </div>
-
         <div>
           <br/>
           <AppBar showMenuIconButton={false} title="Sale by Other Students"/>
@@ -133,6 +144,7 @@ export default connect(state => ({
   dispatch => {
     return {
       addToCart: (userId, bookId) => {dispatch(addToCart(userId, bookId))},
-      addFavorite: (userId, bookId) => {dispatch(addFavorite(userId, bookId))}
+      addFavorite: (userId, bookId) => {dispatch(addFavorite(userId, bookId))},
+      addBook: (book, userId) => {dispatch(addBook(book, userId))}
     }
 })(Book)

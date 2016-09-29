@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { TextField } from 'material-ui';
-import {getResults} from '../actions/ResultsActions'
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+
+import { getResults } from '../../actions/ResultsActions';
+
 class SearchBar extends Component {
   constructor(props){
     super(props)
