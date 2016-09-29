@@ -2,6 +2,8 @@ import React , { Component } from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import UserinfoDrawer from './UserinfoDrawer.jsx'
 import Book from './Book.jsx'
+import UserProfile from './UserProfile.jsx'
+
 
 export default class ShowBooks extends Component {
   render(){
@@ -20,9 +22,12 @@ export default class ShowBooks extends Component {
     }
     return (
       <div>
+        <div className="mobileProfile">
+          <UserProfile />
+        </div>
         <UserinfoDrawer />
         <div className="showbook">
-          <div className="row">
+          <div>
             {bookView}
           </div>
         </div>

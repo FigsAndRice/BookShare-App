@@ -11,7 +11,8 @@ body {
 }
 
 .showbook{
-  margin-left: 26%;
+  margin-left: 30%;
+  padding: 10px;
 }
 
 .bookbox{
@@ -24,12 +25,20 @@ body {
     border-radius : 5px;
 }
 
+.mobileProfile {
+  display: none;
+}
+
 @media(max-width : 777px) {
   .drawerStyle{
     display: none;
   }
   .showbook{
     margin:auto;
+    padding:10px;
+  }
+  .mobileProfile {
+    display: block;
   }
 }
 
