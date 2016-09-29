@@ -1,15 +1,16 @@
 import React , { Component} from 'react'
-import TextField from 'material-ui/TextField'
-import { connect } from 'react-redux'
-import RaisedButton from 'material-ui/RaisedButton'
 import { Link } from 'react-router'
-import { updateUser } from '../../actions/UserActions'
+import { connect } from 'react-redux'
+
+import { TextField, RaisedButton } from 'material-ui'
 import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 
+import { updateUser } from '../../actions/UserActions'
 
 class ProfileForm extends Component {
   constructor(props){
     super(props);
+
     let { username , firstName , lastName , email , phone} = this.props.user;
     this.state = {
       username,
@@ -34,7 +35,8 @@ class ProfileForm extends Component {
     this.props.updateUser(_id,this.state);
   }
   render(){
-    let { username , firstName , lastName , email ,phone } = this.state;
+    let { username , firstName , lastName , email , phone } = this.state;
+
     return (
       <div className="container">
         <form style={editform}>
@@ -76,7 +78,7 @@ class ProfileForm extends Component {
             />
           </div>
           <RaisedButton backgroundColor={amber600} label="Update" style={style} onClick={this._updateProfile}/>
-          <Link to="/showbooks"><RaisedButton backgroundColor={yellow600} label="cancel" style={style}/></Link>
+          <Link to="/"><RaisedButton backgroundColor={yellow600} label="cancel" style={style}/></Link>
         </form>
       </div>
     )

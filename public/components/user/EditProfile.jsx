@@ -1,6 +1,7 @@
 import React , {Component} from 'react'
-import ProfileForm from './ProfileForm.jsx'
 import { connect } from 'react-redux'
+
+import ProfileForm from './ProfileForm.jsx'
 
 
 class EditProfile extends Component {

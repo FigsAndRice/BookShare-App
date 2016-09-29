@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {Checkbox, IconButton, FloatingActionButton, FontIcon, RaisedButton, Snackbar} from 'material-ui';
-import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
+import { Checkbox, IconButton, FloatingActionButton, FontIcon, RaisedButton, Snackbar } from 'material-ui';
+import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
+
 class Cart extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +50,7 @@ class Cart extends Component {
                     <h2>Title: Harry</h2>
                     <h3>Author(s): JK Rowling</h3>
                     <h3>ISBN: 123456</h3>
-          
+
                     <div className="row">
                       <div className="col-xs-1">
                         <FontIcon style={{color: amber600}} className='material-icons'>shopping_cart</FontIcon>
@@ -85,7 +86,7 @@ class Cart extends Component {
                     <h2>Title: Harry</h2>
                     <h3>Author(s): JK Rowling</h3>
                     <h3>ISBN: 123456</h3>
-          
+
                     <div className="row">
                       <div className="col-xs-1">
                         <FontIcon style={{color: amber600}} className='material-icons'>shopping_cart</FontIcon>
@@ -121,7 +122,7 @@ class Cart extends Component {
                     <h2>Title: Harry</h2>
                     <h3>Author(s): JK Rowling</h3>
                     <h3>ISBN: 123456</h3>
-          
+
                     <div className="row">
                       <div className="col-xs-1">
                         <FontIcon style={{color: amber600}} className='material-icons'>shopping_cart</FontIcon>
@@ -146,7 +147,7 @@ class Cart extends Component {
                   <FontIcon className='material-icons'>delete</FontIcon>
                 </FloatingActionButton>
               </td>
-            </tr> 
+            </tr>
           </tbody>
         </table>
         <RaisedButton

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+
 import { FlatButton, FontIcon, TextField } from 'material-ui'
 import { yellow600 } from 'material-ui/styles/colors'
+
 import Logout from 'material-ui/svg-icons/action/exit-to-app';
 import ShoppingCart from 'material-ui/svg-icons/action/shopping-cart';
 import Home from 'material-ui/svg-icons/action/home';
-import { logout } from '../actions/UserActions';
 
-import SearchBar from './SearchBar'
+import { logout } from '../../actions/UserActions';
+import SearchBar from './SearchBar.jsx'
 
 const barStyle = {
   backgroundColor: yellow600
