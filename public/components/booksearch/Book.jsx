@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
+import { FloatingActionButton, AppBar, FontIcon, RaisedButton, List, ListItem, Subheader, Divider } from 'material-ui';
+import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
+
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
-
-
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import {AppBar, FontIcon, RaisedButton} from 'material-ui';
-import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
-import {connect} from 'react-redux';
 
-import { addToCart, addFavorite } from '../actions/UserActions';
-import { addBook } from '../actions/BookActions';
+import { addToCart, addFavorite } from '../../actions/UserActions';
+import { addBook } from '../../actions/BookActions';
 
 const styles = {
   bookCover: {

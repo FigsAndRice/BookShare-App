@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import NavBar from './NavBar.jsx';
 import { connect } from 'react-redux';
+
+import NavBar from './navbar/NavBar.jsx';
 
 class App extends Component {
     constructor(props) {

@@ -1,13 +1,12 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import { Link } from 'react-router';
+
+import { Drawer , MenuItem, FloatingActionButton } from 'material-ui';
+import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
+
 import ContentEdit from 'material-ui/svg-icons/editor/mode-edit';
 import ContentFav from 'material-ui/svg-icons/action/favorite';
-import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 
 class UserProfile extends Component {
   constructor(props){
@@ -17,14 +16,14 @@ class UserProfile extends Component {
   render(){
     let { username , email , firstName , lastName , phone , picture , _id } = this.props.user;
     let imgURL = 'http://www.biglunchextras.com/sites/default/files/user-default.png';
-    console.log("picture",picture);
+
     if (picture !== undefined){
         imgURL=picture;
     }
     return (
         <div style={drawerContext}>
           <div>
-              <img style={imgstyle} src={imgURL}/>
+              <img style={imgstyle} src={imgURL} />
               <h3>{firstName}</h3>
               <h3>{lastName}</h3>
               <p>{email}</p>
