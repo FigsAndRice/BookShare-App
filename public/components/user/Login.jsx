@@ -34,7 +34,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className="text-center">
+        <h1>Login</h1>
         <form onSubmit={this._submit}>
           <div className='col-xs-12 col-md-6 col-md-offset-3'>
             <TextField

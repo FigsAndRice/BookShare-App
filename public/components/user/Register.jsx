@@ -71,50 +71,52 @@ class Register extends Component {
     let { username, password1, password2, firstName, lastName, email, phone } = this.state
 
     return (
-      <div>
+      <div className="container text-center">
+        <h1>Welcome To BookFinder</h1>
+        <p>Please Enter the following details to Register</p>
         <form onSubmit={this._submit}>
           <TextField
             hintText='Username' floatingLabelText="Username"
             className="editInput" floatingLabelFixed={false} id='username'
             required onChange={this._onInputChange} data-statekey="username"
              value={username}
-          />
+          /><br />
           <TextField
             hintText='Password' floatingLabelText="Password" type='password'
             className="editInput" floatingLabelFixed={false} id='password1'
             required onChange={this._onInputChange} data-statekey="password1"
             value={password1}
-          />
+          /><br />
           <TextField
             hintText='Password' floatingLabelText="Password (again)" type='password'
             className="editInput" floatingLabelFixed={false} id='password2'
             required onChange={this._onInputChange} data-statekey="password2"
              value={password2}
-          />
+          /><br />
           <TextField
             hintText='Email' floatingLabelText="Email" type='email'
             className="editInput" floatingLabelFixed={false} id='email'
             required onChange={this._onInputChange} data-statekey="email"
              value={email}
-          />
+          /><br />
           <TextField
             hintText='First Name' floatingLabelText="First Name"
             className="editInput" floatingLabelFixed={false} id='firstName'
             required onChange={this._onInputChange} data-statekey="firstName"
              value={firstName}
-          />
+          /><br />
           <TextField
             hintText='Last Name' floatingLabelText="Last Name"
             className="editInput" floatingLabelFixed={false} id='lastName'
             required onChange={this._onInputChange} data-statekey="lastName"
              value={lastName}
-          />
+          /><br />
           <TextField
             hintText='Phone Number' floatingLabelText="Phone Number"
             className="editInput" floatingLabelFixed={false} id='phone'
             required onChange={this._onInputChange} data-statekey="phone"
              value={phone}
-          />
+          /><br />
           <div className="col-xs-12 text-center">
             <RaisedButton
             label="Submit"
