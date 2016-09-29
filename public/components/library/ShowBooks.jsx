@@ -13,7 +13,7 @@ export default class ShowBooks extends Component {
         </div>
       )
     } else {
-      let { books } = this.props
+      let { books } = this.props;
       bookView = books.map((book, index) => {
         return <Book key={index+1} book={book}/>
       })
@@ -22,7 +22,7 @@ export default class ShowBooks extends Component {
       <div>
         <div className="showbook">
           <div className="row">
-            {bookView}
+              {bookView}
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ export function register(newUser) {
     axios.post('/api/users/register', newUser)
     .then(() => {
       dispatch(receiveUser(newUser))
-      RouteActions.route('/showbooks')
+      RouteActions.route('/')
     })
     .catch(console.error)
   }
@@ -17,7 +17,7 @@ export function login(user) {
     axios.post('/api/users/login', user)
       .then(res => {
         dispatch(receiveUser(res.data))
-        RouteActions.route('/showbooks');
+        RouteActions.route('/');
       })
       .catch(err => {
         alert('Password incorrect.');

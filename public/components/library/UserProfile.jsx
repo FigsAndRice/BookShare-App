@@ -1,10 +1,8 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
-import { receiveUser } from '../../actions/UserActions';
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import Paper from 'material-ui/Paper';
+import { RaisedButton, Drawer, MenuItem, Paper} from 'material-ui';
+import Favorite from 'material-ui/svg-icons/action/favorite'
+import Edit from 'material-ui/svg-icons/editor/mode-edit'
 
 
 class UserProfile extends Component {
@@ -12,13 +10,9 @@ class UserProfile extends Component {
     super(props);
   }
 
-  componentWillMount(){
-    receiveUser();
-  }
-
   render(){
-    let {username , email ,firstName ,lastName ,phone ,picture} = this.props.user;
-    console.log(this.props.user);
+    let { username , email ,firstName ,lastName ,phone ,picture } = this.props.user;
+
     return (
         <div style={drawerContext}>
           <div>
@@ -26,8 +20,8 @@ class UserProfile extends Component {
               <h3>{firstName}</h3>
               <h3>{lastName}</h3>
               <p>{email}</p>
-              <p>Edit Profile</p>
-              <p>Favourite Books</p>
+              <RaisedButton label='Profile' icon={<Edit />} primary={true} />
+              <RaisedButton label='Favs' icon={<Favorite />} secondary={true} />
           </div>
         </div>
     );
@@ -41,9 +35,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    receiveUser: (state) => dispatch(receiveUser(state))
-  }
+  return {}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
@@ -61,10 +53,7 @@ const imgstyle = {
 };
 
 const drawerContext = {
-  textAlign : 'center',
   margin: 7,
   padding: 15,
   width : '95%',
-  // height : '90%',
-  // backgroundColor : '#f1f1f1'
 };

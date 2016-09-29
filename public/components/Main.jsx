@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { RaisedButton } from 'material-ui';
 
-import UserProfile from './library/ShowBooks.jsx'
+import Profile from './library/Profile.jsx'
 
 class Main extends Component {
     constructor(props) {
@@ -22,14 +22,14 @@ class Main extends Component {
         )
       } else {
         mainView = (
-          <UserProfile />
+          <Profile />
         )
       }
-        return (
-          <div>
-            {mainView}
-          </div>
-        )
+      return (
+        <div>
+          {mainView}
+        </div>
+      )
     }
 }
 
