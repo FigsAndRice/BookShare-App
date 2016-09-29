@@ -71,3 +71,13 @@ export function addToCart(userId, bookId) {
       .catch(console.error)
   }
 }
+
+export function addFavorite(userId, bookId) {
+  return dispatch => {
+    axios.put(`/api/users/${userId}/addFavorite/${bookId}`)
+      .then(res => {
+        dispatch(receiveUser(res.data))
+      })
+      .catch(console.error)
+  }
+}

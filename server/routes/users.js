@@ -126,8 +126,20 @@ router.put('/:userId/addFavorite/:bookId', (req, res) => {
   })
 })
 
+router.put('/:userId/removeFavorite/:bookId', (req, res) => {
+  User.findByIdAndUpdate(req.params.userId, {$pull: {"favorites": req.params.bookId}}, {new: true}, (err, user) => {
+    res.status(err ? 400 : 200).send(err || user)
+  })
+})
+
 router.put('/:userId/addToCart/:bookId', (req, res) => {
   User.findByIdAndUpdate(req.params.userId, {$push: {"cart": req.params.bookId}}, {new: true}, (err, user) => {
+    res.status(err ? 400 : 200).send(err || user)
+  })
+})
+
+router.put('/:userId/removeFromCart/:bookId', (req, res) => {
+  User.findByIdAndUpdate(req.params.userId, {$pull: {"cart": req.params.bookId}}, {new: true}, (err, user) => {
     res.status(err ? 400 : 200).send(err || user)
   })
 })

@@ -12,7 +12,7 @@ import {AppBar, FontIcon} from 'material-ui';
 import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 import {connect} from 'react-redux';
 
-import { addToCart } from '../actions/UserActions';
+import { addToCart, addFavorite } from '../actions/UserActions';
 
 const styles = {
   bookCover: {
@@ -55,8 +55,8 @@ class Book extends Component {
     this.props.addToCart(this.props.user._id, e.target.dataset.bookid);
   }
 
-  _addFavorite() {
-    console.log('FAVORITE');
+  _addFavorite(e) {
+    this.props.addFavorite(this.props.user._id, e.target.dataset.bookid);
   }
 
   render() {
@@ -85,7 +85,7 @@ class Book extends Component {
               <FontIcon className='material-icons' onClick={this._addToCart} data-bookid={existingBook._id}>add</FontIcon>
             </FloatingActionButton>
             <FloatingActionButton iconStyle={{color: "#FBC02D "}}>
-              <FontIcon className='material-icons' onClick={this._addFavorite}>favorite</FontIcon>
+              <FontIcon className='material-icons' onClick={this._addFavorite} data-bookid={existingBook._id}>favorite</FontIcon>
             </FloatingActionButton>
           </div>
         </div>
@@ -132,6 +132,7 @@ export default connect(state => ({
   }),
   dispatch => {
     return {
-      addToCart: (userId, bookId) => {dispatch(addToCart(userId, bookId))}
+      addToCart: (userId, bookId) => {dispatch(addToCart(userId, bookId))},
+      addFavorite: (userId, bookId) => {dispatch(addFavorite(userId, bookId))}
     }
 })(Book)
