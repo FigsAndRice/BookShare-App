@@ -15,6 +15,7 @@ import Register from './components/user/Register.jsx';
 import Login from './components/user/Login.jsx';
 import Book from './components/Book.jsx';
 import Cart from './components/Cart.jsx';
+import EditProfile from './components/user/EditProfile.jsx';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {lightBlue900, yellow50, yellow600} from 'material-ui/styles/colors';
@@ -51,6 +52,7 @@ render(
           <Route path="/login" component={Login} />
           <Route path="/book" component={Book} />
           <Route path="/cart" component={Cart} />
+          <Route path='/editProfile' component={EditProfile}/>
         </Route>
         <Route path="*" component={NotFound} />
       </Router>

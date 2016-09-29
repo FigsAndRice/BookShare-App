@@ -1,6 +1,17 @@
 import axios from 'axios';
 import RouteActions from './RouteActions';
 
+export function updateUser(id,updateInfo) {
+  return dispatch => {
+    axios.put(`/api/users/${id}`,updateInfo)
+        .then(res => {
+          dispatch(receiveUser(res.data))
+          RouteActions.route('/showbooks')
+        })
+        .catch(console.error)
+  }
+}
+
 export function register(newUser) {
   return dispatch => {
     axios.post('/api/users/register', newUser)

@@ -4,8 +4,7 @@ import { receiveUser } from '../../actions/UserActions';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import Paper from 'material-ui/Paper';
-
+import { Link } from 'react-router';
 
 class UserProfile extends Component {
   constructor(props){
@@ -17,8 +16,7 @@ class UserProfile extends Component {
   }
 
   render(){
-    let {username , email ,firstName ,lastName ,phone ,picture} = this.props.user;
-    console.log(this.props.user);
+    let { username , email , firstName , lastName , phone , picture , _id } = this.props.user;
     return (
         <div style={drawerContext}>
           <div>
@@ -26,7 +24,7 @@ class UserProfile extends Component {
               <h3>{firstName}</h3>
               <h3>{lastName}</h3>
               <p>{email}</p>
-              <p>Edit Profile</p>
+              <Link to='/editProfile'>Profile Edit</Link>
               <p>Favourite Books</p>
           </div>
         </div>
