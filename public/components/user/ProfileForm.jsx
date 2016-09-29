@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Link } from 'react-router'
 import { updateUser } from '../../actions/UserActions'
+import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
+
 
 class ProfileForm extends Component {
   constructor(props){
@@ -34,8 +36,8 @@ class ProfileForm extends Component {
   render(){
     let { username , firstName , lastName , email ,phone } = this.state;
     return (
-      <div className="container" style={editform} data>
-        <form>
+      <div className="container">
+        <form style={editform}>
           <div>
             <TextField
               id="text-field-default"
@@ -73,8 +75,8 @@ class ProfileForm extends Component {
               floatingLabelText="Phone"
             />
           </div>
-          <RaisedButton label="Update" style={style} onClick={this._updateProfile}/>
-          <Link to="/showbooks"><RaisedButton label="cancel" style={style}/></Link>
+          <RaisedButton backgroundColor={amber600} label="Update" style={style} onClick={this._updateProfile}/>
+          <Link to="/showbooks"><RaisedButton backgroundColor={yellow600} label="cancel" style={style}/></Link>
         </form>
       </div>
     )
@@ -96,6 +98,8 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileForm);
 
 const editform = {
+  width : '250px',
+  margin : 'auto'
 };
 
 const style = {

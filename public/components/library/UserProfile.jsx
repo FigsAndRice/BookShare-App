@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import { Link } from 'react-router';
+import ContentEdit from 'material-ui/svg-icons/editor/mode-edit';
+import ContentFav from 'material-ui/svg-icons/action/favorite';
+import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 
 class UserProfile extends Component {
   constructor(props){
@@ -17,8 +21,6 @@ class UserProfile extends Component {
     if (picture !== undefined){
         imgURL=picture;
     }
-    // if (picture != "") {
-    // }
     return (
         <div style={drawerContext}>
           <div>
@@ -26,8 +28,16 @@ class UserProfile extends Component {
               <h3>{firstName}</h3>
               <h3>{lastName}</h3>
               <p>{email}</p>
-              <Link to='/editProfile'>Profile Edit</Link>
-              <p>Favourite Books</p>
+              <div style={{paddingLeft:20}}>
+                <Link to='/editProfile'>
+                  <FloatingActionButton backgroundColor={lightBlue900} style={FloatingBtn}>
+                    <ContentEdit color={yellow600}/>
+                  </FloatingActionButton>
+                </Link>
+                <FloatingActionButton backgroundColor={lightBlue900} style={FloatingBtn}>
+                    <ContentFav color={yellow600}/>
+                </FloatingActionButton>
+              </div>
           </div>
         </div>
     );
@@ -47,6 +57,9 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
 
+const FloatingBtn = {
+  marginRight: 20,
+};
 
 const imgstyle = {
   border: '0px solid',
