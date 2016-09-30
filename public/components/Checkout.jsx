@@ -3,6 +3,8 @@ import StripeCheckout from 'react-stripe-checkout';
 
 import {RaisedButton, FontIcon} from 'material-ui';
 import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
+
+import axios from 'axios';
 class Checkout extends React.Component {
     constructor(props) {
         super(props);
@@ -12,14 +14,25 @@ class Checkout extends React.Component {
     }
 
     onToken(token) {
-    	console.log('Here is the token ', token);
+    	console.log('Here is the token ', token)
+    	axios.post('/api/payments/charge', {token: token.id, amount: 10000}) 
+    		.then(res => {
+    			console.log('Payment has been made ', res);
+    		})
+    		.catch(error => console.error)
     }
     render() {
         return (
         	<StripeCheckout 
         		token={this.onToken}
+        		image='http://www.clker.com/cliparts/A/3/i/C/H/E/koszyk-md.png'
         		stripeKey="pk_test_m7z72LK4NyWXZ6I1656lYP14"
         		currency="USD"
+        		panelLabel="Total of"
+        		amount={10000}
+        		email={"juancafe2@gmail.com"}
+        		zipCode={true}
+        		triggerEvent="onTouchTap"
         	>
 	        	<RaisedButton
 		          label="Checkout"

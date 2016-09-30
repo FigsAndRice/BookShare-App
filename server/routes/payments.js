@@ -5,15 +5,18 @@ const stripe = require('stripe')('sk_test_IPlo3PkKcg8lbQjGDWG2v2Dp');
 
 router.route('/charge')
       .post((req, res) => {
-        let token = req.body.stripeToken;
+        console.log('I am here ', req.body)
+        let {token, amount} = req.body;
 
-        let amount = 10000;
         stripe.charges.create({
-        	card: stripeToken,
+        	source: token,
         	currency: 'usd',
         	amount: amount,
+            description: "Example charge",
         },
         (err, charge) => {
+            console.log('Error ', err);
+            console.log('Charge', charge);
         	if (err) {
         		res.status(401).send({error: err.type});
         	}
