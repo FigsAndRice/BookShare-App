@@ -4,6 +4,12 @@ import { TextField, RaisedButton } from 'material-ui';
 import { login } from '../../actions/UserActions';
 import RouteActions from '../../actions/RouteActions';
 
+const styles = {
+  button: {
+    "margin": "10px 10px 10px 10px"
+  }
+}
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +22,7 @@ class Login extends Component {
 
     this._onInputChange = this._onInputChange.bind(this);
     this._submit = this._submit.bind(this);
-
+    this._cancel = this._cancel.bind(this);
   }
   _onInputChange(e) {
     let key = e.target.dataset.statekey;
@@ -32,6 +38,15 @@ class Login extends Component {
     this.props.login(this.state);
   }
 
+  _cancel(e) {
+    e.preventDefault();
+    this.setState({
+      username: '',
+      password: ''
+    })
+    RouteActions.route('/');
+  }
+
   render() {
     return (
       <div className="text-center">
@@ -39,21 +54,30 @@ class Login extends Component {
         <form onSubmit={this._submit}>
           <div className='col-xs-12 col-md-6 col-md-offset-3'>
             <TextField
-            hintText='Username' floatingLabelText="Username"
-            className="editInput" floatingLabelFixed={false} id='username'
-            required onChange={this._onInputChange} data-statekey="username"
+              hintText='Username' floatingLabelText="Username"
+              className="editInput" floatingLabelFixed={false} id='username'
+              required onChange={this._onInputChange} data-statekey="username"
             />
             <TextField
-            hintText='Password' floatingLabelText="Password" type='password'
-            className="editInput" floatingLabelFixed={false} id='password'
-            required onChange={this._onInputChange} data-statekey="password"
+              hintText='Password' floatingLabelText="Password" type='password'
+              className="editInput" floatingLabelFixed={false} id='password'
+              required onChange={this._onInputChange} data-statekey="password"
             />
             <div className="col-xs-12 text-center">
               <RaisedButton
-              label="Submit"
-              labelPosition="before"
-              type='submit'
-              className='editBtn'/>
+                style={styles.button}
+                label="Submit"
+                labelPosition="before"
+                type='submit'
+                className='editBtn'
+              />
+              <RaisedButton
+                style={styles.button}
+                label="Cancel"
+                labelPosition="before"
+                onClick={this._cancel}
+                className='editBtn'
+              />
             </div>
           </div>
         </form>
