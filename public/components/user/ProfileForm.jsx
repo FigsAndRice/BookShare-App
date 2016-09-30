@@ -13,13 +13,14 @@ class ProfileForm extends Component {
   constructor(props){
     super(props);
 
-    let { username , firstName , lastName , email , phone} = this.props.user;
+    let { username , firstName , lastName , email , phone , picture } = this.props.user;
     this.state = {
       username,
       firstName,
       lastName,
       email,
-      phone
+      phone,
+      picture
     }
     this._onInputChange = this._onInputChange.bind(this);
     this._updateProfile = this._updateProfile.bind(this);
@@ -37,7 +38,7 @@ class ProfileForm extends Component {
     this.props.updateUser(_id,this.state);
   }
   render(){
-    let { username , firstName , lastName , email , phone } = this.state;
+    let { username , firstName , lastName , email , phone , picture } = this.state;
 
     return (
       <div className="container text-center">
@@ -47,11 +48,18 @@ class ProfileForm extends Component {
         <div className="col-md-6">
           <form style={editform}>
             <div>
+              {/* <TextField
+                id="text-field-default"
+                onChange={this._onInputChange}
+                data-statekey="picture"
+                defaultValue={picture}
+                floatingLabelText="Image URL"
+              /><br /> */}
               <TextField
                 id="text-field-default"
-                defaultValue={username}
                 onChange={this._onInputChange}
                 data-statekey="username"
+                defaultValue={username}
                 floatingLabelText="User Name"
               /><br />
               <TextField

@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/',upload.single('img'),(req,res)=>{
   Image.upload(req.file,(err,image)=>{
-    res.status(err?400:200).send(err||image);
+    res.status(err?400:200).send(console.log(err)||image);
   });
 });
 

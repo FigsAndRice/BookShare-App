@@ -1,18 +1,25 @@
 import React , { Component} from 'react'
 import { Link } from 'react-router'
-
+import { connect } from 'react-redux'
+import { uploadImg } from '../../actions/ImageActions'
 import { TextField, RaisedButton } from 'material-ui'
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors'
 
-export default class ProfilePicUploader extends Component {
+class ProfilePicUploader extends Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state={
       file : '',
       imgpreURL : 'http://www.biglunchextras.com/sites/default/files/user-default.png'
     };
     this._onInputChange=this._onInputChange.bind(this);
+    this._upload=this._upload.bind(this);
+  }
+
+  _upload(){
+    console.log("this.file",this.state.file);
+    this.props.uploadImg(this.state.file);
   }
 
   _onInputChange(e){
@@ -35,11 +42,18 @@ export default class ProfilePicUploader extends Component {
         <img style={imgstyle} src={this.state.imgpreURL} />
         <div>
           <RaisedButton
-            label="Upload Image From File"
+            label="select an image"
             labelPosition="before"
             style={styles.button}
           >
             <input type="file" style={styles.ImageInput} onChange={this._onInputChange} />
+          </RaisedButton>
+          <RaisedButton
+            label="upload image"
+            labelPosition="before"
+            style={styles.button}
+            onClick={this._upload}
+          >
           </RaisedButton>
         </div>
       </div>
@@ -47,6 +61,20 @@ export default class ProfilePicUploader extends Component {
   }
 
 }
+
+const mapStateToProps = (state) => {
+  return {
+    state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    uploadImg: (imgfile) => {dispatch(uploadImg(imgfile))}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePicUploader);
 
 const imgstyle = {
   border: '0px solid',

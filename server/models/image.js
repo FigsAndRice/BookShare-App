@@ -1,39 +1,46 @@
 const BUCKET_NAME = 'bookshare456';
 const AWS_URL_BASE = 'https://s3-us-west-2.amazonaws.com/';
 const mongoose = require('mongoose');
-const AWS = require('aws-sdk');
-const s3 = new AWS.S3();
 const uuid = require('uuid');
-const ImageSchema = new mongoose.Schema({
-  url: {type: String, required: true},
-  date: {type: Date, default: Date.now}
-});
 const path = require('path');
 
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
 const async = require('async');
+
+const ImageSchema = new mongoose.Schema({
+  url: {type: String, required: true},
+  Key:{type:String,required:true},
+  date: {type: Date, default: Date.now}
+});
 
 AWS.config.loadFromPath(path.join(__dirname,'./credential.json'));
 
-ImageSchema.statics.upload = function(fileObj, name, cb) {
+ImageSchema.statics.upload = function(fileObj, cb) {
 
-  let {originalname, buffer} = fileObj;
+  let { originalname, buffer } = fileObj;
 
 
-  let Key = uuid() + path.extname(originalname)
+  let Key = uuid() + path.extname(originalname);
 
   let params = {
     Bucket: BUCKET_NAME,
     Key,
-    Body: buffer,
-    ACL: 'public-read'
-  }
+    ACL: 'public-read',
+    Body: buffer
+  };
 
+  console.log("params",params);
 
-  s3.putObject(params, (err, result) => {
+  s3.putObject(params,(err,result)=>{
     if (err) return cb(err);
-    let url = `${AWS_URL_BASE}/${BUCKET_NAME}/${Key}`
-    this.create( {name: name, url}, cb)
+
+      let url = `${AWS_URL_BASE}/${BUCKET_NAME}/${Key}`;
+
+      this.create({name: originalname,url,Key},cb);
+    //cb(err,result);
   });
+
 };
 
 ImageSchema.statics.deleteLink = function(url, cb) {
@@ -71,6 +78,5 @@ ImageSchema.statics.RemoveMiddleware = function(req , res, next) {
 };
 
 const Image = mongoose.model('Image', ImageSchema);
-
 
 module.exports = Image;
