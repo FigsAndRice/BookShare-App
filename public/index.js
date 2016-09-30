@@ -36,7 +36,7 @@ const getCookie = (name) => {
 
 const checkLogin = function() {
   if (!getCookie(COOKIE_LOGIN)) {
-
+    browserHistory.push('/');
   }
 }
 const muiTheme = getMuiTheme({
@@ -66,8 +66,8 @@ render(
           <Route path="/login" component={Login} /> 
 					<Route path="/results" component={Results} />
           <Route path="/book" component={Book} /> 
-          <Route path="/cart" component={Cart} /> //
-          <Route path='/editProfile' component={EditProfile}/> //
+          <Route path="/cart" component={Cart} onEnter={checkLogin(COOKIE_LOGIN)}/> 
+          <Route path='/editProfile' component={EditProfile} onEnter={checkLogin(COOKIE_LOGIN)}/> 
           <Route path='/checkout' component={Checkout}/>
         </Route>
         <Route path="*" component={NotFound} />
