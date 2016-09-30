@@ -45,42 +45,42 @@ router.route('/register')
             if (err) {
               return next(err);
             }
-            res.redirect('/');
+
+            let from_email = new helper.Email('admin@bookshare.tk');
+            let to_email = new helper.Email(req.body.email);
+            let subject = `Thank you for registering`;
+            let content = new helper.Content('text/plain',
+              `Hello ${req.body.firstName},
+
+              Thank you for registering with BookShare! Now you can buy and sell books with other students.
+
+              Please keep the following information for your records:
+              - username: ${req.body.username}
+              - email: ${req.body.email}
+
+              If you forget your username or password, you can use the email you registered with above to generate a new password.
+
+              Enjoy!
+
+              - The BookShare Team
+              `
+            );
+            let mail = new helper.Mail(from_email, subject, to_email, content);
+
+            let request = sg.emptyRequest({
+              method: 'POST',
+              path: '/v3/mail/send',
+              body: mail.toJSON(),
+            });
+
+            sg.API(request, function(error, response) {
+              console.log(response.statusCode);
+              console.log(response.body);
+              console.log(response.headers);
+            });
           })
         })
 
-        let from_email = new helper.Email('admin@bookshare.tk');
-        let to_email = new helper.Email(req.body.email);
-        let subject = `Thank you for registering`;
-        let content = new helper.Content('text/plain',
-          `Hello ${req.body.firstName},
-
-          Thank you for registering with BookShare! Now you can buy and sell books with other students.
-
-          Please keep the following information for your records:
-          - username: ${req.body.username}
-          - email: ${req.body.email}
-
-          If you forget your username or password, you can use the email you registered with above to generate a new password.
-
-          Enjoy!
-
-          - The BookShare Team
-          `
-        );
-        let mail = new helper.Mail(from_email, subject, to_email, content);
-
-        let request = sg.emptyRequest({
-          method: 'POST',
-          path: '/v3/mail/send',
-          body: mail.toJSON(),
-        });
-
-        sg.API(request, function(error, response) {
-          console.log(response.statusCode);
-          console.log(response.body);
-          console.log(response.headers);
-        });
       }
     })
   })

@@ -10,9 +10,11 @@ class Cart extends Component {
 
     this.state = {
       open: false,
+      purchase: []
     }
     this.showMessage = this.showMessage.bind(this);
     this.hideMesaage = this.hideMesaage.bind(this);
+    this._addPurchase = this._addPurchase.bind(this);
   }
 
   showMessage() {
@@ -20,13 +22,79 @@ class Cart extends Component {
       open: true,
     });
   }
+
   hideMesaage() {
     this.setState({
-      open: false,
+      open: false
     });
   }
+
+  _addPurchase(e) {
+    if (e.target.checked) {
+      let purchases = this.state.purchase;
+      //this.purchase.push(e.target.dataset.bookId)
+    }
+  }
+
+
   render() {
     let { cart } = this.props;
+
+    let CartItems = cart.map((item, index) => {
+      console.log ('item:', item);
+
+      let price;
+      let url;
+
+      if (!item.price) {
+        price = <h3>{item.price}</h3>
+      } else {
+        price = <h3>$0.00</h3>
+      }
+
+      return (
+        <tr key={index}>
+          <td>
+            <div className="row">
+              <div className="col-xs-4">
+                <img src={"http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"} className="img-responsive" />
+              </div>
+              <div className="col-xs-8">
+                <h2>Title: {item.title}</h2>
+                <h3>Author(s): {item.author}</h3>
+                <h3>ISBN: {item.isbn}</h3>
+
+                <div className="row">
+                  <div className="col-xs-1">
+                    <FontIcon style={{color: amber600}} className='material-icons'>shopping_cart</FontIcon>
+                  </div>
+                  <div className="col-xs-1">
+                    <Checkbox
+                      data-bookId={item._id}
+                      onCheck={this._addPurchase}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>
+            {price}
+          </td>
+          <td>
+            <FloatingActionButton  onTouchTap={this.showMessage} style={{marginTop: "65px"}}iconStyle={{color: yellow600}}>
+              <FontIcon className='material-icons'>favorite </FontIcon>
+            </FloatingActionButton>
+          </td>
+          <td>
+            <FloatingActionButton style={{marginTop: "65px"}} iconStyle={{color: yellow600}}>
+              <FontIcon className='material-icons'>delete</FontIcon>
+            </FloatingActionButton>
+          </td>
+        </tr>
+      )
+    })
+
     return (
       <div>
         <table className="table table-striped">
@@ -39,114 +107,7 @@ class Cart extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <div className="row">
-                  <div className="col-xs-4">
-                    <img src={"http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"} className="img-responsive" />
-                  </div>
-                  <div className="col-xs-8">
-                    <h2>Title: Harry</h2>
-                    <h3>Author(s): JK Rowling</h3>
-                    <h3>ISBN: 123456</h3>
-
-                    <div className="row">
-                      <div className="col-xs-1">
-                        <FontIcon style={{color: amber600}} className='material-icons'>shopping_cart</FontIcon>
-                      </div>
-                      <div className="col-xs-1">
-                        <Checkbox />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <h3>$45.56</h3>
-              </td>
-              <td>
-                <FloatingActionButton  style={{marginTop: "65px"}}iconStyle={{color: yellow600}}>
-                  <FontIcon className='material-icons'>favorite </FontIcon>
-                </FloatingActionButton>
-              </td>
-              <td>
-                <FloatingActionButton style={{marginTop: "65px"}} iconStyle={{color: yellow600}}>
-                  <FontIcon className='material-icons'>delete</FontIcon>
-                </FloatingActionButton>
-              </td>
-            </tr>
-             <tr>
-              <td>
-                <div className="row">
-                  <div className="col-xs-4">
-                    <img src={"http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"} className="img-responsive" />
-                  </div>
-                  <div className="col-xs-8">
-                    <h2>Title: Harry</h2>
-                    <h3>Author(s): JK Rowling</h3>
-                    <h3>ISBN: 123456</h3>
-
-                    <div className="row">
-                      <div className="col-xs-1">
-                        <FontIcon style={{color: amber600}} className='material-icons'>shopping_cart</FontIcon>
-                      </div>
-                      <div className="col-xs-1">
-                        <Checkbox />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <h3>$45.56</h3>
-              </td>
-              <td>
-                <FloatingActionButton  style={{marginTop: "65px"}}iconStyle={{color: yellow600}}>
-                  <FontIcon className='material-icons'>favorite </FontIcon>
-                </FloatingActionButton>
-              </td>
-              <td>
-                <FloatingActionButton style={{marginTop: "65px"}} iconStyle={{color: yellow600}}>
-                  <FontIcon className='material-icons'>delete</FontIcon>
-                </FloatingActionButton>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div className="row">
-                  <div className="col-xs-4">
-                    <img src={"http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"} className="img-responsive" />
-                  </div>
-                  <div className="col-xs-8">
-                    <h2>Title: Harry</h2>
-                    <h3>Author(s): JK Rowling</h3>
-                    <h3>ISBN: 123456</h3>
-
-                    <div className="row">
-                      <div className="col-xs-1">
-                        <FontIcon style={{color: amber600}} className='material-icons'>shopping_cart</FontIcon>
-                      </div>
-                      <div className="col-xs-1">
-                        <Checkbox />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <h3>$45.56</h3>
-              </td>
-              <td>
-                <FloatingActionButton  onTouchTap={this.showMessage} style={{marginTop: "65px"}}iconStyle={{color: yellow600}}>
-                  <FontIcon className='material-icons'>favorite </FontIcon>
-                </FloatingActionButton>
-              </td>
-              <td>
-                <FloatingActionButton style={{marginTop: "65px"}} iconStyle={{color: yellow600}}>
-                  <FontIcon className='material-icons'>delete</FontIcon>
-                </FloatingActionButton>
-              </td>
-            </tr>
+            {CartItems}
           </tbody>
         </table>
         <RaisedButton

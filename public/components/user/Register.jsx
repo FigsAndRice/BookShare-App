@@ -71,6 +71,7 @@ class Register extends Component {
           username, password: password1, firstName, lastName, email, phone
         }
         this.props.register(newUser);
+        RouteActions.route('/login');
       }
     }
   }
