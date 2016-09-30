@@ -52,7 +52,8 @@
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "sendgrid": "^4.4.0",
-    "should": "^11.1.0"
+    "should": "^11.1.0",
+    "webpack": "^1.13.1"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
@@ -85,7 +86,6 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "^2.12.2"
