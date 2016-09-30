@@ -22,6 +22,8 @@ AWS.config = {
 }
 
 const s3 = new AWS.S3();
+s3.config.credentials.filename = '';
+
 console.log(s3)
 ImageSchema.statics.upload = function(fileObj, cb) {
 
