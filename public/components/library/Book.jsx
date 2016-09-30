@@ -1,10 +1,13 @@
-import React , { Component } from 'react'
-import { RaisedButton } from 'material-ui'
+import React , { Component } from 'react';
+import { connect } from 'react-redux';
+import { RaisedButton } from 'material-ui';
+
+import { deleteBook } from '../../actions/BookActions'
 
 export default class Book extends Component{
   render(){
 
-    let { title, cover, author, forSale } = this.props.book
+    let { title, cover, author, forSale, _id } = this.props.book
     let picUrl = (cover === undefined) ? 'http://1615.info/images/red-book.jpg' : cover;
 
     return(
@@ -12,7 +15,7 @@ export default class Book extends Component{
       <img width="150px" className="img-rounded fixedBookHeight center-block" src={picUrl} alt="NO_IMG"/>
 
       <RaisedButton>Sell</RaisedButton>
-      <RaisedButton>Delete</RaisedButton>
+      <RaisedButton onClick={deleteBook.bind(null, _id)}>Delete</RaisedButton>
     </div>
     )
   }
