@@ -4,7 +4,17 @@ import { RaisedButton } from 'material-ui';
 
 import { deleteBook } from '../../actions/BookActions'
 
-export default class Book extends Component{
+class Book extends Component{
+  constructor(props) {
+    super(props);
+
+    this._delete = this._delete.bind(this);
+  }
+
+  _delete(bookId, userId) {
+    this.props.deleteBook(bookId, userId);
+  }
+
   render(){
 
     let { title, cover, author, forSale, _id } = this.props.book
@@ -13,10 +23,23 @@ export default class Book extends Component{
     return(
     <div className="col-sm-4 col-md-4 col-lg-4 bookbox">
       <img width="150px" className="img-rounded fixedBookHeight center-block" src={picUrl} alt="NO_IMG"/>
-
       <RaisedButton>Sell</RaisedButton>
-      <RaisedButton onClick={deleteBook.bind(null, _id)}>Delete</RaisedButton>
+      <RaisedButton onClick={this._delete.bind(null, _id, this.props.userId)}>Delete</RaisedButton>
     </div>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteBook: (bookId, userId) => {dispatch(deleteBook(bookId, userId))}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Book);
