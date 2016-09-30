@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { TextField, SelectField, MenuItem } from 'material-ui'
 
-import ProfilePicUploader from '../user/ProfilePicUploader.jsx'
+import BookPicUploader from './BookPicUploader.jsx'
 import { forSale } from '../../actions/BookActions'
 
 class EditBook extends Component {
@@ -14,7 +14,7 @@ class EditBook extends Component {
       price: 0,
       forSale: false,
       condition: '',
-      image: ''
+      image: this.props.image._id
     }
     this._onInputChange = this._onInputChange.bind(this);
     this._conditionChange = this._conditionChange.bind(this);
@@ -40,7 +40,7 @@ class EditBook extends Component {
     return(
       <div className='container'>
         <div className="col-xs-6">
-          <ProfilePicUploader />
+          <BookPicUploader />
         </div>
         <div className="col-xs-6">
           <TextField
@@ -67,7 +67,9 @@ class EditBook extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    image: state.image
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
