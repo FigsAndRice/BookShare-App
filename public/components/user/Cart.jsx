@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Checkbox, IconButton, FloatingActionButton, FontIcon, RaisedButton, Snackbar } from 'material-ui';
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
 
+import { addFavorite, removeFromCart, receiveUser } from '../../actions/UserActions';
+
 class Cart extends Component {
   constructor(props) {
     super(props);
@@ -12,9 +14,22 @@ class Cart extends Component {
       open: false,
       purchase: []
     }
+
+    this._addFavorite = this._addFavorite.bind(this);
     this.showMessage = this.showMessage.bind(this);
     this.hideMesaage = this.hideMesaage.bind(this);
     this._addPurchase = this._addPurchase.bind(this);
+    this._checkOut = this._checkOut.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.receiveUser();
+  }
+
+  _addFavorite(bookId) {
+    this.props.addFavorite(this.props.userId, bookId);
+    this.showMessage();
+    this.props.receiveUser();
   }
 
   showMessage() {
@@ -29,71 +44,97 @@ class Cart extends Component {
     });
   }
 
-  _addPurchase(e) {
-    if (e.target.checked) {
-      let purchases = this.state.purchase;
-      //this.purchase.push(e.target.dataset.bookId)
-    }
+  _removeFromCart(bookId) {
+    this.props.removeFromCart(this.props.userId, bookId);
+    this.props.receiveUser();
   }
 
+  _addPurchase(e) {
+    let purchaseList = this.state.purchase;
+    let index = purchaseList.indexOf(e.target.dataset.bookid)
+    if (e.target.checked) {
+      if (index <= -1) {
+        purchaseList.push(e.target.dataset.bookid)
+      }
+    } else {
+      if (index > -1) {
+        purchaseList.splice(index, 1);
+      }
+    }
+    this.setState({purchase: purchaseList})
+  }
+
+  _checkOut() {
+    console.log ('this.state.purchase:', this.state.purchase)
+  }
 
   render() {
     let { cart } = this.props;
 
-    let CartItems = cart.map((item, index) => {
-      console.log ('item:', item);
+    let CartItems;
 
-      let price;
-      let url;
+    if (cart.length > 0) {
+      CartItems = cart.map((item, index) => {
+        let price;
+        let url;
 
-      if (!item.price) {
-        price = <h3>{item.price}</h3>
-      } else {
-        price = <h3>$0.00</h3>
-      }
+        if (item.price) {
+          price = <h3>{item.price}</h3>
+        } else {
+          price = <h3>$0.00</h3>
+        }
 
-      return (
-        <tr key={index}>
-          <td>
-            <div className="row">
-              <div className="col-xs-4">
-                <img src={"http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"} className="img-responsive" />
-              </div>
-              <div className="col-xs-8">
-                <h2>Title: {item.title}</h2>
-                <h3>Author(s): {item.author}</h3>
-                <h3>ISBN: {item.isbn}</h3>
+        if (item.picture.length) {
+          url = item.picture[0];
+        } else {
+          url = item.cover;
+        }
 
-                <div className="row">
-                  <div className="col-xs-1">
-                    <FontIcon style={{color: amber600}} className='material-icons'>shopping_cart</FontIcon>
-                  </div>
-                  <div className="col-xs-1">
-                    <Checkbox
-                      data-bookId={item._id}
-                      onCheck={this._addPurchase}
-                    />
+        return (
+          <tr key={index}>
+            <td>
+              <div className="row">
+                <div className="col-xs-4">
+                  <img src={url} className="img-responsive" />
+                </div>
+                <div className="col-xs-8">
+                  <h2>Title: {item.title}</h2>
+                  <h3>Author(s): {item.author}</h3>
+                  <h3>ISBN: {item.isbn}</h3>
+
+                  <div className="row">
+                    <div className="col-xs-1">
+                      <FontIcon style={{color: amber600}} className='material-icons'>shopping_cart</FontIcon>
+                    </div>
+                    <div className="col-xs-1">
+                      <Checkbox
+                        data-bookId={item._id}
+                        onCheck={this._addPurchase}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </td>
-          <td>
-            {price}
-          </td>
-          <td>
-            <FloatingActionButton  onTouchTap={this.showMessage} style={{marginTop: "65px"}}iconStyle={{color: yellow600}}>
-              <FontIcon className='material-icons'>favorite </FontIcon>
-            </FloatingActionButton>
-          </td>
-          <td>
-            <FloatingActionButton style={{marginTop: "65px"}} iconStyle={{color: yellow600}}>
-              <FontIcon className='material-icons'>delete</FontIcon>
-            </FloatingActionButton>
-          </td>
-        </tr>
-      )
-    })
+            </td>
+            <td>
+              {price}
+            </td>
+            <td>
+              <FloatingActionButton onTouchTap={() => {this._addFavorite(item._id)}} style={{marginTop: "65px"}}iconStyle={{color: yellow600}}>
+                <FontIcon className='material-icons'>favorite</FontIcon>
+              </FloatingActionButton>
+            </td>
+            <td>
+              <FloatingActionButton onTouchTap={() => {this._removeFromCart(item._id)}} style={{marginTop: "65px"}} iconStyle={{color: yellow600}}>
+                <FontIcon className='material-icons'>delete</FontIcon>
+              </FloatingActionButton>
+            </td>
+          </tr>
+        )
+      })
+    } else {
+      CartItems = <tr></tr>
+    }
 
     return (
       <div>
@@ -111,6 +152,7 @@ class Cart extends Component {
           </tbody>
         </table>
         <RaisedButton
+          onTouchTap={this._checkOut}
           label="Checkout"
           primary={false}
           style={{float: "right"}}
@@ -123,7 +165,7 @@ class Cart extends Component {
         <Snackbar
           open={this.state.open}
           message= "Book added to favorite."
-          autoHideDuration={4000}
+          autoHideDuration={3000}
           onRequestClose={this.hideMesaage}
         />
       </div>
@@ -133,13 +175,16 @@ class Cart extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    cart: state.user.cart
+    cart: state.user.cart,
+    userId: state.user._id
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUser: (state) => dispatch(getUser(state))
+    receiveUser: (state) => dispatch(receiveUser(state)),
+    addFavorite: (userId, bookId) => dispatch(addFavorite(userId, bookId)),
+    removeFromCart: (userId, bookId) => dispatch(removeFromCart(userId, bookId))
   }
 }
 
