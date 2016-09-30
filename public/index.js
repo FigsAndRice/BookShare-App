@@ -26,7 +26,7 @@ import './style.css'
 import store from './store';
 
 injectTapEventPlugin();
-const COOKIE_LOGIN = 'connect/sid';
+const COOKIE_LOGIN = 'connect.sid';
 const getCookie = (name) => {
     let value = "; " + document.cookie;
     let parts = value.split("; " + name + "=");

@@ -5,7 +5,7 @@ import { RaisedButton } from 'material-ui';
 
 import Profile from './user/Profile.jsx'
 
-const COOKIE_LOGIN = 'connect/sid';
+const COOKIE_LOGIN = 'connect.sid';
 const getCookie = (name) => {
     let value = "; " + document.cookie;
     let parts = value.split("; " + name + "=");
