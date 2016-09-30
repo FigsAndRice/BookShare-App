@@ -107,11 +107,10 @@ router.route('/:id')
   })
   .put((req, res) => {
     User.findByIdAndUpdate(req.params.id, {$set : req.body}, {new : true}, (err, user) => {
-      if (err) {
-       res.status(400).send(err);
-      } else {
-       res.status(err ? 400 : 200).send( err || user);
-      }
+      if (err) res.status(400).send(err);
+      User.findById(req.params.userId, (err, user) => {
+        res.status(err ? 400 : 200).send(err || user)
+      }).populate('favorites cart');
    });
   })
   .delete((req,res) => {
@@ -131,13 +130,19 @@ router.put('/:userId/addFavorite/:bookId', (req, res) => {
 
 router.put('/:userId/removeFavorite/:bookId', (req, res) => {
   User.findByIdAndUpdate(req.params.userId, { $pull: { "favorites": req.params.bookId } }, { new: true }, (err, user) => {
-    res.status(err ? 400 : 200).send(err || user);
+    if (err) res.status(400).send(err);
+    User.findById(req.params.userId, (err, user) => {
+      res.status(err ? 400 : 200).send(err || user)
+    }).populate('favorites cart');
   })
 });
 
 router.put('/:userId/addToCart/:bookId', (req, res) => {
   User.findByIdAndUpdate(req.params.userId, { $push: {"cart": req.params.bookId}}, { new: true }, (err, user) => {
-    res.status(err ? 400 : 200).send(err || user);
+    if (err) res.status(400).send(err);
+    User.findById(req.params.userId, (err, user) => {
+      res.status(err ? 400 : 200).send(err || user)
+    }).populate('favorites cart');
   });
 });
 

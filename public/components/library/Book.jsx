@@ -2,7 +2,7 @@ import React , { Component } from 'react';
 import { connect } from 'react-redux';
 import { RaisedButton } from 'material-ui';
 
-import { deleteBook } from '../../actions/BookActions'
+import { deleteBook } from '../../actions/BookActions';
 
 class Book extends Component{
   constructor(props) {

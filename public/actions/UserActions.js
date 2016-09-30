@@ -5,6 +5,7 @@ export function updateUser(id,updateInfo) {
   return dispatch => {
     axios.put(`/api/users/${id}`,updateInfo)
         .then(res => {
+          localStorage.user = JSON.stringify(res.data);
           dispatch(receiveUser(res.data))
           RouteActions.route('/')
         })
@@ -27,7 +28,7 @@ export function login(user) {
   return dispatch => {
     axios.post('/api/users/login', user)
       .then(res => {
-         localStorage.user = JSON.stringify(res.data);
+        localStorage.user = JSON.stringify(res.data);
         dispatch(receiveUser(res.data))
         RouteActions.route('/');
       })
@@ -54,7 +55,7 @@ export function getUser(id) {
     axios.get(`/api/users/${id}`)
       .then(res => {
         localStorage.user = JSON.stringify(res.data);
-        dispatch(receiveUser(user))
+        dispatch(receiveUser(res.data))
       })
       .catch(console.error)
   }
@@ -79,6 +80,7 @@ export function addToCart(userId, bookId) {
   return dispatch => {
     axios.put(`/api/users/${userId}/addToCart/${bookId}`)
       .then(res => {
+        localStorage.user = JSON.stringify(res.data);
         dispatch(receiveUser(res.data))
       })
       .catch(console.error)
@@ -89,6 +91,7 @@ export function removeFromCart(userId, bookId) {
   return dispatch => {
     axios.put(`/api/users/${userId}/removeFromCart/${bookId}`)
       .then(res => {
+        localStorage.user = JSON.stringify(res.data);
         dispatch(receiveUser(res.data))
       })
       .catch(console.error)
@@ -99,6 +102,7 @@ export function addFavorite(userId, bookId) {
   return dispatch => {
     axios.put(`/api/users/${userId}/addFavorite/${bookId}`)
       .then(res => {
+        localStorage.user = JSON.stringify(res.data);
         dispatch(receiveUser(res.data))
       })
       .catch(console.error)

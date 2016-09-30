@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+  import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Checkbox, IconButton, FloatingActionButton, FontIcon, RaisedButton, Snackbar } from 'material-ui';
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
 
-import { getUser, addFavorite, removeFromCart, receiveUser } from '../../actions/UserActions';
+import { addFavorite, removeFromCart, receiveUser } from '../../actions/UserActions';
 import Checkout from '../Checkout.jsx';
 
 
@@ -17,7 +17,6 @@ class Cart extends Component {
       purchase: [],
     }
 
-    this._getUser = this._getUser.bind(this);
     this._addFavorite = this._addFavorite.bind(this);
     this.showMessage = this.showMessage.bind(this);
     this.hideMessage = this.hideMessage.bind(this);
@@ -26,16 +25,13 @@ class Cart extends Component {
   }
 
   componentDidMount() {
-    this._getUser();
-  }
-
-  _getUser() {
-    this.props.getUser(this.props.user._id);
+    let user = JSON.parse(localStorage.user)
+    this.props.receiveUser(user); 
   }
 
   _addFavorite(bookId) {
     this.props.addFavorite(this.props.user._id, bookId);
-    this._getUser();
+    
     this.showMessage();
   }
 
@@ -81,7 +77,6 @@ class Cart extends Component {
     let totalPrice = 0;
     let CartItems;
     let numItems = 0;
-
     if (cart.length > 0) {
       numItems = cart.length;
 
@@ -192,7 +187,6 @@ const mapDispatchToProps = (dispatch) => {
     receiveUser: (state) => {dispatch(receiveUser(state))},
     addFavorite: (userId, bookId) => {dispatch(addFavorite(userId, bookId))},
     removeFromCart: (userId, bookId) => {dispatch(removeFromCart(userId, bookId))},
-    getUser: (userId) => {dispatch(getUser(userId))}
   }
 }
 

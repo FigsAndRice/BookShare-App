@@ -11,11 +11,13 @@ class ShowBooks extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.getUserBooks(user._id)
+  componentDidMount() {  
+    let user = JSON.parse(localStorage.user)
+    this.props.receiveUser(user);     
   }
 
   render(){
+    console.log('state from show books ', this.props.user)
     let bookView;
     if(!this.props.userBooks){
       bookView = (
@@ -24,9 +26,9 @@ class ShowBooks extends Component {
         </div>
       )
     } else {
-      let { userBooks } = this.props
+      let { userBooks, user } = this.props
       bookView = userBooks.map((book, index) => {
-        return <Book key={index+1} book={book} userId={ JSON.parse(localStorage.user)._id }/>
+        return <Book key={index+1} book={book} userId={ user._id }/>
       })
     }
     return (

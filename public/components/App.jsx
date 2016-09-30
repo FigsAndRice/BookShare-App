@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import NavBar from './navbar/NavBar.jsx';
+import {receiveUser} from '../actions/UserActions';
 
 const COOKIE_LOGIN = 'connect.sid';
 const getCookie = (name) => {
@@ -15,7 +16,8 @@ class App extends Component {
         this.displayName = 'App';
     }
     componentDidMount() {
-      console.log('I am the big daddy');     
+      let user = JSON.parse(localStorage.user)
+      this.props.receiveUser(user);    
     }
     render() {
       let appView;
@@ -39,10 +41,16 @@ class App extends Component {
     }
 }
 
-export default connect(state => ({
-  user: state.user
-  }),
-  dispatch => ({
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
 
-  })
-)(App);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    receiveUser: (user) => {dispatch(receiveUser(user))}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

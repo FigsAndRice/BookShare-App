@@ -43,9 +43,11 @@ class Book extends Component {
   }
 
   componentDidMount() {
+    let user = JSON.parse(localStorage.user)
+    this.props.receiveUser(user)
     this.setState({
       searchedBooks: this.props.searchedBooks
-    })
+    });
   }
 
   _addBook() {

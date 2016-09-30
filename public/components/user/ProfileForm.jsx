@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { TextField, RaisedButton } from 'material-ui'
 import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 
-import { updateUser } from '../../actions/UserActions'
+import { updateUser, receiveUser } from '../../actions/UserActions'
 import { uploadImg } from '../../actions/ImageActions'
 
 import ProfilePicUploader from './ProfilePicUploader.jsx'
@@ -30,6 +30,10 @@ class ProfileForm extends Component {
     this._updateProfile = this._updateProfile.bind(this);
     this._onImageChange = this._onImageChange.bind(this);
     this._uploadImage = this._uploadImage.bind(this);
+  }
+  componentDidMount() {
+    let user = JSON.parse(localStorage.user)
+    this.props.receiveUser(user);    
   }
   _onInputChange(e){
    let key = e.target.dataset.statekey;
@@ -153,7 +157,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUser: (id,state) => {dispatch(updateUser(id,state))},
-    uploadImg: (imgfile) => {dispatch(uploadImg(imgfile))}
+    uploadImg: (imgfile) => {dispatch(uploadImg(imgfile))},
+    receiveUser: (user) => {dispatch(receiveUser(user))}
   }
 }
 
