@@ -27,6 +27,7 @@ export function login(user) {
   return dispatch => {
     axios.post('/api/users/login', user)
       .then(res => {
+        localStorage.user = JSON.stringify(res.data);
         dispatch(receiveUser(res.data))
         RouteActions.route('/');
       })
@@ -56,6 +57,7 @@ export function receiveUser(user) {
 }
 
 export function removeUser() {
+  delete localStorage.user;
   return {
     type: 'REMOVE_USER',
     payload: {}

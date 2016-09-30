@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { FontIcon, FloatingActionButton } from 'material-ui';
 
 import { getUserBooks } from '../../actions/BookActions';
-
+import {receiveUser} from '../../actions/UserActions';
 import Book from './Book.jsx';
 
 class ShowBooks extends Component {
@@ -11,7 +11,9 @@ class ShowBooks extends Component {
     super(props);
   }
   componentDidMount(){
-    this.props.getUserBooks(this.props.user._id)
+    let user = JSON.parse(localStorage.user)
+    this.props.receiveUser(user);
+    this.props.getUserBooks(user._id)
   }
   render(){
     let bookView;
@@ -46,7 +48,8 @@ const mapStateTopProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUserBooks: (userId) => {dispatch(getUserBooks(userId))}
+    getUserBooks: (userId) => {dispatch(getUserBooks(userId))},
+    receiveUser: (user) =>  {dispatch(receiveUser(user))},
   }
 }
 

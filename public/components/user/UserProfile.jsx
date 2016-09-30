@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 import { Drawer , MenuItem, FloatingActionButton } from 'material-ui';
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
-
+import {receiveUser} from '../../actions/UserActions'
 import ContentEdit from 'material-ui/svg-icons/editor/mode-edit';
 import ContentFav from 'material-ui/svg-icons/action/favorite';
 
@@ -13,6 +13,10 @@ class UserProfile extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    //console.log('get user info... ', JSON.parse(localStorage.user));
+    this.props.receiveUser(JSON.parse(localStorage.user));
+  }
   render(){
     if(!this.props.user) return (<div></div>)
     let { username , email , firstName , lastName , phone , picture , _id } = this.props.user;
@@ -46,12 +50,13 @@ class UserProfile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    receiveUser: (user) => {dispatch(receiveUser(user))},
   }
 }
 
