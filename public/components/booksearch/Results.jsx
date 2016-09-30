@@ -35,7 +35,7 @@ class Results extends React.Component {
 		  							<div className="col-xs-8">
 		  								<h2>Title: {book.title}</h2>
 		  								<h3>Author(s): {book.authors}</h3>
-		  								<h3>ISBN: {book.isbn	}</h3>
+		  								<h3>ISBN: {book.isbn}</h3>
 		  							</div>
 		  							<div className="col-xs-2">
 		  								<FloatingActionButton onClick={this.selectBook.bind(null, book)} style={actionStyle} iconStyle={{color: "#FBC02D "}}>
