@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const passport = require('passport');
 
@@ -21,7 +22,7 @@ router.route('/')
     User.create(req.body,(err, user) => {
       res.status(err ? 400 : 200).send(err || user);
     })
-  })
+  });
 
 router.route('/register')
   .get((req, res) => {
@@ -47,8 +48,8 @@ router.route('/register')
             }
 
             let from_email = new helper.Email('admin@bookshare.tk');
-            let to_email = new helper.Email(req.body.email);
-            let subject = `Thank you for registering`;
+            const to_email = new helper.Email(req.body.email);
+            const subject = `Thank you for registering`;
             let content = new helper.Content('text/plain',
               `Hello ${req.body.firstName},
 
@@ -73,22 +74,21 @@ router.route('/register')
               body: mail.toJSON(),
             });
 
-            sg.API(request, function(error, response) {
+            sg.API (request, function(error, response) {
               console.log(response.statusCode);
               console.log(response.body);
               console.log(response.headers);
             });
-          })
-        })
-
+          });
+        });
       }
     })
-  })
+  });
 
 router.post('/login', passport.authenticate('local'), ((req, res) => {
   User.findOne({username: req.body.username}, (err, user) => {
     res.status(err ? 400 : 200).send(err || user);
-  }).populate('favorites cart')
+  }).populate('favorites cart');
 }));
 
 router.post('/logout', ((req,res) => {
@@ -100,48 +100,48 @@ router.post('/logout', ((req,res) => {
 
 
 router.route('/:id')
-  .get((req,res) => {
+  .get((req, res) => {
     User.find(req.params.id,(err, user) => {
       res.status(err ? 400 : 200).send(err || user);
-    }).populate('favorites cart')
+    }).populate('favorites cart');
   })
-  .put((req,res) => {
+  .put((req, res) => {
     User.findByIdAndUpdate(req.params.id, {$set : req.body}, {new : true}, (err, user) => {
-     if (err) {
+      if (err) {
        res.status(400).send(err);
-     }else {
+      } else {
        res.status(err ? 400 : 200).send( err || user);
-     }
-   })
+      }
+   });
   })
   .delete((req,res) => {
     User.findByIdAndRemove(req.params.id, (err, user) => {
       res.status(err ? 400 : 200).send(err || user.username + " deleted");
-    })
-  })
+    });
+  });
 
 router.put('/:userId/addFavorite/:bookId', (req, res) => {
-  User.findByIdAndUpdate(req.params.userId, {$push: {"favorites": req.params.bookId}}, {new: true}, (err, user) => {
-    res.status(err ? 400 : 200).send(err || user)
-  })
-})
+  User.findByIdAndUpdate(req.params.userId, { $push: { "favorites": req.params.bookId}}, { new: true }, (err, user) => {
+    res.status(err ? 400 : 200).send(err || user);
+  });
+});
 
 router.put('/:userId/removeFavorite/:bookId', (req, res) => {
-  User.findByIdAndUpdate(req.params.userId, {$pull: {"favorites": req.params.bookId}}, {new: true}, (err, user) => {
-    res.status(err ? 400 : 200).send(err || user)
-  })
-})
+  User.findByIdAndUpdate(req.params.userId, { $pull: { "favorites": req.params.bookId } }, { new: true }, (err, user) => {
+    res.status(err ? 400 : 200).send(err || user);
+  });
+});
 
 router.put('/:userId/addToCart/:bookId', (req, res) => {
-  User.findByIdAndUpdate(req.params.userId, {$push: {"cart": req.params.bookId}}, {new: true}, (err, user) => {
-    res.status(err ? 400 : 200).send(err || user)
-  })
-})
+  User.findByIdAndUpdate(req.params.userId, { $push: {"cart": req.params.bookId}}, { new: true }, (err, user) => {
+    res.status(err ? 400 : 200).send(err || user);
+  });
+});
 
 router.put('/:userId/removeFromCart/:bookId', (req, res) => {
-  User.findByIdAndUpdate(req.params.userId, {$pull: {"cart": req.params.bookId}}, {new: true}, (err, user) => {
-    res.status(err ? 400 : 200).send(err || user)
-  })
-})
+  User.findByIdAndUpdate(req.params.userId, { $pull: { 'cart': req.params.bookId } }, { new: true }, (err, user) => {
+    res.status(err ? 400 : 200).send(err || user);
+  });
+});
 
 module.exports = router;
