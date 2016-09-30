@@ -27,7 +27,6 @@ class Cart extends Component {
   }
   render() {
     let { cart } = this.props;
-    console.log ('cart:', cart);
     return (
       <div>
         <table className="table table-striped">
