@@ -3,7 +3,7 @@ const AWS_URL_BASE = 'https://s3-us-west-2.amazonaws.com/';
 const mongoose = require('mongoose');
 const uuid = require('uuid');
 const path = require('path');
-const dotenv = require('dotenv');
+require('dotenv').config();
 
 const AWS = require('aws-sdk');
 const async = require('async');
@@ -14,17 +14,17 @@ const ImageSchema = new mongoose.Schema({
   date: {type: Date, default: Date.now}
 });
 
-const env = dotenv.load();
+const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
+const AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
 
 AWS.config = {
-  aws_access_key_id: env.AWS_SECRET_KEY,
-  aws_secret_access_key: env.AWS_ACCESS_KEY_ID,
+  "accessKeyId": AWS_ACCESS_KEY_ID,
+  "secretAccessKey": AWS_SECRET_KEY
 }
 
 const s3 = new AWS.S3();
 s3.config.credentials.filename = '';
 
-console.log(s3)
 ImageSchema.statics.upload = function(fileObj, cb) {
 
   let { originalname, buffer } = fileObj;
