@@ -7,7 +7,7 @@ import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
-import { addToCart, addFavorite } from '../../actions/UserActions';
+import { addToCart, addFavorite, getUser, receiveUser} from '../../actions/UserActions';
 import { addBook } from '../../actions/BookActions';
 
 const styles = {
@@ -145,6 +145,8 @@ export default connect(state => ({
     return {
       addToCart: (userId, bookId) => {dispatch(addToCart(userId, bookId))},
       addFavorite: (userId, bookId) => {dispatch(addFavorite(userId, bookId))},
-      addBook: (book, userId) => {dispatch(addBook(book, userId))}
+      addBook: (book, userId) => {dispatch(addBook(book, userId))},
+      getUser: id => {dispatch(getUser(id))},
+      receiveUser: user => {dispatch(receiveUser(user))}
     }
-})(Book)
+})(Book);

@@ -27,7 +27,7 @@ export function login(user) {
   return dispatch => {
     axios.post('/api/users/login', user)
       .then(res => {
-        localStorage.user = JSON.stringify(res.data);
+         localStorage.user = JSON.stringify(res.data);
         dispatch(receiveUser(res.data))
         RouteActions.route('/');
       })
@@ -53,6 +53,7 @@ export function getUser(id) {
   return dispatch => {
     axios.get(`/api/users/${id}`)
       .then(res => {
+        localStorage.user = JSON.stringify(res.data);
         dispatch(receiveUser(user))
       })
       .catch(console.error)

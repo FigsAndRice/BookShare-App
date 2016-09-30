@@ -14,8 +14,7 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
-    //console.log('get user info... ', JSON.parse(localStorage.user));
-    this.props.receiveUser(JSON.parse(localStorage.user));
+
   }
   render(){
     if(!this.props.user) return (<div></div>)

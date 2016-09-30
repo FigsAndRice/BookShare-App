@@ -68,7 +68,6 @@ render(
           <Route path="/book" component={Book} />
           <Route path="/cart" component={Cart} onEnter={checkLogin(COOKIE_LOGIN)}/>
           <Route path='/editProfile' component={EditProfile} onEnter={checkLogin(COOKIE_LOGIN)}/>
-          <Route path='/checkout' component={Checkout}/>
         </Route>
         <Route path="*" component={NotFound} />
       </Router>

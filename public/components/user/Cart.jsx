@@ -5,6 +5,8 @@ import { Checkbox, IconButton, FloatingActionButton, FontIcon, RaisedButton, Sna
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
 
 import { getUser, addFavorite, removeFromCart, receiveUser } from '../../actions/UserActions';
+import Checkout from '../Checkout.jsx';
+
 
 class Cart extends Component {
   constructor(props) {
@@ -12,7 +14,7 @@ class Cart extends Component {
 
     this.state = {
       open: false,
-      purchase: []
+      purchase: [],
     }
 
     this._getUser = this._getUser.bind(this);
@@ -165,15 +167,7 @@ class Cart extends Component {
             {CartItems}
           </tbody>
         </table>
-        <RaisedButton
-          onTouchTap={this._checkOut}
-          label="Checkout"
-          primary={false}
-          style={{float: "right"}}
-          labelColor={yellow600}
-          backgroundColor={lightBlue900}
-          icon={<FontIcon className="material-icons">check_circle</FontIcon>}
-        />
+        <Checkout />
         <h4 style={{float: "right", marginRight: "15px"}}><b>Subtotal ({numItems} items): ${totalPrice}</b></h4>
 
         <Snackbar

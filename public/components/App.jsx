@@ -14,6 +14,9 @@ class App extends Component {
         super(props);
         this.displayName = 'App';
     }
+    componentDidMount() {
+      console.log('I am the big daddy');     
+    }
     render() {
       let appView;
 
