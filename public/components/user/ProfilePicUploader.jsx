@@ -65,7 +65,7 @@ class ProfilePicUploader extends Component {
       <div>
         <img style={imgstyle} src={this.state.imgpreURL} />
         <div>
-          <RaisedButton label="Dialog" onTouchTap={this._handleOpen} />
+          {/* <RaisedButton label="Dialog" onTouchTap={this._handleOpen} /> */}
            <Dialog
              title="Uploading Image..."
              actions={actions}
