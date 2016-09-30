@@ -15,21 +15,26 @@ class Cart extends Component {
       purchase: []
     }
 
+    this.refresh = this.refresh.bind(this);
     this._addFavorite = this._addFavorite.bind(this);
     this.showMessage = this.showMessage.bind(this);
-    this.hideMesaage = this.hideMesaage.bind(this);
+    this.hideMessage = this.hideMessage.bind(this);
     this._addPurchase = this._addPurchase.bind(this);
     this._checkOut = this._checkOut.bind(this);
   }
 
+  refresh() {
+    this.props.receiveUser(JSON.parse(localStorage.user));
+  }
+
   componentDidMount() {
-    this.props.receiveUser();
+    this.refresh();
   }
 
   _addFavorite(bookId) {
-    this.props.addFavorite(this.props.userId, bookId);
+    this.props.addFavorite(this.props.user._id, bookId);
+    this.refresh();
     this.showMessage();
-    this.props.receiveUser();
   }
 
   showMessage() {
@@ -38,15 +43,15 @@ class Cart extends Component {
     });
   }
 
-  hideMesaage() {
+  hideMessage() {
     this.setState({
       open: false
     });
   }
 
   _removeFromCart(bookId) {
-    this.props.removeFromCart(this.props.userId, bookId);
-    this.props.receiveUser();
+    this.props.removeFromCart(this.props.user._id, bookId);
+    this.refresh();
   }
 
   _addPurchase(e) {
@@ -69,22 +74,32 @@ class Cart extends Component {
   }
 
   render() {
-    let { cart } = this.props;
 
+    let { cart } = this.props.user;
+
+    let totalPrice = 0;
     let CartItems;
+    let numItems = 0;
 
     if (cart.length > 0) {
+      numItems = cart.length;
+
+      cart.forEach(item => {
+        if (item.price > 0) {
+          totalPrice += item.price;
+        }
+      })
+
       CartItems = cart.map((item, index) => {
         let price;
         let url;
-
         if (item.price) {
           price = <h3>{item.price}</h3>
         } else {
           price = <h3>$0.00</h3>
         }
 
-        if (item.picture.length) {
+        if (item.picture) {
           url = item.picture[0];
         } else {
           url = item.cover;
@@ -120,12 +135,12 @@ class Cart extends Component {
               {price}
             </td>
             <td>
-              <FloatingActionButton onTouchTap={() => {this._addFavorite(item._id)}} style={{marginTop: "65px"}}iconStyle={{color: yellow600}}>
+              <FloatingActionButton onTouchTap={this._addFavorite.bind(this, item._id)} style={{marginTop: "65px"}}iconStyle={{color: yellow600}}>
                 <FontIcon className='material-icons'>favorite</FontIcon>
               </FloatingActionButton>
             </td>
             <td>
-              <FloatingActionButton onTouchTap={() => {this._removeFromCart(item._id)}} style={{marginTop: "65px"}} iconStyle={{color: yellow600}}>
+              <FloatingActionButton onTouchTap={this._removeFromCart.bind(this, item._id)} style={{marginTop: "65px"}} iconStyle={{color: yellow600}}>
                 <FontIcon className='material-icons'>delete</FontIcon>
               </FloatingActionButton>
             </td>
@@ -160,13 +175,13 @@ class Cart extends Component {
           backgroundColor={lightBlue900}
           icon={<FontIcon className="material-icons">check_circle</FontIcon>}
         />
-        <h4 style={{float: "right", marginRight: "15px"}}><b>Subtotal (2 items): $53.84</b></h4>
+        <h4 style={{float: "right", marginRight: "15px"}}><b>Subtotal ({numItems} items): ${totalPrice}</b></h4>
 
         <Snackbar
           open={this.state.open}
           message= "Book added to favorite."
           autoHideDuration={3000}
-          onRequestClose={this.hideMesaage}
+          onRequestClose={this.hideMessage}
         />
       </div>
     )
@@ -175,16 +190,15 @@ class Cart extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    cart: state.user.cart,
-    userId: state.user._id
+    user: state.user
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    receiveUser: (state) => dispatch(receiveUser(state)),
-    addFavorite: (userId, bookId) => dispatch(addFavorite(userId, bookId)),
-    removeFromCart: (userId, bookId) => dispatch(removeFromCart(userId, bookId))
+    receiveUser: (state) => {dispatch(receiveUser(state))},
+    addFavorite: (userId, bookId) => {dispatch(addFavorite(userId, bookId))},
+    removeFromCart: (userId, bookId) => {dispatch(removeFromCart(userId, bookId))}
   }
 }
 

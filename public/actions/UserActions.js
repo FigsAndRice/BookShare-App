@@ -78,7 +78,6 @@ export function removeFromCart(userId, bookId) {
   return dispatch => {
     axios.put(`/api/users/${userId}/removeFromCart/${bookId}`)
       .then(res => {
-        console.log ('res.data:', res.data);
         dispatch(receiveUser(res.data))
       })
       .catch(console.error)

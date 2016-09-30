@@ -1,5 +1,5 @@
-import { browserHistory } from 'react-router';
 import axios from 'axios';
+import RouteActions from './RouteActions';
 
 export function searchBooks(isbn) {
 	return dispatch => {
@@ -24,7 +24,7 @@ export function userBooks(books) {
 }
 
 export function getBook(book) {
-	browserHistory.push('/book');
+	RouteActions.route('/book');
 	return {
 		type: 'GET_BOOK',
 		payload: {book}
@@ -36,24 +36,27 @@ export function addBook(book, userId) {
 	let newBook = { isbn, title, author: authors, cover: pictureNormal, owner: userId };
 	return dispatch => {
 		axios.post(`/api/books`, newBook)
-			.then(res => getBook(res.data))
+			.then(RouteActions.route('/'))
 			.catch(console.error)
 	}
 }
 
-export function deleteBook(bookId) {
+
+export function deleteBook(bookId, userId) {
+	return dispatch => {
 		axios.delete(`/api/books/${bookId}`)
-			.then(() => {
-				RouteActions.route('/');
+			.then(res => {
+				dispatch(getUserBooks(userId))
 			})
 			.catch(console.error)
+	}
 }
 
 export function changeOwner(bookId, userId) {
 	return dispatch => {
 		axios.put(`/api/books/${bookId}/changeOwner/${userId}`)
 			.then(res => {
-				console.log(res.data);
+				dispatch(getUserBooks(userId));
 			})
 			.catch(console.error)
 	}

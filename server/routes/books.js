@@ -32,6 +32,21 @@ router.get('/owner/:ownerid', (req, res) => {
   });
 });
 
+router.delete('/removePicture/:bookid', (req, res) => {
+  Book.findOneById(req.params.bookid, (err, book) => {
+    book.pictures.map(pic => {
+      Image.findOneAndRemove({ _id: pic }, Image.RemoveMiddlware, err => {
+        if (err) return err;
+        return;
+      });
+    });
+    Book.findOneByIdAndRemove(req.params.bookid, err => {
+      if (err) res.status(400).send(err);
+      res.status(200).send();
+    });
+  });
+});
+
 router.delete('/:id', (req, res) => {
   Book.findByIdAndRemove(req.params.id, err => {
     if (err) return res.status(400).send(err);
@@ -86,21 +101,6 @@ router.delete('/:bookid/:imageid', Image.RemoveMiddleware, (req , res) => {
         );
       });
     });
-});
-
-router.delete('/:bookid', (req, res) => {
-  Book.findOneById(req.params.bookid, (err, book) => {
-    book.pictures.map(pic => {
-      Image.findOneAndRemove({ _id: pic }, Image.RemoveMiddlware, err => {
-        if (err) return err;
-        return;
-      });
-    });
-    Book.findOneByIdAndRemove(req.params.bookid, err => {
-      if (err) res.status(400).send(err);
-      res.status(200).send();
-    });
-  });
 });
 
 module.exports = router;

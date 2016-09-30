@@ -137,7 +137,7 @@ class Book extends Component {
 }
 
 export default connect(state => ({
-    book: state.books,
+    book: state.books.book,
     user: state.user,
     searchedBooks: state.searchedBooks
   }),
