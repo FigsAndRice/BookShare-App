@@ -14,6 +14,7 @@ class UserProfile extends Component {
   }
 
   render(){
+    if(!this.props.user) return (<div></div>)
     let { username , email , firstName , lastName , phone , picture , _id } = this.props.user;
     let imgURL = 'http://www.biglunchextras.com/sites/default/files/user-default.png';
 
