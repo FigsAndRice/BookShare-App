@@ -13,24 +13,22 @@ import ProfilePicUploader from './ProfilePicUploader.jsx'
 class ProfileForm extends Component {
   constructor(props){
     super(props);
-    // let { url } = this.props.image;
+
     let { username , firstName , lastName , email , phone} = this.props.user;
     this.state = {
-      file : '',
-      imgpreURL : 'http://www.biglunchextras.com/sites/default/files/user-default.png',
-      user : {
+
         username,
         firstName,
         lastName,
         email,
         phone,
-      }
+
     }
     this._onInputChange = this._onInputChange.bind(this);
     this._updateProfile = this._updateProfile.bind(this);
-    this._onImageChange = this._onImageChange.bind(this);
-    this._uploadImage = this._uploadImage.bind(this);
+
   }
+
   _onInputChange(e){
    let key = e.target.dataset.statekey;
    let value = e.target.value;
@@ -39,65 +37,28 @@ class ProfileForm extends Component {
        [key]: value
    });
   }
-  _onImageChange(e){
-    let reader = new FileReader();
-    let file = e.target.files[0];
 
-    reader.onloadend=()=>{
-
-      this.setState({
-        file,
-        imgpreURL : reader.result
-      });
-    };
-    reader.readAsDataURL(file);
-  }
-  _uploadImage(){
-    this.props.uploadImg(this.state.file);
-    this.setState({ user : { picture : this.props.image.url }});
-    console.log('uploadImg',this.state.user);
-  }
-  _updateProfile(){
+  _updateProfile(imgUrl){
     let { _id } = this.props.user;
-    this.props.updateUser(_id,this.state.user);
+    let updateObj = this.state;
+    updateObj.picture = imgUrl;
+    // console.log('updateObj', updateObj);
+    this.props.updateUser(_id, updateObj);
+
   }
   render(){
-    let { username , firstName , lastName , email , phone } = this.state.user;
-    // let picture = this.props.image.url;
-    console.log("picture",this.props.image.url);
-    console.log("form state render",this.state.user);
+    let { username , firstName , lastName , email , phone } = this.state;
+
+    let imgUrl = this.props.image.url;
+
     return (
       <div className="container text-center">
         <div className="col-md-6">
-          <img style={imgstyle} src={this.state.imgpreURL} />
-          <div>
-            <RaisedButton
-              label="select an image"
-              labelPosition="before"
-              style={styles.button}
-            >
-              <input type="file" style={styles.ImageInput} onChange={this._onImageChange} />
-            </RaisedButton>
-            <RaisedButton
-              label="upload image"
-              labelPosition="before"
-              style={styles.button}
-              onClick={this._uploadImage}
-            >
-            </RaisedButton>
-          </div>
-          {/* <ProfilePicUploader uploadImg={this.props.uploadImg}/> */}
+          <ProfilePicUploader />
         </div>
         <div className="col-md-6">
           <form style={editform}>
             <div>
-              {/* <TextField
-                id="text-field-default"
-                onChange={this._onInputChange}
-                data-statekey="picture"
-                defaultValue={picture}
-                floatingLabelText="Img URL"
-              /><br /> */}
               <TextField
                 id="text-field-default"
                 onChange={this._onInputChange}
@@ -134,7 +95,7 @@ class ProfileForm extends Component {
                 floatingLabelText="Phone"
               />
             </div>
-            <RaisedButton backgroundColor={amber600} label="Update" style={style1} onClick={this._updateProfile}/>
+            <RaisedButton backgroundColor={amber600} label="Update" style={style1} onClick={this._updateProfile.bind(null, imgUrl)}/>
             <Link to="/"><RaisedButton backgroundColor={yellow600} label="cancel" style={style1}/></Link>
           </form>
         </div>
@@ -153,7 +114,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUser: (id,state) => {dispatch(updateUser(id,state))},
-    uploadImg: (imgfile) => {dispatch(uploadImg(imgfile))}
   }
 }
 
