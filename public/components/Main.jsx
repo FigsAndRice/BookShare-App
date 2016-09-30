@@ -5,6 +5,14 @@ import { RaisedButton } from 'material-ui';
 
 import Profile from './user/Profile.jsx'
 
+const COOKIE_LOGIN = 'connect.sid';
+const getCookie = (name) => {
+    let value = "; " + document.cookie;
+    let parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+};
+
+
 class Main extends Component {
     constructor(props) {
         super(props);
@@ -12,7 +20,7 @@ class Main extends Component {
     }
     render() {
       let mainView;
-      if(!this.props.user){
+      if(!getCookie(COOKIE_LOGIN)){
         mainView = (
           <div className="splash">
             <h1 className="splashTitle">Book Finder</h1>
