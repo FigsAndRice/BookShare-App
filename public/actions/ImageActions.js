@@ -5,9 +5,15 @@ export function uploadImg(imgFile) {
   return dispatch => {
     let data = new FormData();
     data.append('img',imgFile)
-    console.log("from image action",data);
     axios.post('/api/images',data)
-      .then(res => res.data)
+      .then(res => dispatch(imageUploaded(res.data)))
       .catch(console.error)
   }
+}
+
+export function imageUploaded(image) {
+	return {
+		type: 'UPLOADED_IMG',
+		payload: { image }
+	}
 }

@@ -1,11 +1,11 @@
 import React , { Component} from 'react'
 import { Link } from 'react-router'
-import { connect } from 'react-redux'
-import { uploadImg } from '../../actions/ImageActions'
+// import { connect } from 'react-redux'
+// import { uploadImg } from '../../actions/ImageActions'
 import { TextField, RaisedButton } from 'material-ui'
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors'
 
-class ProfilePicUploader extends Component {
+export default class ProfilePicUploader extends Component {
 
   constructor(props){
     super(props);
@@ -18,7 +18,6 @@ class ProfilePicUploader extends Component {
   }
 
   _upload(){
-    console.log("this.file",this.state.file);
     this.props.uploadImg(this.state.file);
   }
 
@@ -62,19 +61,19 @@ class ProfilePicUploader extends Component {
 
 }
 
-const mapStateToProps = (state) => {
-  return {
-    state
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     image : state.image
+//   }
+// }
+//
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     uploadImg: (imgfile) => {dispatch(uploadImg(imgfile))}
+//   }
+// }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    uploadImg: (imgfile) => {dispatch(uploadImg(imgfile))}
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePicUploader);
+// export default connect(mapStateToProps, mapDispatchToProps)(ProfilePicUploader);
 
 const imgstyle = {
   border: '0px solid',

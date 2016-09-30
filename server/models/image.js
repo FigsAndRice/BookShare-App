@@ -4,13 +4,12 @@ const mongoose = require('mongoose');
 const uuid = require('uuid');
 const path = require('path');
 require('dotenv').config();
-
 const AWS = require('aws-sdk');
 const async = require('async');
 
 const ImageSchema = new mongoose.Schema({
   url: {type: String, required: true},
-  Key:{type:String,required:true},
+  Key: {type:String,required:true},
   date: {type: Date, default: Date.now}
 });
 
@@ -39,17 +38,12 @@ ImageSchema.statics.upload = function(fileObj, cb) {
     Body: buffer
   };
 
-  console.log("params",params);
-
   s3.putObject(params,(err,result)=>{
     if (err) return cb(err);
 
-      let url = `${AWS_URL_BASE}/${BUCKET_NAME}/${Key}`;
-
+      let url = `https://s3.amazonaws.com/${BUCKET_NAME}/${Key}`;
       this.create({name: originalname,url,Key},cb);
-    //cb(err,result);
   });
-
 };
 
 ImageSchema.statics.deleteLink = function(url, cb) {
