@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, RaisedButton } from 'material-ui';
 import { register } from '../../actions/UserActions';
+import RouteActions from '../../actions/RouteActions';
+
+const styles = {
+  button: {
+    "margin": "10px 10px 10px 10px"
+  }
+}
 
 class Register extends Component {
   constructor(props) {
@@ -21,6 +28,7 @@ class Register extends Component {
     this._validatePassword = this._validatePassword.bind(this);
     this._validateEmail = this._validateEmail.bind(this);
     this._submit = this._submit.bind(this);
+    this._cancel = this._cancel.bind(this);
   }
 
   _onInputChange(e) {
@@ -65,6 +73,20 @@ class Register extends Component {
         this.props.register(newUser);
       }
     }
+  }
+
+  _cancel(e) {
+    e.preventDefault();
+    this.setState({
+      username: '',
+      password1: '',
+      password2: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: ''
+    });
+    RouteActions.route('/');
   }
 
   render() {
@@ -119,9 +141,16 @@ class Register extends Component {
           /><br />
           <div className="col-xs-12 text-center">
             <RaisedButton
+            style={styles.button}
             label="Submit"
             labelPosition="before"
             type='submit'
+            />
+            <RaisedButton
+            style={styles.button}
+            label="Cancel"
+            labelPosition="before"
+            onClick={this._cancel}
             />
           </div>
       </form>
