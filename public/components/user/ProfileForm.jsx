@@ -7,6 +7,8 @@ import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
 
 import { updateUser } from '../../actions/UserActions'
 
+import ProfilePicUploader from './ProfilePicUploader.jsx'
+
 class ProfileForm extends Component {
   constructor(props){
     super(props);
@@ -39,47 +41,52 @@ class ProfileForm extends Component {
 
     return (
       <div className="container text-center">
-        <form style={editform}>
-          <div>
-            <TextField
-              id="text-field-default"
-              defaultValue={username}
-              onChange={this._onInputChange}
-              data-statekey="username"
-              floatingLabelText="User Name"
-            /><br />
-            <TextField
-              id="text-field-default"
-              onChange={this._onInputChange}
-              data-statekey="firstName"
-              defaultValue={firstName}
-              floatingLabelText="First Name"
-            /><br />
-            <TextField
-              id="text-field-default"
-              onChange={this._onInputChange}
-              data-statekey="lastName"
-              defaultValue={lastName}
-              floatingLabelText="Last Name"
-            /><br />
-            <TextField
-              id="text-field-default"
-              onChange={this._onInputChange}
-              data-statekey="email"
-              defaultValue={email}
-              floatingLabelText="Email"
-            /><br />
-            <TextField
-              id="text-field-default"
-              onChange={this._onInputChange}
-              data-statekey="phone"
-              defaultValue={phone}
-              floatingLabelText="Phone"
-            />
-          </div>
-          <RaisedButton backgroundColor={amber600} label="Update" style={style} onClick={this._updateProfile}/>
-          <Link to="/"><RaisedButton backgroundColor={yellow600} label="cancel" style={style}/></Link>
-        </form>
+        <div className="col-md-6">
+          <ProfilePicUploader />
+        </div>
+        <div className="col-md-6">
+          <form style={editform}>
+            <div>
+              <TextField
+                id="text-field-default"
+                defaultValue={username}
+                onChange={this._onInputChange}
+                data-statekey="username"
+                floatingLabelText="User Name"
+              /><br />
+              <TextField
+                id="text-field-default"
+                onChange={this._onInputChange}
+                data-statekey="firstName"
+                defaultValue={firstName}
+                floatingLabelText="First Name"
+              /><br />
+              <TextField
+                id="text-field-default"
+                onChange={this._onInputChange}
+                data-statekey="lastName"
+                defaultValue={lastName}
+                floatingLabelText="Last Name"
+              /><br />
+              <TextField
+                id="text-field-default"
+                onChange={this._onInputChange}
+                data-statekey="email"
+                defaultValue={email}
+                floatingLabelText="Email"
+              /><br />
+              <TextField
+                id="text-field-default"
+                onChange={this._onInputChange}
+                data-statekey="phone"
+                defaultValue={phone}
+                floatingLabelText="Phone"
+              />
+            </div>
+            <RaisedButton backgroundColor={amber600} label="Update" style={style} onClick={this._updateProfile}/>
+            <Link to="/"><RaisedButton backgroundColor={yellow600} label="cancel" style={style}/></Link>
+          </form>
+        </div>
       </div>
     )
   }

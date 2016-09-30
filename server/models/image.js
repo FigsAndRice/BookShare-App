@@ -1,5 +1,5 @@
-const BUCKET_NAME = 'bookshare456'
-const AWS_URL_BASE = 'https://s3-us-west-2.amazonaws.com/'
+const BUCKET_NAME = 'bookshare456';
+const AWS_URL_BASE = 'https://s3-us-west-2.amazonaws.com/';
 const mongoose = require('mongoose');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
