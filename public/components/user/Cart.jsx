@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Checkbox, IconButton, FloatingActionButton, FontIcon, RaisedButton, Snackbar } from 'material-ui';
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
 
-import { addFavorite, removeFromCart, receiveUser } from '../../actions/UserActions';
+import { getUser, addFavorite, removeFromCart, receiveUser } from '../../actions/UserActions';
 
 class Cart extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class Cart extends Component {
       purchase: []
     }
 
-    this.refresh = this.refresh.bind(this);
+    this._getUser = this._getUser.bind(this);
     this._addFavorite = this._addFavorite.bind(this);
     this.showMessage = this.showMessage.bind(this);
     this.hideMessage = this.hideMessage.bind(this);
@@ -23,17 +23,17 @@ class Cart extends Component {
     this._checkOut = this._checkOut.bind(this);
   }
 
-  refresh() {
-    this.props.receiveUser(JSON.parse(localStorage.user));
+  componentDidMount() {
+    this._getUser();
   }
 
-  componentDidMount() {
-    this.refresh();
+  _getUser() {
+    this.props.getUser(this.props.user._id);
   }
 
   _addFavorite(bookId) {
     this.props.addFavorite(this.props.user._id, bookId);
-    this.refresh();
+    this._getUser();
     this.showMessage();
   }
 
@@ -51,7 +51,6 @@ class Cart extends Component {
 
   _removeFromCart(bookId) {
     this.props.removeFromCart(this.props.user._id, bookId);
-    this.refresh();
   }
 
   _addPurchase(e) {
@@ -70,13 +69,13 @@ class Cart extends Component {
   }
 
   _checkOut() {
+    // ADD LOGIC TO CHECKOUT AND GO TO STRIPE
     console.log ('this.state.purchase:', this.state.purchase)
   }
 
   render() {
 
     let { cart } = this.props.user;
-
     let totalPrice = 0;
     let CartItems;
     let numItems = 0;
@@ -198,7 +197,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     receiveUser: (state) => {dispatch(receiveUser(state))},
     addFavorite: (userId, bookId) => {dispatch(addFavorite(userId, bookId))},
-    removeFromCart: (userId, bookId) => {dispatch(removeFromCart(userId, bookId))}
+    removeFromCart: (userId, bookId) => {dispatch(removeFromCart(userId, bookId))},
+    getUser: (userId) => {dispatch(getUser(userId))}
   }
 }
 

@@ -49,6 +49,16 @@ export function logout() {
   }
 }
 
+export function getUser(id) {
+  return dispatch => {
+    axios.get(`/api/users/${id}`)
+      .then(res => {
+        dispatch(receiveUser(user))
+      })
+      .catch(console.error)
+  }
+}
+
 export function receiveUser(user) {
   return {
     type: 'RECEIVE_USER',
