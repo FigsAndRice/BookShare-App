@@ -11,7 +11,7 @@ import Main from './components/Main.jsx';
 import NotFound from './components/NotFound.jsx';
 import Book from './components/booksearch/Book.jsx';
 import Results from './components/booksearch/Results.jsx';
-// import ShowBooks from './components/library/ShowBooks.jsx';
+import EditBook from './components/library/EditBook.jsx';
 import EditProfile from './components/user/EditProfile.jsx';
 import Register from './components/user/Register.jsx';
 import Login from './components/user/Login.jsx';
@@ -61,13 +61,13 @@ render(
       <Router history={browserHistory}>
         <Route path="/" component={App} >
           <IndexRoute component={Main} />
-          {/* <Route path="/showbooks" component={ShowBooks} /> */}
+          <Route path="/editBook" component={EditBook} />
           <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} /> 
+          <Route path="/login" component={Login} />
 					<Route path="/results" component={Results} />
-          <Route path="/book" component={Book} /> 
-          <Route path="/cart" component={Cart} onEnter={checkLogin(COOKIE_LOGIN)}/> 
-          <Route path='/editProfile' component={EditProfile} onEnter={checkLogin(COOKIE_LOGIN)}/> 
+          <Route path="/book" component={Book} />
+          <Route path="/cart" component={Cart} onEnter={checkLogin(COOKIE_LOGIN)}/>
+          <Route path='/editProfile' component={EditProfile} onEnter={checkLogin(COOKIE_LOGIN)}/>
           <Route path='/checkout' component={Checkout}/>
         </Route>
         <Route path="*" component={NotFound} />

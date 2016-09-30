@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
+import { TextField, SelectField, MenuItem } from 'material-ui'
+
+import ProfilePicUploader from '../user/ProfilePicUploader.jsx'
 import { forSale } from '../../actions/BookActions'
 
 class EditBook extends Component {
@@ -14,6 +17,7 @@ class EditBook extends Component {
       image: ''
     }
     this._onInputChange = this._onInputChange.bind(this);
+    this._conditionChange = this._conditionChange.bind(this);
   }
   _onInputChange(e){
    let key = e.target.dataset.statekey;
@@ -23,25 +27,40 @@ class EditBook extends Component {
        [key]: value
    });
  }
+ _conditionChange(e, index, value){
+
+   this.setState({
+     condition: value
+   })
+
+ }
   render(){
+     console.log('this.state:', this.state)
     let { price, condition } = this.state
     return(
-      <div>
-      <ProfiePicUploader />
-      <TextField
-        id="text-field-default"
-        onChange={this._onInputChange}
-        data-statekey="price"
-        defaultValue={price}
-        floatingLabelText="Price"
-      /><br />
-      <TextField
-        id="text-field-default"
-        onChange={this._onInputChange}
-        data-statekey="condition"
-        defaultValue={condition}
-        floatingLabelText="Condition"
-      /><br />
+      <div className='container'>
+        <div className="col-xs-6">
+          <ProfilePicUploader />
+        </div>
+        <div className="col-xs-6">
+          <TextField
+            id="text-field-default"
+            onChange={this._onInputChange}
+            data-statekey="price"
+            defaultValue={price}
+            floatingLabelText="Price"
+            type='number'
+          /><br />
+          <SelectField defaultValue={condition}
+            onChange={this._conditionChange}
+            data-statekey="condition">
+           <MenuItem value={'excellent'} primaryText="Excellent" />
+           <MenuItem value={'good'} primaryText="Good" />
+           <MenuItem value={'fair'} primaryText="Fair" />
+           <MenuItem value={'poor'} primaryText="Poor" />
+           <MenuItem value={'veryPoor'} primaryText="Very Poor" />
+          </SelectField><br />
+        </div>
       </div>
     )
   }
