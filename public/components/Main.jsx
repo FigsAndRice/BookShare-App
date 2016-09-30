@@ -20,6 +20,7 @@ class Main extends Component {
     }
     render() {
       let mainView;
+      console.log(getCookie(COOKIE_LOGIN))
       if(!getCookie(COOKIE_LOGIN)){
         mainView = (
           <div className="splash">
