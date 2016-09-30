@@ -20,9 +20,13 @@ body {
     padding : 5px;
     width : auto;
     text-align : center;
-    height : 200px;
+    height : 250px;
     border : 1px solid #f1f1f1;
     border-radius : 5px;
+}
+
+.fixedBookHeight{
+  height: 190px !important;
 }
 
 .mobileProfile {

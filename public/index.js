@@ -15,6 +15,7 @@ import Results from './components/booksearch/Results.jsx';
 import EditProfile from './components/user/EditProfile.jsx';
 import Register from './components/user/Register.jsx';
 import Login from './components/user/Login.jsx';
+import Checkout from './components/Checkout.jsx'; 
 import Cart from './components/user/Cart.jsx';
 
 
@@ -25,7 +26,19 @@ import './style.css'
 import store from './store';
 
 injectTapEventPlugin();
+const COOKIE_LOGIN = 'connect.sid';
+const getCookie = (name) => {
+    let value = "; " + document.cookie;
+    let parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+};
 
+
+const checkLogin = function() {
+  if (!getCookie(COOKIE_LOGIN)) {
+    browserHistory.push('/');
+  }
+}
 const muiTheme = getMuiTheme({
 	fontFamily: 'Roboto, sans-serif',
   palette: {
@@ -50,11 +63,12 @@ render(
           <IndexRoute component={Main} />
           {/* <Route path="/showbooks" component={ShowBooks} /> */}
           <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={Login} /> 
 					<Route path="/results" component={Results} />
-          <Route path="/book" component={Book} />
-          <Route path="/cart" component={Cart} />
-          <Route path='/editProfile' component={EditProfile}/>
+          <Route path="/book" component={Book} /> 
+          <Route path="/cart" component={Cart} onEnter={checkLogin(COOKIE_LOGIN)}/> 
+          <Route path='/editProfile' component={EditProfile} onEnter={checkLogin(COOKIE_LOGIN)}/> 
+          <Route path='/checkout' component={Checkout}/>
         </Route>
         <Route path="*" component={NotFound} />
       </Router>

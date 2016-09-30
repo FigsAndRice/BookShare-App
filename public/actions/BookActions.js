@@ -16,6 +16,13 @@ export function searchedBooks(books) {
 	}
 }
 
+export function userBooks(books) {
+	return {
+		type: 'USER_BOOKS',
+		payload: { books }
+	}
+}
+
 export function getBook(book) {
 	browserHistory.push('/book');
 	return {
@@ -39,6 +46,16 @@ export function changeOwner(bookId, userId) {
 		axios.put(`/api/books/${bookId}/changeOwner/${userId}`)
 			.then(res => {
 				console.log(res.data);
+			})
+			.catch(console.error)
+	}
+}
+
+export function getUserBooks(userId) {
+	return dispatch => {
+		axios.get(`/api/books/owner/${userId}`)
+			.then(res => {
+				dispatch(userBooks(res.data));
 			})
 			.catch(console.error)
 	}
