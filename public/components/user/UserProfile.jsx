@@ -14,8 +14,10 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
-
+    let user = JSON.parse(localStorage.user)
+    this.props.receiveUser(user); 
   }
+  
   render(){
     if(!this.props.user) return (<div></div>)
     let { username , email , firstName , lastName , phone , picture , _id } = this.props.user;

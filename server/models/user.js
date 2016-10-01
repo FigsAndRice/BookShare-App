@@ -25,7 +25,7 @@ var User = new Schema({
   //books: [{type: Schema.Types.ObjectId, ref: 'Book', unique: true}],
   favorites: [{type: Schema.Types.ObjectId, ref: 'Book'}],
   cart: [{type: Schema.Types.ObjectId, ref: 'Book'}],
-  picture: {type: String}
+  picture: {type: String, default: ''}
 });
 
 User.plugin(passportLocalMongoose);

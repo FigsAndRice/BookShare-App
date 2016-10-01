@@ -3,7 +3,7 @@ import RouteActions from './RouteActions';
 
 export function updateUser(id,updateInfo) {
   return dispatch => {
-    axios.put(`/api/users/${id}`,updateInfo)
+    axios.put(`/api/users/${id}`, updateInfo)
         .then(res => {
           localStorage.user = JSON.stringify(res.data);
           dispatch(receiveUser(res.data))

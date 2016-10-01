@@ -16,13 +16,11 @@ class ProfileForm extends Component {
 
     let { username , firstName , lastName , email , phone} = this.props.user;
     this.state = {
-
         username,
         firstName,
         lastName,
         email,
         phone,
-
     }
     this._onInputChange = this._onInputChange.bind(this);
     this._updateProfile = this._updateProfile.bind(this);
@@ -32,6 +30,10 @@ class ProfileForm extends Component {
   componentDidMount() {
     let user = JSON.parse(localStorage.user)
     this.props.receiveUser(user);    
+    let { username, firstName, lastName, email, phone} = user;
+    this.setState({
+      username, firstName, lastName, email, phone
+    })
   }
 
   _onInputChange(e){
@@ -46,8 +48,9 @@ class ProfileForm extends Component {
   _updateProfile(imgUrl){
     let { _id } = this.props.user;
     let updateObj = this.state;
-    updateObj.picture = imgUrl;
-    // console.log('updateObj', updateObj);
+    if (imgUrl) {
+      updateObj.picture = imgUrl;
+    }
     this.props.updateUser(_id, updateObj);
 
   }
@@ -68,35 +71,35 @@ class ProfileForm extends Component {
                 id="text-field-default"
                 onChange={this._onInputChange}
                 data-statekey="username"
-                defaultValue={username}
+                value={username}
                 floatingLabelText="User Name"
               /><br />
               <TextField
                 id="text-field-default"
                 onChange={this._onInputChange}
                 data-statekey="firstName"
-                defaultValue={firstName}
+                value={firstName}
                 floatingLabelText="First Name"
               /><br />
               <TextField
                 id="text-field-default"
                 onChange={this._onInputChange}
                 data-statekey="lastName"
-                defaultValue={lastName}
+                value={lastName}
                 floatingLabelText="Last Name"
               /><br />
               <TextField
                 id="text-field-default"
                 onChange={this._onInputChange}
                 data-statekey="email"
-                defaultValue={email}
+                value={email}
                 floatingLabelText="Email"
               /><br />
               <TextField
                 id="text-field-default"
                 onChange={this._onInputChange}
                 data-statekey="phone"
-                defaultValue={phone}
+                value={phone}
                 floatingLabelText="Phone"
               />
             </div>
@@ -121,7 +124,6 @@ const mapDispatchToProps = (dispatch) => {
     updateUser: (id,state) => {dispatch(updateUser(id,state))},
     uploadImg: (imgfile) => {dispatch(uploadImg(imgfile))},
     receiveUser: (user) => {dispatch(receiveUser(user))}
-
   }
 }
 

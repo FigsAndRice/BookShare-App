@@ -108,7 +108,7 @@ router.route('/:id')
   .put((req, res) => {
     User.findByIdAndUpdate(req.params.id, {$set : req.body}, {new : true}, (err, user) => {
       if (err) res.status(400).send(err);
-      User.findById(req.params.userId, (err, user) => {
+      User.findById(req.params.id, (err, user) => {
         res.status(err ? 400 : 200).send(err || user)
       }).populate('favorites cart');
    });

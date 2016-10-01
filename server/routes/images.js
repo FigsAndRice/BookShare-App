@@ -11,7 +11,7 @@ router.get('/',(req,res)=>{
   });
 });
 
-router.post('/',upload.single('img'),(req,res)=>{
+router.post('/', upload.single('img'),(req,res)=>{
   Image.upload(req.file,(err,image)=>{
     res.status(err?400:200).send(err||image);
   });
