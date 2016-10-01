@@ -26,12 +26,12 @@ class Cart extends Component {
 
   componentDidMount() {
     let user = JSON.parse(localStorage.user)
-    this.props.receiveUser(user); 
+    this.props.receiveUser(user);
   }
 
   _addFavorite(bookId) {
     this.props.addFavorite(this.props.user._id, bookId);
-    
+
     this.showMessage();
   }
 
@@ -95,7 +95,7 @@ class Cart extends Component {
           price = <h3>$0.00</h3>
         }
 
-        if (item.picture) {
+        if (item.picture.length > 0) {
           url = item.picture[0];
         } else {
           url = item.cover;
