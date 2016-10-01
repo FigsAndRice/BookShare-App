@@ -14,14 +14,13 @@ class Cart extends Component {
 
     this.state = {
       open: false,
-      purchase: [],
+      purchasePrice: 0
     }
 
     this._addFavorite = this._addFavorite.bind(this);
     this.showMessage = this.showMessage.bind(this);
     this.hideMessage = this.hideMessage.bind(this);
     this._addPurchase = this._addPurchase.bind(this);
-    this._checkOut = this._checkOut.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +30,6 @@ class Cart extends Component {
 
   _addFavorite(bookId) {
     this.props.addFavorite(this.props.user._id, bookId);
-
     this.showMessage();
   }
 
@@ -52,27 +50,21 @@ class Cart extends Component {
   }
 
   _addPurchase(e) {
-    let purchaseList = this.state.purchase;
-    let index = purchaseList.indexOf(e.target.dataset.bookid)
+    let itemPrice = e.target.dataset.bookPrice;
+    let finalPrice = this.state.purchasePrice;
     if (e.target.checked) {
-      if (index <= -1) {
-        purchaseList.push(e.target.dataset.bookid)
+      if (itemPrice) {
+        finalPrice += itemPrice;
       }
     } else {
-      if (index > -1) {
-        purchaseList.splice(index, 1);
+      if (itemPrice) {
+        finalPrice -= itemPrice;
       }
     }
-    this.setState({purchase: purchaseList})
-  }
-
-  _checkOut() {
-    // ADD LOGIC TO CHECKOUT AND GO TO STRIPE
-    console.log ('this.state.purchase:', this.state.purchase)
+    this.setState({purchasePrice: finalPrice});
   }
 
   render() {
-
     let { cart } = this.props.user;
     let totalPrice = 0;
     let CartItems;
@@ -112,14 +104,13 @@ class Cart extends Component {
                   <h2>Title: {item.title}</h2>
                   <h3>Author(s): {item.author}</h3>
                   <h3>ISBN: {item.isbn}</h3>
-
                   <div className="row">
                     <div className="col-xs-1">
                       <FontIcon style={{color: amber600}} className='material-icons'>shopping_cart</FontIcon>
                     </div>
                     <div className="col-xs-1">
                       <Checkbox
-                        data-bookId={item._id}
+                        data-bookPrice={item.price}
                         onCheck={this._addPurchase}
                       />
                     </div>
@@ -162,7 +153,7 @@ class Cart extends Component {
             {CartItems}
           </tbody>
         </table>
-        <Checkout />
+        <Checkout price={this.state.purchasePrice}/>
         <h4 style={{float: "right", marginRight: "15px"}}><b>Subtotal ({numItems} items): ${totalPrice}</b></h4>
 
         <Snackbar

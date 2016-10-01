@@ -24,7 +24,7 @@ class Checkout extends React.Component {
     	this.setState({open: false});
     }
     onToken(token) {
-    	axios.post('/api/payments/charge', {token: token.id, amount: 10000}) 
+    	axios.post('/api/payments/charge', {token: token.id, amount: 10000})
     		.then(res => {
     			this.showMessage();
     		})
@@ -33,7 +33,7 @@ class Checkout extends React.Component {
     render() {
         return (
         	<div>
-        		<StripeCheckout 
+        		<StripeCheckout
         			token={this.onToken}
         			image='http://www.clker.com/cliparts/A/3/i/C/H/E/koszyk-md.png'
         			stripeKey="pk_test_m7z72LK4NyWXZ6I1656lYP14"
