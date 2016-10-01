@@ -108,3 +108,15 @@ export function addFavorite(userId, bookId) {
       .catch(console.error)
   }
 }
+
+export function removeFavorite(userId, bookId) {
+  return dispatch => {
+    axios.put(`/api/users/${userId}/removeFavorite/${bookId}`)
+      .then(res => {
+        console.log ('FROM USER ACTIONS', res.data);
+        localStorage.user = JSON.stringify(res.data);
+        dispatch(receiveUser(res.data))
+      })
+      .catch(console.error)
+  }
+}
