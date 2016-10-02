@@ -24,6 +24,8 @@ export function userBooks(books) {
 }
 
 export function getBook(book) {
+	console.log('book ', book)
+	localStorage.book = JSON.stringify(book);
 	RouteActions.route(`/book/${book.isbn}`);
 	return {
 		type: 'GET_BOOK',

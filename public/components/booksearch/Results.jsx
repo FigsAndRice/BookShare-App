@@ -15,7 +15,6 @@ class Results extends React.Component {
     }
 
     selectBook(book) {
-      this.props.searchBooks(book.isbn);
       this.props.getBook(book);
     }
     render() {

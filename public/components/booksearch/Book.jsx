@@ -8,7 +8,7 @@ import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bu
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
 import { addToCart, addFavorite, getUser, receiveUser} from '../../actions/UserActions';
-import { addBook } from '../../actions/BookActions';
+import { addBook, searchBooks, getBook } from '../../actions/BookActions';
 
 const styles = {
   bookCover: {
@@ -44,10 +44,13 @@ class Book extends Component {
 
   componentDidMount() {
     let user = JSON.parse(localStorage.user)
+    let book = JSON.parse(localStorage.book)
     this.props.receiveUser(user)
     this.setState({
       searchedBooks: this.props.searchedBooks
     });
+    this.props.searchBooks(this.props.params.isbn);
+    this.props.getBook(book);
   }
 
   _addBook() {
@@ -149,6 +152,8 @@ export default connect(state => ({
       addFavorite: (userId, bookId) => {dispatch(addFavorite(userId, bookId))},
       addBook: (book, userId) => {dispatch(addBook(book, userId))},
       getUser: id => {dispatch(getUser(id))},
-      receiveUser: user => {dispatch(receiveUser(user))}
+      receiveUser: user => {dispatch(receiveUser(user))},
+      searchBooks: book => {dispatch(searchBooks(book))},
+      getBook: book => {dispatch(getBook(book))}
     }
 })(Book);
