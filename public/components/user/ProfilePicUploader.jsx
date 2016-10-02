@@ -2,7 +2,7 @@ import React , { Component} from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { uploadImg } from '../../actions/ImageActions'
-import { TextField, RaisedButton, Dialog, FlatButton, CircularProgress } from 'material-ui'
+import { TextField, RaisedButton, FlatButton, CircularProgress, Dialog } from 'material-ui'
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors'
 // import Dialog from 'material-ui/Dialog';
 // import FlatButton from 'material-ui/FlatButton';
@@ -17,7 +17,7 @@ class ProfilePicUploader extends Component {
     this.state={
       file : '',
       imgpreURL : 'http://www.biglunchextras.com/sites/default/files/user-default.png',
-      open: false,
+      open : false
     };
     this._onInputChange=this._onInputChange.bind(this);
     this._upload=this._upload.bind(this);
@@ -26,16 +26,16 @@ class ProfilePicUploader extends Component {
   }
 
   _handleOpen(){
-    this.setState({open: true});
+    this.setState({open : true})
   };
 
   _handleClose(){
-    this.setState({open: false});
+    this.setState({open : false})
   };
 
   _upload(){
     this.props.uploadImg(this.state.file);
-    this.setState({open : true});
+    this._handleOpen();
   }
 
   _onInputChange(e){
@@ -52,6 +52,15 @@ class ProfilePicUploader extends Component {
    reader.readAsDataURL(file);
   }
 
+  componentWillReceiveProps(){
+    // console.log("after receiving props ",this.props.image);
+    this._handleClose();
+  }
+  // {
+  //
+  //   console.log("Uploadedimage",this.props.image);
+  // }
+
   render() {
     const actions = [
       <FlatButton
@@ -60,24 +69,33 @@ class ProfilePicUploader extends Component {
         onTouchTap={this._handleClose}
       />
     ];
-    console.log("Uploadedimage",this.props.image);
+    // console.log("Uploadedimage",this.props.image);
+    let progressPopup = hidePopup;
+    // if (this.props.image !== null){
+    //   progressPopup = showPopup;
+    // }
     return (
       <div>
-        <img style={imgstyle} src={this.state.imgpreURL} />
-        <div>
-          {/* <RaisedButton label="Dialog" onTouchTap={this._handleOpen} /> */}
-           <Dialog
-             title="Uploading Image..."
-             actions={actions}
-             modal={false}
-             open={this.state.open}
-             contentStyle={DialogStyle}
-             onRequestClose={this.handleClose}
-           >
-          <div style={progressStyle}>
+        {/* <div style={progressPopup}>
+          <div style={DialogStyle}>
+            <h4>Uploading Image.....</h4>
+            <div style={progressStyle}>
               <CircularProgress size={2} />
+            </div>
           </div>
-           </Dialog>
+        </div> */}
+        <img style={imgstyle} src={this.state.imgpreURL} />
+            {/* <RaisedButton label="Dialog" onTouchTap={this._handleOpen} /> */}
+             <Dialog
+               title="Uploading Image..."
+               modal={false}
+               open={this.state.open}
+               contentStyle={DialogStyle}
+             >
+
+               <CircularProgress size={2} />
+
+             </Dialog>
           <RaisedButton
             label="select an image"
             labelPosition="before"
@@ -92,7 +110,6 @@ class ProfilePicUploader extends Component {
             onClick={this._upload}
           >
           </RaisedButton>
-        </div>
       </div>
     );
   }
@@ -141,7 +158,11 @@ const styles = {
 };
 
 const DialogStyle = {
-  width: '25%',
+  width: '30%',
+  // margin : 'auto',
+  // marginTop : '25%',
+  // backgroundColor : 'white',
+  padding : '20px',
   // maxWidth: '100px',
 };
 
@@ -149,3 +170,20 @@ const progressStyle = {
   margin : 'auto',
   padding : '10px',
 }
+
+const showPopup = {
+  display : 'block',
+  position : 'fixed',
+  padding: 0,
+  margin: 0,
+  top : 0,
+  left : 0,
+  zIndex : '100',
+  backgroundColor : 'rgba(0, 0, 0, 0.45)',
+  height : '100%',
+  width : '100%'
+}
+
+const hidePopup = {
+  display : 'none',
+};
