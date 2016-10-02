@@ -2,6 +2,8 @@ import React , { Component } from 'react';
 import { connect } from 'react-redux';
 import { RaisedButton } from 'material-ui';
 
+import RouteActions from '../../actions/RouteActions'
+
 import { deleteBook } from '../../actions/BookActions';
 
 class Book extends Component{
@@ -15,6 +17,10 @@ class Book extends Component{
     this.props.deleteBook(bookId, userId);
   }
 
+  _editBook(id){
+    RouteActions.route(`/edit/${id}`);
+  }
+
   render(){
 
     let { title, cover, author, forSale, _id } = this.props.book
@@ -23,7 +29,7 @@ class Book extends Component{
     return(
     <div className="col-sm-4 col-md-4 col-lg-4 bookbox">
       <img width="150px" className="img-rounded fixedBookHeight center-block" src={picUrl} alt="NO_IMG"/>
-      <RaisedButton>Sell</RaisedButton>
+      <RaisedButton onClick={this._editBook.bind(null, _id)}>Sell</RaisedButton>
       <RaisedButton onClick={this._delete.bind(null, _id, this.props.userId)}>Delete</RaisedButton>
     </div>
     )

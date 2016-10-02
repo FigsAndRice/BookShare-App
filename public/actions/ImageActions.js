@@ -5,6 +5,7 @@ export function uploadImg(imgFile) {
   return dispatch => {
     let data = new FormData();
     data.append('img',imgFile)
+    console.log('data:', data)
     axios.post('/api/images',data)
       .then(res => dispatch(imageUploaded(res.data)))
       .catch(console.error)

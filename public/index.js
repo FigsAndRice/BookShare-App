@@ -15,7 +15,7 @@ import EditBook from './components/library/EditBook.jsx';
 import EditProfile from './components/user/EditProfile.jsx';
 import Register from './components/user/Register.jsx';
 import Login from './components/user/Login.jsx';
-import Checkout from './components/Checkout.jsx'; 
+import Checkout from './components/Checkout.jsx';
 import Cart from './components/user/Cart.jsx';
 
 
@@ -61,7 +61,7 @@ render(
       <Router history={browserHistory}>
         <Route path="/" component={App} >
           <IndexRoute component={Main} />
-          <Route path="/editBook" component={EditBook} />
+          <Route path="/edit/:id" component={EditBook} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
 					<Route path="/results" component={Results} />

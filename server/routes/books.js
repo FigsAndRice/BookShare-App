@@ -103,4 +103,10 @@ router.delete('/:bookid/:imageid', Image.RemoveMiddleware, (req , res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+  Book.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+    .then(() => res.send())
+    .catch(err => res.status(400).send(err))
+  })
+
 module.exports = router;
