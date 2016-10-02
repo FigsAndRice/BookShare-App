@@ -42,11 +42,12 @@ export function addBook(book, userId) {
 }
 
 
-export function forSale(bookId, bookObj) {
+export function forSale(bookId, bookObj, userId) {
 	return dispatch => {
 		axios.put(`/api/books/edit/${bookId}`, bookObj)
 			.then(() => {
-				dispatch(RouteActions.route('/'));
+				RouteActions.route('/');
+				dispatch(getUserBooks(userId));
 			})
 			.catch(console.error)
 	}

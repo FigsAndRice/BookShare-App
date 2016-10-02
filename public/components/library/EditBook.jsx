@@ -37,10 +37,10 @@ class EditBook extends Component {
  }
  _onSubmit(){
    let obj = this.state;
-   obj.image = this.props.image.url;
+   obj.picture = this.props.image.url;
    obj.forSale = true;
 
-   this.props.forSale(this.props.params.id, obj);
+   this.props.forSale(this.props.params.id, obj, this.props.user._id);
  }
  _goHome(){
    RouteActions.route('/')
@@ -91,13 +91,14 @@ const styles = {
 
 const mapStateToProps = (state) => {
   return {
+    user: state.user,
     image: state.image
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    forSale: (id, bookObj) => { dispatch(forSale(id, bookObj)) }
+    forSale: (id, bookObj, userId) => { dispatch(forSale(id, bookObj, userId)) }
   }
 }
 

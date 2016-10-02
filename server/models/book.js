@@ -8,12 +8,11 @@ const bookSchema = new mongoose.Schema({
   cover: { type: String, required: true },
   isbn: { type: String, required: true },
   price: { type: Number },
+  picture: { type: String },
   condition: { type: String },
   time: { type: Date, default: Date.now },
   forSale: { type: Boolean, default: false },
-  owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  picture: [{ type: Schema.Types.ObjectId, ref: 'Image' }],
-  class_name: { type: Schema.Types.ObjectId, ref: 'Class'}
+  owner: { type: Schema.Types.ObjectId, ref: 'User', required: true }
 });
 
 const Book = mongoose.model('Book', bookSchema);
