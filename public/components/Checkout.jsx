@@ -39,8 +39,8 @@ class Checkout extends React.Component {
         			stripeKey="pk_test_m7z72LK4NyWXZ6I1656lYP14"
         			currency="USD"
         			panelLabel="Total of"
-        			amount={10000}
-        			email={"juancafe2@gmail.com"}
+        			amount={this.props.amount}
+        			email={this.props.email}
         			zipCode={true}
         			triggerEvent="onTouchTap"
         		>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import RouteActions from '../../actions/RouteActions'
 
-import { TextField, SelectField, MenuItem } from 'material-ui'
+import { TextField, SelectField, MenuItem, RaisedButton } from 'material-ui'
 
 import BookPicUploader from './BookPicUploader.jsx'
 import { forSale } from '../../actions/BookActions'
@@ -16,6 +17,7 @@ class EditBook extends Component {
       condition: '',
       image: this.props.image._id
     }
+    this._onSubmit = this._onSubmit.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
     this._conditionChange = this._conditionChange.bind(this);
   }
@@ -34,8 +36,13 @@ class EditBook extends Component {
    })
 
  }
+ _onSubmit(){
+   console.log('this.state:', this.state)
+ }
+ _goHome(){
+   RouteActions.route('/')
+ }
   render(){
-     console.log('this.state:', this.state)
     let { price, condition } = this.state
     return(
       <div className='container'>
@@ -48,10 +55,9 @@ class EditBook extends Component {
             onChange={this._onInputChange}
             data-statekey="price"
             defaultValue={price}
-            floatingLabelText="Price"
             type='number'
           /><br />
-          <SelectField defaultValue={condition}
+          <SelectField value={condition}
             onChange={this._conditionChange}
             data-statekey="condition">
            <MenuItem value={'excellent'} primaryText="Excellent" />
@@ -61,8 +67,21 @@ class EditBook extends Component {
            <MenuItem value={'veryPoor'} primaryText="Very Poor" />
           </SelectField><br />
         </div>
+        <RaisedButton
+         label='Sell Book'
+         style={styles.button}
+         onClick={this._onSubmit} />
+        <RaisedButton
+         label='Cancel'
+         onClick={this._goHome} />
       </div>
     )
+  }
+}
+
+const styles = {
+  button: {
+    margin: 12
   }
 }
 
