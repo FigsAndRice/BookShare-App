@@ -153,7 +153,7 @@ class Cart extends Component {
             {CartItems}
           </tbody>
         </table>
-        <Checkout price={this.state.purchasePrice}/>
+        <Checkout amount ={this.state.purchasePrice} email={this.props.user.email}/>
         <h4 style={{float: "right", marginRight: "15px"}}><b>Subtotal ({numItems} items): ${totalPrice}</b></h4>
 
         <Snackbar
