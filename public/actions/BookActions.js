@@ -24,7 +24,7 @@ export function userBooks(books) {
 }
 
 export function getBook(book) {
-	RouteActions.route('/book');
+	RouteActions.route(`/book/${book.isbn}`);
 	return {
 		type: 'GET_BOOK',
 		payload: {book}
