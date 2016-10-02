@@ -46,11 +46,17 @@ class Book extends Component {
     let user = JSON.parse(localStorage.user)
     let book = JSON.parse(localStorage.book)
     this.props.receiveUser(user)
-    this.setState({
-      searchedBooks: this.props.searchedBooks
-    });
     this.props.searchBooks(this.props.params.isbn);
     this.props.getBook(book);
+
+    let searchBooks = this.props.searchedBooks.map(book => {
+      book.addToCart = false;
+      return book;
+    }); 
+    console.log('updated books ', searchBooks)
+    this.setState({
+      searchedBooks: this.props.searchBooks,
+    });
   }
 
   _addBook() {
