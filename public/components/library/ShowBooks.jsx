@@ -21,9 +21,6 @@ class ShowBooks extends Component {
   render(){
     let bookStatus;
     let bookView;
-    let favorites;
-    let favoriteStatus;
-    let favoriteView;
     if(!this.props.userBooks){
       bookView = (
         <div>
@@ -39,32 +36,39 @@ class ShowBooks extends Component {
       bookStatus = 'Your Books';
     }
 
-    if (!this.props.user.favorites) {
-      favoriteStatus = '';
-      favoriteView = <div></div>
-    } else {
-      let { user } = this.props;
-      favorites = this.props.user.favorites;
-      if (favorites.length > 0) {
-        favoriteStatus = 'Your Favorites';
-        favoriteView = favorites.map((favorite, index) => {
-          return <Favorite key={index} favorite={favorite} userId={user._id}/>
-        })
-      } else {
+    let favoriteView;
+    let favoriteStatus;
+    if (this.props.showFav) {
+      let favorites;
+      if (!this.props.user.favorites) {
         favoriteStatus = '';
         favoriteView = <div></div>
+      } else {
+        let { user } = this.props;
+        favorites = this.props.user.favorites;
+        if (favorites.length > 0) {
+          favoriteStatus = 'Your Favorites';
+          favoriteView = favorites.map((favorite, index) => {
+            return <Favorite key={index} favorite={favorite} userId={user._id}/>
+          })
+        } else {
+          favoriteStatus = '';
+          favoriteView = <div></div>
+        }
       }
+    } else {
+      favoriteView = <div></div>
     }
 
     return (
       <div className="showbook container">
-        <div className='row'>
-          <h1>{bookStatus}</h1>
-          {bookView}
-        </div>
         <div className="row">
           <h1>{favoriteStatus}</h1>
           {favoriteView}
+        </div>
+        <div className='row'>
+          <h1>{bookStatus}</h1>
+          {bookView}
         </div>
       </div>
     );
@@ -74,7 +78,8 @@ class ShowBooks extends Component {
 const mapStateTopProps = (state) => {
   return {
     user: state.user,
-    userBooks: state.books.userBooks
+    userBooks: state.books.userBooks,
+    showFav: state.showFav
   }
 }
 
