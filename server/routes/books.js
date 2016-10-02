@@ -47,6 +47,12 @@ router.delete('/removePicture/:bookid', (req, res) => {
   });
 });
 
+router.put('/edit/:id', (req, res) => {
+  Book.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+    .then(() => res.send())
+    .catch(err => res.status(400).send(err))
+});
+
 router.delete('/:id', (req, res) => {
   Book.findByIdAndRemove(req.params.id, err => {
     if (err) return res.status(400).send(err);
@@ -102,11 +108,5 @@ router.delete('/:bookid/:imageid', Image.RemoveMiddleware, (req , res) => {
       });
     });
 });
-
-router.put('/:id', (req, res) => {
-  Book.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
-    .then(() => res.send())
-    .catch(err => res.status(400).send(err))
-  })
 
 module.exports = router;

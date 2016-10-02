@@ -18,7 +18,6 @@ class BookPicUploader extends Component {
   }
 
   _upload(){
-    console.log("this.file",this.state.file);
     this.props.uploadImg(this.state.file);
   }
 

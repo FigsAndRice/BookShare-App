@@ -14,8 +14,7 @@ class EditBook extends Component {
     this.state = {
       price: 0,
       forSale: false,
-      condition: '',
-      image: this.props.image._id
+      condition: ''
     }
     this._onSubmit = this._onSubmit.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
@@ -37,13 +36,18 @@ class EditBook extends Component {
 
  }
  _onSubmit(){
-   console.log('this.state:', this.state)
+   let obj = this.state;
+   obj.image = this.props.image.url;
+   obj.forSale = true;
+
+   this.props.forSale(this.props.params.id, obj);
  }
  _goHome(){
    RouteActions.route('/')
  }
   render(){
-    let { price, condition } = this.state
+    let { price, condition } = this.state;
+
     return(
       <div className='container'>
         <div className="col-xs-6">
@@ -93,7 +97,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    forSale: (bookObj) => { dispatch(forSale(bookobj)) }
+    forSale: (id, bookObj) => { dispatch(forSale(id, bookObj)) }
   }
 }
 

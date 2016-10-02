@@ -42,6 +42,16 @@ export function addBook(book, userId) {
 }
 
 
+export function forSale(bookId, bookObj) {
+	return dispatch => {
+		axios.put(`/api/books/edit/${bookId}`, bookObj)
+			.then(() => {
+				dispatch(RouteActions.route('/'));
+			})
+			.catch(console.error)
+	}
+}
+
 export function deleteBook(bookId, userId) {
 	return dispatch => {
 		axios.delete(`/api/books/${bookId}`)
