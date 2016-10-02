@@ -25,7 +25,7 @@ var User = new Schema({
   //books: [{type: Schema.Types.ObjectId, ref: 'Book', unique: true}],
   favorites: [{type: Schema.Types.ObjectId, ref: 'Book'}],
   cart: [{type: Schema.Types.ObjectId, ref: 'Book'}],
-  picture: {type: String, default: ''}
+  picture: {type: String, default: 'http://www.biglunchextras.com/sites/default/files/user-default.png'}
 });
 
 User.plugin(passportLocalMongoose);
