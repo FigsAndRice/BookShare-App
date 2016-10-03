@@ -31,6 +31,20 @@ class Checkout extends React.Component {
     		.catch(error => console.error)
     }
     render() {
+        if (this.props.checkoutStatus) {
+          return (
+            <RaisedButton
+              disabled={true}
+              label="Checkout"
+              primary={false}
+              style={{float: "right"}}
+              labelColor={yellow600}
+              backgroundColor={lightBlue900}
+              icon={<FontIcon className="material-icons">check_circle</FontIcon>}
+              />
+          )
+        }
+
         return (
         	<div>
         		<StripeCheckout
@@ -42,6 +56,7 @@ class Checkout extends React.Component {
         			amount={this.props.amount}
         			email={this.props.email}
         			zipCode={true}
+              allowRemember={false}
         			triggerEvent="onTouchTap"
         		>
         			<RaisedButton
