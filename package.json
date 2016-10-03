@@ -10,6 +10,9 @@
     "elint:table": "eslint . — ext .js — ext .jsx — cache — format table || true",
     "elint:summary": "eslint . — ext .js — ext .jsx — cache — format ‘node_modules/eslint-friendly-formatter’ || true"
   },
+  "engines": {
+    "node" : "6.3.1" 
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/juancafe4/BookShare-App.git"
