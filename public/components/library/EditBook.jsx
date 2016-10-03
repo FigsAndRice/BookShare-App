@@ -71,34 +71,44 @@ class EditBook extends Component {
     if (picture !== undefined){
       img = picture;
     }
-    
+
     return(
-      <div className='container'>
-        <div className="col-xs-6">
+      <div className="container text-center">
+        <div className="col-md-6">
           <BookPicUploader imgUrl={img}/>
         </div>
-        <div className="col-xs-6">
-          <TextField
-            id="text-field-default"
-            onChange={this._onInputChange}
-            data-statekey="price"
-            defaultValue={price}
-            type='number'
-          /><br />
-          <SelectField value={condition}
-            onChange={this._conditionChange}
-            data-statekey="condition">
-           <MenuItem value={'excellent'} primaryText="Excellent" />
-           <MenuItem value={'good'} primaryText="Good" />
-           <MenuItem value={'fair'} primaryText="Fair" />
-           <MenuItem value={'poor'} primaryText="Poor" />
-           <MenuItem value={'veryPoor'} primaryText="Very Poor" />
-          </SelectField><br />
-          <SelectField value={forSale}
-            onChange={this._toggleSale}>
-           <MenuItem value={true} primaryText="For Sale" />
-           <MenuItem value={false} primaryText="Not For Sale" />
-          </SelectField><br />
+        <div className="col-md-6">
+          <form className="form">
+            <div>
+              <SelectField value={condition}
+                onChange={this._conditionChange}
+                floatingLabelText="Book Condition"
+                floatingLabelFixed={true}
+                data-statekey="condition">
+                <MenuItem value={'excellent'} primaryText="Excellent" />
+                <MenuItem value={'good'} primaryText="Good" />
+                <MenuItem value={'fair'} primaryText="Fair" />
+                <MenuItem value={'poor'} primaryText="Poor" />
+                <MenuItem value={'veryPoor'} primaryText="Very Poor" />
+              </SelectField><br />
+              <SelectField value={forSale}
+                floatingLabelText="Offer"
+                floatingLabelFixed={true}
+                onChange={this._toggleSale}>
+                <MenuItem value={true} primaryText="For Sale" />
+                <MenuItem value={false} primaryText="Not For Sale" />
+              </SelectField><br />
+              <TextField
+                id="text-field-default"
+                onChange={this._onInputChange}
+                data-statekey="price"
+                defaultValue={price}
+                floatingLabelText="Price"
+                floatingLabelFixed={true}
+                type='number'
+              />
+            </div>
+          </form>
         </div>
         <RaisedButton
          label='Edit Book'

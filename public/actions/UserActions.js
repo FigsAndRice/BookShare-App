@@ -1,6 +1,5 @@
 import axios from 'axios';
 import RouteActions from './RouteActions';
-import clearImgstore from './ImageActions';
 
 export function updateUser(id,updateInfo) {
   return dispatch => {
@@ -10,7 +9,6 @@ export function updateUser(id,updateInfo) {
           dispatch(receiveUser(res.data))
           RouteActions.route('/')
         })
-        .then(clearImgstore())
         .catch(console.error)
   }
 }
