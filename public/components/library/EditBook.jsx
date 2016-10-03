@@ -65,12 +65,17 @@ class EditBook extends Component {
    RouteActions.route('/')
  }
   render(){
-    let { price, condition, forSale } = this.state;
+    let { price, condition, forSale , picture} = this.state;
 
+    let img = 'http://1615.info/images/red-book.jpg';
+    if (picture !== undefined){
+      img = picture;
+    }
+    
     return(
       <div className='container'>
         <div className="col-xs-6">
-          <BookPicUploader />
+          <BookPicUploader imgUrl={img}/>
         </div>
         <div className="col-xs-6">
           <TextField

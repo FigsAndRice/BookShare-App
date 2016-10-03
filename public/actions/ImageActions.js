@@ -12,9 +12,23 @@ export function uploadImg(imgFile) {
   }
 }
 
+export function clearImgstore(){
+  return dispatch => {
+    dispatch(removeImg());
+  }
+}
+
 export function imageUploaded(image) {
 	return {
 		type: 'UPLOADED_IMG',
 		payload: { image }
 	}
+}
+
+
+export function removeImg() {
+  return {
+    type: 'REMOVE_IMG',
+    payload: {}
+  }
 }
