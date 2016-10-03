@@ -2,7 +2,7 @@ import React , { Component} from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { uploadImg } from '../../actions/ImageActions'
-import { TextField, RaisedButton } from 'material-ui'
+import { TextField, RaisedButton, Dialog, CircularProgress } from 'material-ui'
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors'
 
 class BookPicUploader extends Component {
@@ -11,15 +11,22 @@ class BookPicUploader extends Component {
     super(props);
     this.state={
       file : '',
-      imgpreURL : 'http://1615.info/images/red-book.jpg'
+      imgpreURL : this.props.imgUrl,
+      open : false
     };
     this._onInputChange=this._onInputChange.bind(this);
-    this._upload=this._upload.bind(this);
+    this._handleOpen=this._handleOpen.bind(this);
+    this._handleClose=this._handleClose.bind(this);
+    // this._upload=this._upload.bind(this);
   }
 
-  _upload(){
-    this.props.uploadImg(this.state.file);
-  }
+  _handleOpen(){
+    this.setState({open : true})
+  };
+
+  _handleClose(){
+    this.setState({open : false})
+  };
 
   _onInputChange(e){
    let reader = new FileReader();
@@ -31,30 +38,39 @@ class BookPicUploader extends Component {
        file,
        imgpreURL : reader.result
      });
+     this.props.uploadImg(this.state.file);
    };
    reader.readAsDataURL(file);
+   this._handleOpen();
+  }
+
+  componentWillReceiveProps(){
+    this._handleClose();
   }
 
   render() {
     return (
       <div>
+        <Dialog
+        modal={false}
+        open={this.state.open}
+        contentStyle={DialogStyle}
+        >
+          <div style={progressStyle}>
+            <h4>UPLOADING IMAGE...</h4>
+            <CircularProgress size={2} />
+          </div>
+        </Dialog>
         <img style={imgstyle} src={this.state.imgpreURL} />
-        <div>
-          <RaisedButton
-            label="select an image"
-            labelPosition="before"
-            style={styles.button}
-          >
-            <input type="file" style={styles.ImageInput} onChange={this._onInputChange} />
-          </RaisedButton>
-          <RaisedButton
-            label="upload image"
-            labelPosition="before"
-            style={styles.button}
-            onClick={this._upload}
-          >
-          </RaisedButton>
-        </div>
+          <div className="row">
+            <RaisedButton
+              label="select an image"
+              labelPosition="before"
+              style={styles.button}
+            >
+              <input type="file" style={styles.ImageInput} onChange={this._onInputChange} />
+            </RaisedButton>
+          </div>
       </div>
     );
   }
@@ -100,4 +116,31 @@ const styles = {
     width: '100%',
     opacity: 0,
   },
+};
+
+const DialogStyle = {
+  width: '250px',
+};
+
+const progressStyle = {
+  textAlign : 'center',
+  margin : 'auto',
+  padding : '10px',
+}
+
+const showPopup = {
+  display : 'block',
+  position : 'fixed',
+  padding: 0,
+  margin: 0,
+  top : 0,
+  left : 0,
+  zIndex : '100',
+  backgroundColor : 'rgba(0, 0, 0, 0.45)',
+  height : '100%',
+  width : '100%'
+}
+
+const hidePopup = {
+  display : 'none',
 };

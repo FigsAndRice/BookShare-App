@@ -58,6 +58,7 @@ class ProfileForm extends Component {
     let { username , firstName , lastName , email , phone , picture} = this.state;
     let imgl = this.props.user.picture;
     let imgUrl = this.props.image.url;
+
     if (imgl === undefined ) {
       imgl = 'http://www.biglunchextras.com/sites/default/files/user-default.png';
     }
@@ -126,6 +127,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateUser: (id,state) => {dispatch(updateUser(id,state))},
     uploadImg: (imgfile) => {dispatch(uploadImg(imgfile))},
+    clearImgstore: () => {dispatch(clearImgstore())},
     receiveUser: (user) => {dispatch(receiveUser(user))}
   }
 }

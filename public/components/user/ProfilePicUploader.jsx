@@ -53,13 +53,7 @@ class ProfilePicUploader extends Component {
   }
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this._handleClose}
-      />
-    ];
+
     let progressPopup = hidePopup;
 
     return (
