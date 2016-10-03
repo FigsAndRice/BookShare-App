@@ -56,7 +56,6 @@ class ProfileForm extends Component {
   }
   render(){
     let { username , firstName , lastName , email , phone , picture} = this.state;
-    console.log('ProfileForm',this.state);
     let imgl = this.props.user.picture;
     let imgUrl = this.props.image.url;
     if (imgl === undefined ) {
