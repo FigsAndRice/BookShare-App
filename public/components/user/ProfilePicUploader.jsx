@@ -33,10 +33,10 @@ class ProfilePicUploader extends Component {
     this.setState({open : false})
   };
 
-  _upload(){
-    this.props.uploadImg(this.state.file);
-    this._handleOpen();
-  }
+  // _upload(){
+  //   this.props.uploadImg(this.state.file);
+  //   this._handleOpen();
+  // }
 
   _onInputChange(e){
    let reader = new FileReader();
@@ -48,8 +48,10 @@ class ProfilePicUploader extends Component {
        file,
        imgpreURL : reader.result
      });
+     this.props.uploadImg(this.state.file);
    };
    reader.readAsDataURL(file);
+   this._handleOpen();
   }
 
   componentWillReceiveProps(){
@@ -74,9 +76,18 @@ class ProfilePicUploader extends Component {
     // if (this.props.image !== null){
     //   progressPopup = showPopup;
     // }
-    console.log('img uploader',this.props.imgUrl);
     return (
       <div>
+          <Dialog
+          modal={false}
+          open={this.state.open}
+          contentStyle={DialogStyle}
+          >
+          <div style={progressStyle}>
+            <h4>UPLOADING IMAGE...</h4>
+            <CircularProgress size={2} />
+          </div>
+          </Dialog>
         {/* <div style={progressPopup}>
           <div style={DialogStyle}>
             <h4>Uploading Image.....</h4>
@@ -87,30 +98,22 @@ class ProfilePicUploader extends Component {
         </div> */}
         <img style={imgstyle} src={this.state.imgpreURL} />
             {/* <RaisedButton label="Dialog" onTouchTap={this._handleOpen} /> */}
-             <Dialog
-               title="Uploading Image..."
-               modal={false}
-               open={this.state.open}
-               contentStyle={DialogStyle}
-             >
-
-               <CircularProgress size={2} />
-
-             </Dialog>
-          <RaisedButton
-            label="select an image"
-            labelPosition="before"
-            style={styles.button}
-          >
-            <input type="file" style={styles.ImageInput} onChange={this._onInputChange} />
-          </RaisedButton>
-          <RaisedButton
-            label="upload image"
-            labelPosition="before"
-            style={styles.button}
-            onClick={this._upload}
-          >
-          </RaisedButton>
+          <div className="row">
+            <RaisedButton
+              label="select an image"
+              labelPosition="before"
+              style={styles.button}
+            >
+              <input type="file" style={styles.ImageInput} onChange={this._onInputChange} />
+            </RaisedButton>
+            {/* <RaisedButton
+              label="upload image"
+              labelPosition="before"
+              style={styles.button}
+              onClick={this._upload}
+            >
+            </RaisedButton> */}
+          </div>
       </div>
     );
   }
@@ -159,15 +162,16 @@ const styles = {
 };
 
 const DialogStyle = {
-  width: '30%',
+  width: '250px',
   // margin : 'auto',
   // marginTop : '25%',
   // backgroundColor : 'white',
-  padding : '20px',
-  // maxWidth: '100px',
+  // padding : '20px',
+
 };
 
 const progressStyle = {
+  textAlign : 'center',
   margin : 'auto',
   padding : '10px',
 }
