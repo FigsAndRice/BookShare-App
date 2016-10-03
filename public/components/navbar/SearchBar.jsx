@@ -32,6 +32,7 @@ class SearchBar extends Component {
         <TextField
         hintText="Search Book Title"
         onChange={this._onChange}
+        value={this.state.bookTitle}
         />
       </form>
     )
