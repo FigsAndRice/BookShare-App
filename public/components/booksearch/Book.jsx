@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { browserHistory } from 'react-router';
 
-import { FloatingActionButton, AppBar, FontIcon, RaisedButton, List, ListItem, Subheader, Divider } from 'material-ui';
+import {Snackbar, FloatingActionButton, AppBar, FontIcon, RaisedButton, List, ListItem, Subheader, Divider } from 'material-ui';
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
 
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
