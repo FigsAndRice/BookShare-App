@@ -29,7 +29,7 @@ export function getResults(query) {
 	        		books.push(book, query);
 	        	});
 
-	        	dispatch(showResults(books))
+	        	dispatch(showResults(books, query))
 	        }
 	        else {
 	        	dispatch(showResults([], null))
@@ -40,7 +40,7 @@ export function getResults(query) {
 }
 
 export function showResults(results, query) {
-	browserHistory.push(`/results/${query}`)
+	browserHistory.push(`/results/`)
 	return {
 		type:'GET_RESULTS',
     payload: {
