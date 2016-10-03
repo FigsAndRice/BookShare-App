@@ -64,12 +64,18 @@ class Book extends Component {
   }
 
   componentWillReceiveProps(props) {
-
+    let cartIds = props.user.cart.map(cartItem => {
+      return cartItem._id;
+    })
     if (props.search ) {
       let searchBooks = props.search.map(book => {
-        book.addToCart = false;
+        if (cartIds.includes(book._id)) {
+          book.addToCart = true;
+        } else {
+          book.addToCart = false;
+        }
         return book;
-      }); 
+      });
       this.setState({
         searchedBooks: searchBooks,
       });
@@ -133,7 +139,7 @@ class Book extends Component {
 
       const userBooks = this.state.searchedBooks.map((existingBook, index) => {
         let bookPicture;
-        if (existingBook.picture.length) {
+        if (existingBook.picture) {
           bookPicture = <img src={existingBook.picture} className="img-responsive" style={styles.gridTile}/>
         } else {
           bookPicture = <img src={book.pictureNormal} className="img-responsive" style={styles.gridTile}/>
@@ -141,7 +147,7 @@ class Book extends Component {
 
 
         //addToCart -> false call add cart
-        //addToCart -> true call remove cart 
+        //addToCart -> true call remove cart
         let btnAction = 'remove_shopping_cart';
         if (!existingBook.addToCart) {
            btnAction = 'add_shopping_cart';

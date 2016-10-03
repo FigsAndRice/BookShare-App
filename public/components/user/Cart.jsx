@@ -87,8 +87,8 @@ class Cart extends Component {
           price = <h3>$0.00</h3>
         }
 
-        if (item.picture.length > 0) {
-          url = item.picture[0];
+        if (item.picture) {
+          url = item.picture;
         } else {
           url = item.cover;
         }
