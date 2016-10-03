@@ -62,3 +62,7 @@ body {
   font-family: 'Pattaya', sans-serif;
   text-shadow: 2px 2px #FDD835;
 }
+
+.sellBook {
+  background-color: pink;
+}

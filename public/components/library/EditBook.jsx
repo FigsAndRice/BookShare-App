@@ -11,12 +11,25 @@ class EditBook extends Component {
   constructor(props){
     super(props)
 
+    let { books } = props;
+    let thisBook = books.filter(book => {
+      if(book._id === this.props.params.id){
+        return book;
+      } else {
+        return;
+      }
+    })
+
+    let { price, forSale, condition } = thisBook[0];
+
     this.state = {
-      price: 0,
-      forSale: false,
-      condition: ''
+      price,
+      forSale,
+      condition,
+      picture
     }
     this._onSubmit = this._onSubmit.bind(this);
+    this._toggleSale = this._toggleSale.bind(this);
     this._onInputChange = this._onInputChange.bind(this);
     this._conditionChange = this._conditionChange.bind(this);
   }
@@ -35,10 +48,16 @@ class EditBook extends Component {
    })
 
  }
+ _toggleSale(e, index, value){
+
+   this.setState({
+     forSale: value
+   })
+
+ }
  _onSubmit(){
    let obj = this.state;
    obj.picture = this.props.image.url;
-   obj.forSale = true;
 
    this.props.forSale(this.props.params.id, obj, this.props.user._id);
  }
@@ -46,7 +65,7 @@ class EditBook extends Component {
    RouteActions.route('/')
  }
   render(){
-    let { price, condition } = this.state;
+    let { price, condition, forSale } = this.state;
 
     return(
       <div className='container'>
@@ -70,9 +89,14 @@ class EditBook extends Component {
            <MenuItem value={'poor'} primaryText="Poor" />
            <MenuItem value={'veryPoor'} primaryText="Very Poor" />
           </SelectField><br />
+          <SelectField value={forSale}
+            onChange={this._toggleSale}>
+           <MenuItem value={'true'} primaryText="For Sale" />
+           <MenuItem value={'false'} primaryText="Not For Sale" />
+          </SelectField><br />
         </div>
         <RaisedButton
-         label='Sell Book'
+         label='Edit Book'
          style={styles.button}
          onClick={this._onSubmit} />
         <RaisedButton
@@ -92,7 +116,8 @@ const styles = {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    image: state.image
+    image: state.image,
+    books: state.books.userBooks
   }
 }
 
