@@ -64,9 +64,7 @@
     "should": "^11.1.0",
     "stripe": "^4.11.0",
     "uuid": "^2.0.3",
-    "webpack": "^1.13.1"
-  },
-  "devDependencies": {
+    "webpack": "^1.13.1",
     "babel-cli": "^6.11.4",
     "babel-core": "^6.13.2",
     "babel-eslint": "^7.0.0",
