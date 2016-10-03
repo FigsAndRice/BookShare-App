@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { browserHistory } from 'react-router';
+
 import { FloatingActionButton, AppBar, FontIcon, RaisedButton, List, ListItem, Subheader, Divider } from 'material-ui';
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
 
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
-import { addToCart, addFavorite, getUser, receiveUser} from '../../actions/UserActions';
-import { addBook, removeFromCart, searchBooks, getBook } from '../../actions/BookActions';
+import { addToCart, removeFromCart, addFavorite, getUser, receiveUser} from '../../actions/UserActions';
+import { addBook, searchBooks, getBook } from '../../actions/BookActions';
 
 const styles = {
   bookCover: {
@@ -53,6 +55,7 @@ class Book extends Component {
   }
 
   componentWillReceiveProps(props) {
+
     if (props.search ) {
       let searchBooks = props.search.map(book => {
         book.addToCart = false;
@@ -68,25 +71,42 @@ class Book extends Component {
     this.props.addBook(this.props.book, this.props.user._id);
   }
   _updateCart(book) {
-    if (book.addToCart) {
+    let id = this.props.user._id;
+    if (!book.addToCart) {
+      this._addToCart(id, book._id);
 
     }
     else {
-
+      this._removeFromCart(id, book._id);
     }
+
+    book.addToCart = !book.addToCart
+
+    let books = this.state.searchedBooks.map(bk => {
+      if (bk._id == book._id) {
+        return book; //
+      }
+      else
+        return bk;
+    });
+
+    this.setState({
+        searchedBooks: books,
+    });
   }
   _addToCart(id, bookId) {
-    this.props.addToCart(this.props.user._id, bookId);
+    this.props.addToCart(id, bookId);
   }
 
   _removeFromCart(id, bookId) {
-    this.props.removeFromCart(this.props..user._id, bookId);
+    this.props.removeFromCart(id, bookId);
   }
   _addFavorite(e) {
     this.props.addFavorite(this.props.user._id, e.target.dataset.bookid);
   }
   render() {
-    if (this.props.search && this.state.searchedBooks) {
+    if (this.state.searchedBooks) {
+      console.log('rendering');
       let { book, searchedBooks } = this.props;
 
       const userBooks = this.state.searchedBooks.map((existingBook, index) => {
@@ -98,9 +118,9 @@ class Book extends Component {
         }
 
 
-        //addToCart -> true 
+        //addToCart -> false call add cart
+        //addToCart -> true call remove cart 
         let btnAction = 'remove_shopping_cart';
-    
         if (!existingBook.addToCart) {
            btnAction = 'add_shopping_cart';
         }
