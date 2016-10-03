@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
+import RouteActions from '../actions/RouteActions';
+import { removeFromCart } from '../actions/UserActions';
 
 import {RaisedButton, FontIcon, Snackbar} from 'material-ui';
 import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
@@ -29,9 +32,10 @@ class Checkout extends React.Component {
     			this.showMessage();
           this.props.bookIds.forEach(id => {
             axios.put(`/api/books/${id}/changeOwner/${this.props.userId}`)
-              .then(res => console.log(res.data))
+              .then(this.props.removeFromCart(this.props.userId, id))
               .catch(console.error)
           })
+          RouteActions.route('/');
     		})
     		.catch(error => console.error)
     }
@@ -85,4 +89,16 @@ class Checkout extends React.Component {
     }
 }
 
-export default Checkout;
+const mapStateToProps = (state) => {
+  return {
+    state
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeFromCart: (userId, bookId) => {dispatch(removeFromCart(userId, bookId))}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

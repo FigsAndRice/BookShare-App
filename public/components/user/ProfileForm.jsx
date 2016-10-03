@@ -29,7 +29,7 @@ class ProfileForm extends Component {
 
   componentDidMount() {
     let user = JSON.parse(localStorage.user)
-    this.props.receiveUser(user);    
+    this.props.receiveUser(user);
     let { username, firstName, lastName, email, phone} = user;
     this.setState({
       username, firstName, lastName, email, phone
@@ -55,14 +55,18 @@ class ProfileForm extends Component {
 
   }
   render(){
-    let { username , firstName , lastName , email , phone } = this.state;
-
+    let { username , firstName , lastName , email , phone , picture} = this.state;
+    console.log('ProfileForm',this.state);
+    let imgl = this.props.user.picture;
     let imgUrl = this.props.image.url;
+    if (imgl === undefined ) {
+      imgl = 'http://www.biglunchextras.com/sites/default/files/user-default.png';
+    }
 
     return (
       <div className="container text-center">
         <div className="col-md-6">
-          <ProfilePicUploader />
+          <ProfilePicUploader imgUrl={imgl}/>
         </div>
         <div className="col-md-6">
           <form style={editform}>

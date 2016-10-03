@@ -16,7 +16,7 @@ class ProfilePicUploader extends Component {
     super(props);
     this.state={
       file : '',
-      imgpreURL : 'http://www.biglunchextras.com/sites/default/files/user-default.png',
+      imgpreURL : this.props.imgUrl,
       open : false
     };
     this._onInputChange=this._onInputChange.bind(this);
@@ -74,6 +74,7 @@ class ProfilePicUploader extends Component {
     // if (this.props.image !== null){
     //   progressPopup = showPopup;
     // }
+    console.log('img uploader',this.props.imgUrl);
     return (
       <div>
         {/* <div style={progressPopup}>
