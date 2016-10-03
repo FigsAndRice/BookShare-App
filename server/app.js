@@ -55,6 +55,8 @@ if (process.env.NODE_ENV !== 'production') {
   }));
 
   app.use(require('webpack-hot-middleware')(compiler));
+} else {
+  app.use(express.static(path.join(__dirname, '../build')));
 }
 
 // GENERAL MIDDLEWARE
