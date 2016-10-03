@@ -5,8 +5,10 @@ const passport = require('passport');
 
 const User = require('../models/user');
 
-const dotenv = require('dotenv');
-dotenv.load();
+if (process.env.NODE_ENV !== 'production') {
+  const dotenv = require('dotenv');
+  dotenv.load();
+}
 
 const helper = require('sendgrid').mail;
 
