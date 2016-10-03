@@ -26,21 +26,21 @@ export function getResults(query) {
 	        		let description =  val.volumeInfo.description;
 	        		
 	        		let book = {title, authors, isbn, picture, pictureNormal, description};
-	        		books.push(book);
+	        		books.push(book, query);
 	        	});
 
 	        	dispatch(showResults(books))
 	        }
 	        else {
-	        	dispatch(showResults([]))
+	        	dispatch(showResults([], null))
 	        }
 	       
 	      })
 	      .catch(error => console.error);
 }
 
-export function showResults(results) {
-	browserHistory.push(`/results`)
+export function showResults(results, query) {
+	browserHistory.push(`/results/${query}`)
 	return {
 		type:'GET_RESULTS',
     payload: {
