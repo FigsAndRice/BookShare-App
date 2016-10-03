@@ -3,7 +3,6 @@ const AWS_URL_BASE = 'https://s3-us-west-2.amazonaws.com/';
 const mongoose = require('mongoose');
 const uuid = require('uuid');
 const path = require('path');
-require('dotenv').config();
 const AWS = require('aws-sdk');
 const async = require('async');
 
@@ -15,7 +14,7 @@ const ImageSchema = new mongoose.Schema({
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
-  
+
 }
 const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 const AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
