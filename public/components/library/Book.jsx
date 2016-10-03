@@ -23,17 +23,16 @@ class Book extends Component{
 
   render(){
 
-    let { title, cover, author, forSale, _id } = this.props.book
+    let { title, cover, author, forSale, _id, price } = this.props.book
     let picUrl = (cover === undefined) ? 'http://1615.info/images/red-book.jpg' : cover;
-    let status = forSale ? "sellBook" : ""
+    let status = forSale ? '$' + price.toFixed(2) : "Not For Sale"
 
     return(
     <div className="col-sm-4 col-md-4 col-lg-4 bookbox">
-      <div className={status}>
-        <img width="150px" className="img-rounded fixedBookHeight center-block" src={picUrl} alt="NO_IMG"/>
-        <RaisedButton onClick={this._editBook.bind(null, _id)}>Edit</RaisedButton>
-        <RaisedButton onClick={this._delete.bind(null, _id, this.props.userId)}>Delete</RaisedButton>
-      </div>
+      <h5>{status}</h5>
+      <img width="150px" className="img-rounded fixedBookHeight center-block" src={picUrl} alt="NO_IMG"/>
+      <RaisedButton onClick={this._editBook.bind(null, _id)}>Edit</RaisedButton>
+      <RaisedButton onClick={this._delete.bind(null, _id, this.props.userId)}>Delete</RaisedButton>
     </div>
     )
   }

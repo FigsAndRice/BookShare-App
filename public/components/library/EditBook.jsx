@@ -20,7 +20,7 @@ class EditBook extends Component {
       }
     })
 
-    let { price, forSale, condition } = thisBook[0];
+    let { price, forSale, condition, picture } = thisBook[0];
 
     this.state = {
       price,
@@ -91,8 +91,8 @@ class EditBook extends Component {
           </SelectField><br />
           <SelectField value={forSale}
             onChange={this._toggleSale}>
-           <MenuItem value={'true'} primaryText="For Sale" />
-           <MenuItem value={'false'} primaryText="Not For Sale" />
+           <MenuItem value={true} primaryText="For Sale" />
+           <MenuItem value={false} primaryText="Not For Sale" />
           </SelectField><br />
         </div>
         <RaisedButton
