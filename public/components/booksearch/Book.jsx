@@ -139,6 +139,12 @@ class Book extends Component {
       let { book, searchedBooks } = this.props;
 
       const userBooks = this.state.searchedBooks.map((existingBook, index) => {
+        if (!existingBook.forSale) {
+          return (
+            <div></div>
+          )
+        }
+
         let bookPicture;
         if (existingBook.picture) {
           bookPicture = <img src={existingBook.picture} className="img-responsive" style={styles.gridTile}/>
