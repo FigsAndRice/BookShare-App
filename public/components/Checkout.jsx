@@ -27,6 +27,11 @@ class Checkout extends React.Component {
     	axios.post('/api/payments/charge', {token: token.id, amount: 10000})
     		.then(res => {
     			this.showMessage();
+          this.props.bookIds.forEach(id => {
+            axios.put(`/api/books/${id}/changeOwner/${this.props.userId}`)
+              .then(res => console.log(res.data))
+              .catch(console.error)
+          })
     		})
     		.catch(error => console.error)
     }
