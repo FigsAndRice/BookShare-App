@@ -13,4 +13,4 @@ export default combineReducers({
   searchedBooks,
   image,
   showFav
-})
+});
