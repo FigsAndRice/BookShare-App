@@ -13,6 +13,10 @@ const ImageSchema = new mongoose.Schema({
   date: {type: Date, default: Date.now}
 });
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+  
+}
 const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 const AWS_SECRET_KEY = process.env.AWS_SECRET_KEY;
 
