@@ -23,8 +23,8 @@ class Book extends Component{
 
   render(){
 
-    let { title, cover, author, forSale, _id, price } = this.props.book
-    let picUrl = (cover === undefined) ? 'http://1615.info/images/red-book.jpg' : cover;
+    let { title, cover, picture, author, forSale, _id, price } = this.props.book
+    let picUrl = (picture === undefined) ? cover : picture;
     let status = forSale ? '$' + price.toFixed(2) : "Not For Sale"
 
     return(

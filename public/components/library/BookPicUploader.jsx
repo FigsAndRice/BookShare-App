@@ -61,16 +61,16 @@ class BookPicUploader extends Component {
             <CircularProgress size={2} />
           </div>
         </Dialog>
-        <img style={imgstyle} src={this.state.imgpreURL} />
-          <div className="row">
-            <RaisedButton
-              label="select an image"
-              labelPosition="before"
-              style={styles.button}
-            >
-              <input type="file" style={styles.ImageInput} onChange={this._onInputChange} />
-            </RaisedButton>
-          </div>
+          <img style={imgstyle} src={this.state.imgpreURL} />
+        <div className="row">
+          <RaisedButton
+          label="select an image"
+          labelPosition="before"
+          style={styles.button}
+          >
+            <input type="file" style={styles.ImageInput} onChange={this._onInputChange} />
+          </RaisedButton>
+        </div>
       </div>
     );
   }
@@ -143,4 +143,4 @@ const showPopup = {
 
 const hidePopup = {
   display : 'none',
-};
+}
