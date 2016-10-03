@@ -37,6 +37,8 @@ class Book extends Component {
 
     this.state = {
       searchedBooks: null,
+      openAddCart: false,
+      openRemoveCart: false,
     }
 
     this._addBook = this._addBook.bind(this);
@@ -44,6 +46,13 @@ class Book extends Component {
     this._addFavorite = this._addFavorite.bind(this);
     this._updateCart = this._updateCart.bind(this);
     this._removeFromCart = this._removeFromCart.bind(this);
+
+    this.showAddMessage = this.showAddMessage.bind(this);
+    this.showRemoveMessage = this.showRemoveMessage.bind(this);
+
+    this.hideAddMessage = this.hideAddMessage.bind(this);
+    this.hideRemoveMessage = this.hideRemoveMessage.bind(this);
+
   }
 
   componentDidMount() {
@@ -63,8 +72,21 @@ class Book extends Component {
       }); 
       this.setState({
         searchedBooks: searchBooks,
-      });   
+      });
     }
+  }
+
+  showAddMessage() {
+    this.setState({openAddCart: true});
+  }
+  showRemoveMessage() {
+    this.setState({openRemoveCart: true});
+  }
+  hideAddMessage() {
+    this.setState({openAddCart: false});
+  }
+  hideRemoveMessage() {
+    this.setState({openRemoveCart: false});
   }
 
   _addBook() {
@@ -74,10 +96,11 @@ class Book extends Component {
     let id = this.props.user._id;
     if (!book.addToCart) {
       this._addToCart(id, book._id);
-
+      this.showAddMessage();
     }
     else {
       this._removeFromCart(id, book._id);
+      this.showRemoveMessage();
     }
 
     book.addToCart = !book.addToCart
@@ -106,7 +129,6 @@ class Book extends Component {
   }
   render() {
     if (this.state.searchedBooks) {
-      console.log('rendering');
       let { book, searchedBooks } = this.props;
 
       const userBooks = this.state.searchedBooks.map((existingBook, index) => {
@@ -185,6 +207,18 @@ class Book extends Component {
               {userBooks}
             </List>
           </div>
+          <Snackbar
+              open={this.state.openAddCart}
+              message= {"Item has been added from your cart."}
+              autoHideDuration={1500}
+              onRequestClose={this.hideAddMessage}
+            />
+          <Snackbar
+              open={this.state.openRemoveCart}
+              message= {"Item has been removed to your cart."}
+              autoHideDuration={1500}
+              onRequestClose={this.hideRemoveMessage}
+            />
         </div>
       )
     }
