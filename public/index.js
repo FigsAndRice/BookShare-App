@@ -65,7 +65,7 @@ render(
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
 					<Route path="/results" component={Results} />
-          <Route path="/book" component={Book} />
+          <Route path="/book/:isbn" component={Book} />
           <Route path="/cart" component={Cart} onEnter={checkLogin(COOKIE_LOGIN)}/>
           <Route path='/editProfile' component={EditProfile} onEnter={checkLogin(COOKIE_LOGIN)}/>
         </Route>

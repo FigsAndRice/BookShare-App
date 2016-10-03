@@ -17,6 +17,7 @@ export function register(newUser) {
   return dispatch => {
     axios.post('/api/users/register', newUser)
     .then(() => {
+      localStorage.user = JSON.stringify(newUser);
       dispatch(receiveUser(newUser))
       RouteActions.route('/')
     })

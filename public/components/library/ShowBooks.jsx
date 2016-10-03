@@ -10,6 +10,10 @@ import Favorite from './Favorite.jsx';
 class ShowBooks extends Component {
   constructor(props){
     super(props);
+
+    this.state = {
+      results: [],
+    }
   }
 
   componentDidMount() {

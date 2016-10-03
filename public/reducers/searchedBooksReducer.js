@@ -3,6 +3,6 @@ export default function searchedBooksReducer(state = [], action){
     case 'SEARCHED_BOOKS':
       return	action.payload.books;
     default:
-      return state;
+      return null;
   }
 }
