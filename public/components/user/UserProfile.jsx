@@ -7,6 +7,7 @@ import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
 import {receiveUser} from '../../actions/UserActions'
 import ContentEdit from 'material-ui/svg-icons/editor/mode-edit';
 import ContentFav from 'material-ui/svg-icons/action/favorite';
+import FontIcon from 'material-ui/FontIcon';
 import { showFavorites } from '../../actions/FavoriteActions';
 
 class UserProfile extends Component {
@@ -37,6 +38,22 @@ class UserProfile extends Component {
     if (picture !== undefined){
         imgURL=picture;
     }
+
+    let favButton;
+    if (this.props.showFav) {
+      favButton = (
+        <FloatingActionButton onClick={this._showFavorites} backgroundColor={lightBlue900} style={FloatingBtn}>
+            <FontIcon className='material-icons'>favorite_border</FontIcon>
+        </FloatingActionButton>
+      )
+    } else {
+      favButton = (
+        <FloatingActionButton onClick={this._showFavorites} backgroundColor={lightBlue900} style={FloatingBtn}>
+            <ContentFav />
+        </FloatingActionButton>
+      )
+    }
+
     return (
         <div style={drawerContext}>
           <div>
@@ -50,9 +67,7 @@ class UserProfile extends Component {
                     <ContentEdit/>
                   </FloatingActionButton>
                 </Link>
-                <FloatingActionButton onClick={this._showFavorites} backgroundColor={lightBlue900} style={FloatingBtn}>
-                    <ContentFav />
-                </FloatingActionButton>
+                {favButton}
               </div>
           </div>
         </div>
