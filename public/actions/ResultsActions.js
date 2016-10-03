@@ -26,7 +26,7 @@ export function getResults(query) {
 	        		let description =  val.volumeInfo.description;
 	        		
 	        		let book = {title, authors, isbn, picture, pictureNormal, description};
-	        		books.push(book, query);
+	        		books.push(book);
 	        	});
 
 	        	dispatch(showResults(books, query))
@@ -40,7 +40,7 @@ export function getResults(query) {
 }
 
 export function showResults(results, query) {
-	browserHistory.push(`/results/`)
+	browserHistory.push(`/results/${query}`)
 	return {
 		type:'GET_RESULTS',
     payload: {

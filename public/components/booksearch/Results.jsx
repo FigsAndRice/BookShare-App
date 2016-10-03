@@ -5,7 +5,7 @@ import { List, ListItem, FloatingActionButton, FontIcon } from 'material-ui';
 import { yellow600, amber600, lightBlue900 } from 'material-ui/styles/colors';
 
 import { getBook, searchBooks } from '../../actions/BookActions';
-
+import { getResults } from '../../actions/ResultsActions';
 class Results extends React.Component {
     constructor(props) {
         super(props);
@@ -13,9 +13,12 @@ class Results extends React.Component {
         this.displayName = 'Results';
         this.selectBook = this.selectBook.bind(this);
     }
-
     selectBook(book) {
       this.props.getBook(book);
+    }
+    componentDidMount() {
+        if (!this.props.results)
+            this.props.getResults(this.props.params.query);
     }
     render() {
     	let { results } = this.props;
@@ -61,6 +64,7 @@ export default connect(state => ({
 	dispatch => {
     return {
       getBook: book => dispatch(getBook(book)),
-      searchBooks: isbn => dispatch(searchBooks(isbn))
+      searchBooks: isbn => dispatch(searchBooks(isbn)),
+      getResults: query => dispatch(getResults(query)),
     }
 })(Results)
