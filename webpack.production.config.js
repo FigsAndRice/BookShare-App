@@ -1,7 +1,5 @@
-let webpack = require('webpack');
-let path = require('path');
-
-let nodeModulesPath = path.resolve(__dirname, 'node_modules');
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   devtool: 'source-map',
