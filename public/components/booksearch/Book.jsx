@@ -66,6 +66,7 @@ class Book extends Component {
   componentWillReceiveProps(props) {
 
     if (props.search ) {
+      console.log('users ', this.props.user)
       let searchBooks = props.search.map(book => {
         book.addToCart = false;
         return book;
