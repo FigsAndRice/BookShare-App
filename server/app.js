@@ -13,9 +13,27 @@ const webpackConfig = require('../webpack.config');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const helmet = require('helmet');
+const session = require('express-session');
+const redis = require('redis')
+const RedisStore = require('connect-redis')(session);
+const url = require('url');
 
 mongoose.Promise = global.Promise;
 
+//REDIS SETUP 
+let store = null
+if (process.env.REDISTOGO_URL) {
+ let redisUrl = url.parse(process.env.REDISTOGO_URL);
+ let redisAuth = redisUrl.auth.split(':');
+ 
+ new RedisStore({
+  host: redisUrl.hostname,
+  port: redisUrl.port,
+  db: redisAuth[0],
+  pass: redisAuth[1]
+  });
+} 
 // DB CONNECT
 require('mongoose').connect(MONGO_URI, err => {
   if(err) throw err;
@@ -24,7 +42,7 @@ require('mongoose').connect(MONGO_URI, err => {
 
 // APP DECLARATION
 const app = express();
-
+app.use(helmet());
 // Since postinstall will also run when you run npm install
 // locally we make sure it only runs in production
 if (process.env.NODE_ENV !== 'production') {
@@ -44,9 +62,13 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+
 app.use(require('express-session')({
+    store: store,
     secret: 'keyboard cat',
     resave: false,
+    name : 'connect.sid',
     saveUninitialized: false,
     cookie: {httpOnly: false}
 }));
