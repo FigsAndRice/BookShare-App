@@ -3,6 +3,6 @@ export default function locationReducer(state = []	, action){
     case 'GET_RESULTS':
       return action.payload.results;
     default:
-      return state;
+      return null;
   }
 }

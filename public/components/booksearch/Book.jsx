@@ -68,6 +68,7 @@ class Book extends Component {
       return cartItem._id;
     })
     if (props.search ) {
+      console.log('users ', this.props.user)
       let searchBooks = props.search.map(book => {
         if (cartIds.includes(book._id)) {
           book.addToCart = true;

@@ -16,6 +16,7 @@ class Cart extends Component {
       open: false,
       purchasePrice: 0,
       numItems: 0,
+      bookIds: [],
       checkoutStatus: true
     }
 
@@ -60,16 +61,30 @@ class Cart extends Component {
 
     let itemPrice = parseInt(e.target.dataset.bookprice);
     let finalPrice = parseInt(this.state.purchasePrice);
+
     let countItems = this.state.numItems;
+
+    let itemId = e.target.dataset.bookid;
+    let checkoutIds = this.state.bookIds;
+
     if (e.target.checked) {
       if (itemPrice) {
         finalPrice += itemPrice;
         countItems += 1;
       }
+      if (!checkoutIds.includes(itemId)) {
+        checkoutIds.push(itemId);
+        this.setState({bookIds: checkoutIds});
+      }
     } else {
       if (itemPrice) {
         finalPrice -= itemPrice;
         countItems -= 1;
+      }
+      if (checkoutIds.includes(itemId)) {
+        let index = checkoutIds.indexOf(itemId);
+        checkoutIds.splice(index, 1);
+        this.setState({bookIds: checkoutIds});
       }
     }
 
@@ -116,6 +131,7 @@ class Cart extends Component {
                     <div className="col-xs-1">
                       <Checkbox
                         data-bookPrice={item.price}
+                        data-bookId={item._id}
                         onCheck={this._addPurchase}
                       />
                     </div>
@@ -158,7 +174,13 @@ class Cart extends Component {
             {CartItems}
           </tbody>
         </table>
-        <Checkout checkoutStatus={this.state.checkoutStatus} amount={this.state.purchasePrice * 100} email={this.props.user.email}/>
+        <Checkout
+          checkoutStatus={this.state.checkoutStatus}
+          amount={this.state.purchasePrice * 100}
+          email={this.props.user.email}
+          userId={this.props.user._id}
+          bookIds={this.state.bookIds}
+        />
         <h4 style={{float: "right", marginRight: "15px"}}><b>Subtotal {this.state.numItems} item(s): ${parseFloat(this.state.purchasePrice).toFixed(2)}</b></h4>
 
         <Snackbar
