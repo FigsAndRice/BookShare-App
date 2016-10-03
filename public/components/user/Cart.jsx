@@ -14,7 +14,9 @@ class Cart extends Component {
 
     this.state = {
       open: false,
-      purchasePrice: 0
+      purchasePrice: 0,
+      numItems: 0,
+      checkoutStatus: true
     }
 
     this._addFavorite = this._addFavorite.bind(this);
@@ -50,39 +52,42 @@ class Cart extends Component {
   }
 
   _addPurchase(e) {
-    let itemPrice = e.target.dataset.bookPrice;
-    let finalPrice = this.state.purchasePrice;
+    if (this.state.numItems) {
+      this.setState({checkoutStatus: true})
+    } else {
+      this.setState({checkoutStatus: false})
+    }
+
+    let itemPrice = parseInt(e.target.dataset.bookprice);
+    let finalPrice = parseInt(this.state.purchasePrice);
+    let countItems = this.state.numItems;
     if (e.target.checked) {
       if (itemPrice) {
         finalPrice += itemPrice;
+        countItems += 1;
       }
     } else {
       if (itemPrice) {
         finalPrice -= itemPrice;
+        countItems -= 1;
       }
     }
-    this.setState({purchasePrice: finalPrice});
+
+    this.setState({
+      purchasePrice: finalPrice,
+      numItems: countItems
+    });
   }
 
   render() {
     let { cart } = this.props.user;
-    let totalPrice = 0;
     let CartItems;
-    let numItems = 0;
     if (cart.length > 0) {
-      numItems = cart.length;
-
-      cart.forEach(item => {
-        if (item.price > 0) {
-          totalPrice += item.price;
-        }
-      })
-
       CartItems = cart.map((item, index) => {
         let price;
         let url;
         if (item.price) {
-          price = <h3>{item.price}</h3>
+          price = <h3>${parseFloat(item.price).toFixed(2)}</h3>
         } else {
           price = <h3>$0.00</h3>
         }
@@ -153,8 +158,8 @@ class Cart extends Component {
             {CartItems}
           </tbody>
         </table>
-        <Checkout amount ={this.state.purchasePrice} email={this.props.user.email}/>
-        <h4 style={{float: "right", marginRight: "15px"}}><b>Subtotal ({numItems} items): ${totalPrice}</b></h4>
+        <Checkout checkoutStatus={this.state.checkoutStatus} amount={this.state.purchasePrice * 100} email={this.props.user.email}/>
+        <h4 style={{float: "right", marginRight: "15px"}}><b>Subtotal {this.state.numItems} item(s): ${parseFloat(this.state.purchasePrice).toFixed(2)}</b></h4>
 
         <Snackbar
           open={this.state.open}
