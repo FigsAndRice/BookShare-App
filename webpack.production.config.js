@@ -21,6 +21,20 @@ module.exports = {
         include: path.join(__dirname, 'public'),
         loader: 'babel'
       },
+      plugins: [
+		    new webpack.optimize.DedupePlugin(),
+		    new webpack.optimize.UglifyJsPlugin({
+		      minimize: true,
+		      compress: {
+		        warnings: false
+		      }
+		    }),
+		    new webpack.DefinePlugin({
+		      'process.env': {
+		        'NODE_ENV': JSON.stringify('production')
+		      }
+		    })
+		  ],
       { test: /(\.css)$/, loaders: ['style', 'css'] },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
       { test: /\.(woff|woff2)$/, loader: 'url?prefix=font/&limit=5000' },
