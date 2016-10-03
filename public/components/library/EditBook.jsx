@@ -78,7 +78,7 @@ class EditBook extends Component {
           <BookPicUploader imgUrl={img}/>
         </div>
         <div className="col-md-6">
-          <form className="form">
+          <form>
             <div>
               <SelectField value={condition}
                 onChange={this._conditionChange}
