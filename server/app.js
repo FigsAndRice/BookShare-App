@@ -26,7 +26,7 @@ let store = null
 if (process.env.REDISTOGO_URL) {
  let redisUrl = url.parse(process.env.REDISTOGO_URL);
  let redisAuth = redisUrl.auth.split(':');
- 
+
  new RedisStore({
   host: redisUrl.hostname,
   port: redisUrl.port,
@@ -42,7 +42,7 @@ require('mongoose').connect(MONGO_URI, err => {
 
 // APP DECLARATION
 const app = express();
-app.use(helmet());
+//app.use(helmet());
 // Since postinstall will also run when you run npm install
 // locally we make sure it only runs in production
 if (process.env.NODE_ENV !== 'production') {
