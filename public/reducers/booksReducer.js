@@ -1,4 +1,4 @@
-export default function bookReducer(state = {}, action) {
+export default function bookReducer (state = {}, action) {
   switch (action.type) {
   case 'GET_BOOK':
     return Object.assign({}, state, {
