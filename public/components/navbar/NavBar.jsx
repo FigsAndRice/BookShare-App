@@ -46,10 +46,16 @@ class NavBar extends Component {
   }
 }
 
-const mapStateToProps = (state) => { state; };
+const mapStateToProps = (state) => {
+  return {
+    state
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
-  logout: (state) => { dispatch(logout(state)); };
+  return {
+    logout: (state) => {dispatch(logout(state))}
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

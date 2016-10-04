@@ -21,7 +21,7 @@ class SearchBar extends Component {
       bookTitle: ''
     });
 
-    this.props._getResults(query);
+    this.props.getResults(query);
   }
   _onChange(e) {
     this.setState({
@@ -41,7 +41,9 @@ class SearchBar extends Component {
   }
 }
 
-export default connect((state) => { state },
-dispatch => {
-  _getResults: (query) => dispatch(getResults(query))
-})(SearchBar);
+export default connect(state => ({
+  }),dispatch => {
+    return {
+      getResults : query => dispatch(getResults(query)),
+    }
+  })(SearchBar);
