@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, RaisedButton } from 'material-ui';
@@ -14,7 +15,7 @@ const styles = {
 
 class Register extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       username: '',
@@ -24,7 +25,7 @@ class Register extends Component {
       lastName: '',
       email: '',
       phone: ''
-    }
+    };
 
     this._onInputChange = this._onInputChange.bind(this);
     this._validatePassword = this._validatePassword.bind(this);
@@ -45,33 +46,31 @@ class Register extends Component {
   _validatePassword(password) {
     const regEx = /^(?=.*[\d])(?=.*[A-Z])(?=.*["\-\\;:,.'<>!\[{(*)}\]_|`+~@#$%^&\=\?*])[\w"\-\\;:,.'<>!\[{(*)}\]_|`+~@#$%^&\=\?*]{8,16}$/;
     if (!regEx.test(password)) {
-      alert("Password must contain 8-16 characters, 1 number, 1 uppercase letter, and 1 special character");
+      alert('Password must contain 8-16 characters, 1 number, 1 uppercase letter, and 1 special character');
       return false;
-    } else {
-      return true;
     }
+    return true;
   }
 
   _validateEmail(email) {
     const regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!regEx.test(email)) {
-      alert("Invalid email. Please enter a correct email address.");
+      alert('Invalid email. Please enter a correct email address.');
       return false;
-    } else {
-      return true;
     }
+    return true;
   }
 
   _submit(e) {
     e.preventDefault();
-    const { username, password1, password2, firstName, lastName, email, phone} = this.state;
+    const { username, password1, password2, firstName, lastName, email, phone } = this.state;
     if (password1 !== password2) {
-      alert('Passwords do not match. Please enter passwords that match.')
+      alert('Passwords do not match. Please enter passwords that match.');
     } else {
       if (this._validatePassword(password1) && this._validateEmail(email)) {
         const newUser = {
           username, password: password1, firstName, lastName, email, phone
-        }
+        };
         this.props.register(newUser);
         RouteActions.route('/login');
       }
@@ -93,7 +92,7 @@ class Register extends Component {
   }
 
   render() {
-    const { username, password1, password2, firstName, lastName, email, phone } = this.state
+    const { username, password1, password2, firstName, lastName, email, phone } = this.state;
 
     return (
       <div className="container text-center">
@@ -140,25 +139,25 @@ class Register extends Component {
             hintText="Phone Number" floatingLabelText="Phone Number"
             className="editInput" floatingLabelFixed={false} id="phone"
             required onChange={this._onInputChange} data-statekey="phone"
-             value={phone}
+            value={phone}
           /><br />
           <div className="col-xs-12 text-center">
             <RaisedButton
-            style={styles.button}
-            label="Submit"
-            labelPosition="before"
-            type='submit'
+              style={styles.button}
+              label="Submit"
+              labelPosition="before"
+              type="submit"
             />
             <RaisedButton
-            style={styles.button}
-            label="Cancel"
-            labelPosition="before"
-            onClick={this._cancel}
+              style={styles.button}
+              label="Cancel"
+              labelPosition="before"
+              onClick={this._cancel}
             />
           </div>
-      </form>
-    </div>
-    )
+        </form>
+      </div>
+    );
   }
 }
 
