@@ -144,9 +144,9 @@ class Book extends Component {
       const { book } = this.props;
 
       const userBooks = this.state.searchedBooks.map((existingBook, index) => {
-        if (!existingBook.forSale) {
+        if (!existingBook.forSale || existingBook.owner._id === this.props.user._id) {
           return (
-            <div />
+            <div key={index}></div>
           );
         }
 
