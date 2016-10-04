@@ -45,9 +45,11 @@ export function getBook(book) {
 export function addBook(book, userId) {
   const { isbn, title, authors, pictureNormal } = book;
   const newBook = { isbn, title, author: authors, cover: pictureNormal, owner: userId };
-  axios.post('/api/books', newBook)
-.then(RouteActions.route('/'))
-.catch();
+  return (dispatch) => {
+    axios.post('/api/books', newBook)
+      .then(RouteActions.route('/'))
+      .catch();
+  };
 }
 
 export function getUserBooks(userId) {
