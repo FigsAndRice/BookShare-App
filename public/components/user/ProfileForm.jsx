@@ -1,72 +1,83 @@
-import React , { Component} from 'react'
-import { Link } from 'react-router'
-import { connect } from 'react-redux'
+/* eslint-disable import/extensions */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable react/prefer-stateless-function */
 
-import { TextField, RaisedButton } from 'material-ui'
-import {yellow600, amber600, lightBlue900} from 'material-ui/styles/colors';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
-import { updateUser, receiveUser } from '../../actions/UserActions'
-import { uploadImg } from '../../actions/ImageActions'
+import { TextField, RaisedButton } from 'material-ui';
+import { yellow600, amber600 } from 'material-ui/styles/colors';
 
-import ProfilePicUploader from './ProfilePicUploader.jsx'
+import { uploadImg, clearImgstore } from '../../actions/ImageActions';
+import { updateUser, receiveUser } from '../../actions/UserActions';
+
+import ProfilePicUploader from './ProfilePicUploader.jsx';
+
+const editform = {
+  margin: 'auto'
+};
+
+const style1 = {
+  margin: 12
+};
 
 class ProfileForm extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
-    let { username , firstName , lastName , email , phone} = this.props.user;
+    const { username, firstName, lastName, email, phone } = this.props.user;
+
     this.state = {
-        username,
-        firstName,
-        lastName,
-        email,
-        phone,
-    }
+      username,
+      firstName,
+      lastName,
+      email,
+      phone
+    };
     this._onInputChange = this._onInputChange.bind(this);
     this._updateProfile = this._updateProfile.bind(this);
-
   }
-
   componentDidMount() {
-    let user = JSON.parse(localStorage.user)
+    const user = JSON.parse(localStorage.user);
     this.props.receiveUser(user);
-    let { username, firstName, lastName, email, phone} = user;
+    const { username, firstName, lastName, email, phone } = user;
     this.setState({
       username, firstName, lastName, email, phone
-    })
+    });
   }
 
-  _onInputChange(e){
-   let key = e.target.dataset.statekey;
-   let value = e.target.value;
-
-   this.setState({
-       [key]: value
-   });
+  _onInputChange(e) {
+    const key = e.target.dataset.statekey;
+    const value = e.target.value;
+    this.setState({
+      [key]: value
+    });
   }
 
-  _updateProfile(imgUrl){
-    let { _id } = this.props.user;
-    let updateObj = this.state;
+  _updateProfile(imgUrl) {
+    const { _id } = this.props.user;
+    const updateObj = this.state;
     if (imgUrl) {
       updateObj.picture = imgUrl;
     }
     this.props.updateUser(_id, updateObj);
-
   }
-  render(){
-    let { username , firstName , lastName , email , phone , picture} = this.state;
+  render() {
+    const { username, firstName, lastName, email, phone } = this.state;
     let imgl = this.props.user.picture;
-    let imgUrl = this.props.image.url;
+    const imgUrl = this.props.image.url;
 
-    if (imgl === undefined ) {
+    if (imgl === undefined) {
       imgl = 'http://www.biglunchextras.com/sites/default/files/user-default.png';
     }
 
     return (
       <div className="container text-center">
         <div className="col-md-6">
-          <ProfilePicUploader imgUrl={imgl}/>
+          <ProfilePicUploader imgUrl={imgl} />
         </div>
         <div className="col-md-6">
           <form style={editform}>
@@ -107,64 +118,29 @@ class ProfileForm extends Component {
                 floatingLabelText="Phone"
               />
             </div>
-            <RaisedButton backgroundColor={amber600} label="Update" style={style1} onClick={this._updateProfile.bind(null, imgUrl)}/>
-            <Link to="/"><RaisedButton backgroundColor={yellow600} label="cancel" style={style1}/></Link>
+            <RaisedButton backgroundColor={amber600} label="Update" style={style1} onClick={this._updateProfile.bind(null, imgUrl)} />
+            <Link to="/"><RaisedButton backgroundColor={yellow600} label="cancel" style={style1} /></Link>
           </form>
         </div>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    user : state.user,
-    image : state.image
-  }
-}
+    user: state.user,
+    image: state.image
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateUser: (id,state) => {dispatch(updateUser(id,state))},
-    uploadImg: (imgfile) => {dispatch(uploadImg(imgfile))},
-    clearImgstore: () => {dispatch(clearImgstore())},
-    receiveUser: (user) => {dispatch(receiveUser(user))}
-  }
-}
+    updateUser: (id, state) => { dispatch(updateUser(id, state)); },
+    uploadImg: (imgfile) => { dispatch(uploadImg(imgfile)); },
+    clearImgstore: () => { dispatch(clearImgstore()); },
+    receiveUser: (user) => { dispatch(receiveUser(user)); }
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileForm);
-
-const editform = {
-  margin : 'auto'
-};
-
-const style1 = {
-  margin: 12,
-};
-
-const imgstyle = {
-  border: '0px solid',
-  borderRadius: 100,
-  boxShadow: '0px 5px 15px #848484',
-  height: 170,
-  width: 170,
-  margin: 20,
-  textAlign: 'center',
-  display: 'inline-block',
-};
-
-const styles = {
-  button: {
-    margin: 12,
-  },
-  ImageInput: {
-    cursor: 'pointer',
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    width: '100%',
-    opacity: 0,
-  },
-};

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { Component } from 'react';
 import { TextField } from 'material-ui';
 import { connect } from 'react-redux';
@@ -5,43 +6,42 @@ import { connect } from 'react-redux';
 import { getResults } from '../../actions/ResultsActions';
 
 class SearchBar extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       bookTitle: ''
-    }
-    this._searchSubmit = this._searchSubmit.bind(this)
-    this._onChange = this._onChange.bind(this)
+    };
+    this._searchSubmit = this._searchSubmit.bind(this);
+    this._onChange = this._onChange.bind(this);
   }
-  _searchSubmit(e){
+  _searchSubmit(e) {
     e.preventDefault();
-    let query = this.state.bookTitle.replace(/\s/g, '+');
+    const query = this.state.bookTitle.replace(/\s/g, '+');
     this.setState({
       bookTitle: ''
     });
-    this.props.getResults(query);
+
+    this.props._getResults(query);
   }
-  _onChange(e){
+  _onChange(e) {
     this.setState({
       bookTitle: e.target.value
-    })
+    });
   }
-  render(){
-    return(
+  render() {
+    return (
       <form action="" onSubmit={this._searchSubmit}>
         <TextField
-        hintText="Search Book Title"
-        onChange={this._onChange}
-        value={this.state.bookTitle}
+          hintText="Search Book Title"
+          onChange={this._onChange}
+          value={this.state.bookTitle}
         />
       </form>
-    )
+    );
   }
 }
 
-export default connect(state => ({
-  }),dispatch => {
-    return {
-      getResults : query => dispatch(getResults(query)),
-    }
-  })(SearchBar);
+export default connect((state) => { state },
+dispatch => {
+  _getResults: (query) => dispatch(getResults(query))
+})(SearchBar);

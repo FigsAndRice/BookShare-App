@@ -21,7 +21,7 @@ const url = require('url');
 
 mongoose.Promise = global.Promise;
 
-//REDIS SETUP 
+//REDIS SETUP
 let store = null
 if (process.env.REDISTOGO_URL) {
  let redisUrl = url.parse(process.env.REDISTOGO_URL);
@@ -33,7 +33,7 @@ if (process.env.REDISTOGO_URL) {
   db: redisAuth[0],
   pass: redisAuth[1]
   });
-} 
+}
 // DB CONNECT
 require('mongoose').connect(MONGO_URI, err => {
   if(err) throw err;
@@ -42,7 +42,7 @@ require('mongoose').connect(MONGO_URI, err => {
 
 // APP DECLARATION
 const app = express();
-//SET UP SECURITY 
+//SET UP SECURITY
 app.use(helmet());
 // Since postinstall will also run when you run npm install
 // locally we make sure it only runs in production

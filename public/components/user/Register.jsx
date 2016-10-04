@@ -1,14 +1,16 @@
+/* eslint-disable no-underscore-dangle */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, RaisedButton } from 'material-ui';
+
 import { register } from '../../actions/UserActions';
 import RouteActions from '../../actions/RouteActions';
 
 const styles = {
   button: {
-    "margin": "10px 10px 10px 10px"
+    margin: '10px 10px 10px 10px'
   }
-}
+};
 
 class Register extends Component {
   constructor(props) {
@@ -32,8 +34,8 @@ class Register extends Component {
   }
 
   _onInputChange(e) {
-    let key = e.target.dataset.statekey;
-    let value = e.target.value;
+    const key = e.target.dataset.statekey;
+    const value = e.target.value;
 
     this.setState({
       [key]: value
@@ -41,7 +43,7 @@ class Register extends Component {
   }
 
   _validatePassword(password) {
-    let regEx = /^(?=.*[\d])(?=.*[A-Z])(?=.*["\-\\;:,.'<>!\[{(*)}\]_|`+~@#$%^&\=\?*])[\w"\-\\;:,.'<>!\[{(*)}\]_|`+~@#$%^&\=\?*]{8,16}$/;
+    const regEx = /^(?=.*[\d])(?=.*[A-Z])(?=.*["\-\\;:,.'<>!\[{(*)}\]_|`+~@#$%^&\=\?*])[\w"\-\\;:,.'<>!\[{(*)}\]_|`+~@#$%^&\=\?*]{8,16}$/;
     if (!regEx.test(password)) {
       alert("Password must contain 8-16 characters, 1 number, 1 uppercase letter, and 1 special character");
       return false;
@@ -51,7 +53,7 @@ class Register extends Component {
   }
 
   _validateEmail(email) {
-    let regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!regEx.test(email)) {
       alert("Invalid email. Please enter a correct email address.");
       return false;
@@ -62,7 +64,7 @@ class Register extends Component {
 
   _submit(e) {
     e.preventDefault();
-    let { username, password1, password2, firstName, lastName, email, phone} = this.state;
+    const { username, password1, password2, firstName, lastName, email, phone} = this.state;
     if (password1 !== password2) {
       alert('Passwords do not match. Please enter passwords that match.')
     } else {
@@ -91,7 +93,7 @@ class Register extends Component {
   }
 
   render() {
-    let { username, password1, password2, firstName, lastName, email, phone } = this.state
+    const { username, password1, password2, firstName, lastName, email, phone } = this.state
 
     return (
       <div className="container text-center">
@@ -99,44 +101,44 @@ class Register extends Component {
         <p>Please Enter the following details to Register</p>
         <form onSubmit={this._submit}>
           <TextField
-            hintText='Username' floatingLabelText="Username"
-            className="editInput" floatingLabelFixed={false} id='username'
+            hintText="Username" floatingLabelText="Username"
+            className="editInput" floatingLabelFixed={false} id="username"
             required onChange={this._onInputChange} data-statekey="username"
-             value={username}
+            value={username}
           /><br />
           <TextField
-            hintText='Password' floatingLabelText="Password" type='password'
-            className="editInput" floatingLabelFixed={false} id='password1'
+            hintText="Password" floatingLabelText="Password" type="password"
+            className="editInput" floatingLabelFixed={false} id="password1"
             required onChange={this._onInputChange} data-statekey="password1"
             value={password1}
           /><br />
           <TextField
-            hintText='Password' floatingLabelText="Password (again)" type='password'
-            className="editInput" floatingLabelFixed={false} id='password2'
+            hintText="Password" floatingLabelText="Password (again)" type="password"
+            className="editInput" floatingLabelFixed={false} id="password2"
             required onChange={this._onInputChange} data-statekey="password2"
-             value={password2}
+            value={password2}
           /><br />
           <TextField
-            hintText='Email' floatingLabelText="Email" type='email'
-            className="editInput" floatingLabelFixed={false} id='email'
+            hintText="Email" floatingLabelText="Email" type="email"
+            className="editInput" floatingLabelFixed={false} id="email"
             required onChange={this._onInputChange} data-statekey="email"
-             value={email}
+            value={email}
           /><br />
           <TextField
-            hintText='First Name' floatingLabelText="First Name"
-            className="editInput" floatingLabelFixed={false} id='firstName'
+            hintText="First Name" floatingLabelText="First Name"
+            className="editInput" floatingLabelFixed={false} id="firstName"
             required onChange={this._onInputChange} data-statekey="firstName"
-             value={firstName}
+            value={firstName}
           /><br />
           <TextField
-            hintText='Last Name' floatingLabelText="Last Name"
-            className="editInput" floatingLabelFixed={false} id='lastName'
+            hintText="Last Name" floatingLabelText="Last Name"
+            className="editInput" floatingLabelFixed={false} id="lastName"
             required onChange={this._onInputChange} data-statekey="lastName"
-             value={lastName}
+            value={lastName}
           /><br />
           <TextField
-            hintText='Phone Number' floatingLabelText="Phone Number"
-            className="editInput" floatingLabelFixed={false} id='phone'
+            hintText="Phone Number" floatingLabelText="Phone Number"
+            className="editInput" floatingLabelFixed={false} id="phone"
             required onChange={this._onInputChange} data-statekey="phone"
              value={phone}
           /><br />
@@ -163,13 +165,13 @@ class Register extends Component {
 const mapStateToProps = (state) => {
   return {
     state
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     register: (state) => dispatch(register(state))
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

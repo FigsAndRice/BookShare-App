@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+/* eslint-disable import/extensions */
+/* eslint-disable react/prefer-stateless-function */
 
-import UserinfoDrawer from './UserinfoDrawer.jsx'
-import UserProfile from './UserProfile.jsx'
-import ShowBooks from '../library/ShowBooks.jsx'
+import React, { Component } from 'react';
+
+import UserinfoDrawer from './UserinfoDrawer.jsx';
+import ShowBooks from '../library/ShowBooks.jsx';
+import UserProfile from './UserProfile.jsx';
 
 export default class Profile extends Component {
-  render(){
-    return(
+  render() {
+    return (
       <div>
         <div className="mobileProfile">
           <UserProfile />
@@ -15,6 +17,6 @@ export default class Profile extends Component {
         <UserinfoDrawer />
         <ShowBooks />
       </div>
-    )
+    );
   }
 }
