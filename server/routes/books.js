@@ -34,13 +34,13 @@ router.get('/owner/:ownerid', (req, res) => {
 
 router.delete('/removePicture/:bookid', (req, res) => {
   Book.findOneById(req.params.bookid, (err, book) => {
-    book.pictures.map(pic => {
+    book.pictures.map((pic) => {
       Image.findOneAndRemove({ _id: pic }, Image.RemoveMiddlware, err => {
         if (err) return err;
         return;
       });
     });
-    Book.findOneByIdAndRemove(req.params.bookid, err => {
+    Book.findOneByIdAndRemove(req.params.bookid, (err) => {
       if (err) res.status(400).send(err);
       res.status(200).send();
     });
@@ -50,11 +50,11 @@ router.delete('/removePicture/:bookid', (req, res) => {
 router.put('/edit/:id', (req, res) => {
   Book.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
     .then(() => res.send())
-    .catch(err => res.status(400).send(err))
+    .catch(err => res.status(400).send(err));
 });
 
 router.delete('/:id', (req, res) => {
-  Book.findByIdAndRemove(req.params.id, err => {
+  Book.findByIdAndRemove(req.params.id, (err) => {
     if (err) return res.status(400).send(err);
     res.send();
   });
@@ -68,7 +68,7 @@ router.put('/:bookid/addImage', upload.single('image'), (req, res) => {
         return res.status(400).send(err || 'Book not Found!');
       }
       book.pictures.push(photo._id);
-      book.save(err => {
+      book.save((err) => {
         if (err) res.status(400).send(err);
         res.send();
       });
@@ -81,21 +81,21 @@ router.put('/:bookid/changeOwner/:ownerid', (req, res) => {
     { $set: { owner: req.params.ownerid } },
     { new: true }, (err, book) => {
       res.status(err ? 400 : 200).send(err || book);
-      });
+    });
 });
 
 router.put('/:bookid/:classid', (req, res) => {
   Book.findByIdAndUpdate(req.params.bookid,
     { $set: { class_name: req.params.classid } },
-    { new: true }, (err,book) => {
+    { new: true }, (err, book) => {
       res.status(err ? 400 : 200).send(err || book);
-      });
+    });
 });
 
-router.delete('/:bookid/:imageid', Image.RemoveMiddleware, (req , res) => {
+router.delete('/:bookid/:imageid', Image.RemoveMiddleware, (req, res) => {
   Image.findOneById({ _id: req.params.imageid })
     .exec((err, image) => {
-      Image.deleteLink(image.url, err => {
+      Image.deleteLink(image.url, (err) => {
         Book.findOneAndUpdate(
           { _id: req.params.bookid },
           { $pull: { pictures: req.params.imageid } },

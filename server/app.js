@@ -15,34 +15,37 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const helmet = require('helmet');
 const session = require('express-session');
-const redis = require('redis')
+const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
 const url = require('url');
 
 mongoose.Promise = global.Promise;
 
-//REDIS SETUP
-let store = null
-if (process.env.REDISTOGO_URL) {
- let redisUrl = url.parse(process.env.REDISTOGO_URL);
- let redisAuth = redisUrl.auth.split(':');
+// REDIS SETUP
+const store = null;
 
- new RedisStore({
-  host: redisUrl.hostname,
-  port: redisUrl.port,
-  db: redisAuth[0],
-  pass: redisAuth[1]
+if (process.env.REDISTOGO_URL) {
+  const redisUrl = url.parse(process.env.REDISTOGO_URL);
+  const redisAuth = redisUrl.auth.split(':');
+
+  new RedisStore({
+    host: redisUrl.hostname,
+    port: redisUrl.port,
+    db: redisAuth[0],
+    pass: redisAuth[1]
   });
 }
+
 // DB CONNECT
-require('mongoose').connect(MONGO_URI, err => {
-  if(err) throw err;
-  console.log(`MongoDB connected to ${MONGO_URI}`);
+require('mongoose').connect(MONGO_URI, (err) => {
+  if (err) throw err;
 });
 
 // APP DECLARATION
 const app = express();
-//SET UP SECURITY
+
+// SET UP SECURITY
+
 app.use(helmet());
 // Since postinstall will also run when you run npm install
 // locally we make sure it only runs in production
@@ -67,14 +70,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-app.use(require('express-session')({
-    store: store,
+app.use(require('express-session')(
+  {
+    store,
     secret: 'keyboard cat',
     resave: false,
-    name : 'connect.sid',
+    name: 'connect.sid',
     saveUninitialized: false,
-    cookie: {httpOnly: false}
-}));
+    cookie: { httpOnly: false }
+  }
+));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -85,19 +91,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', require('./routes/api'));
 
 app.get('*', (req, res) => {
-  let indexPath = path.join(__dirname, '../index.html');
+  const indexPath = path.join(__dirname, '../index.html');
   res.sendFile(indexPath);
 });
 
 // PASSPORT CONFIG
 const User = require('./models/user');
+
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -107,7 +114,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -118,7 +125,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
@@ -127,8 +134,6 @@ app.use(function(err, req, res, next) {
 });
 
 // SERVER LISTEN
-app.listen(PORT, err => {
-  if(err) throw err;
-
-  console.log(`Server listening at http://localhost:${PORT}`);
+app.listen(PORT, (err) => {
+  if (err) throw err;
 });

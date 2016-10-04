@@ -16,13 +16,13 @@ body {
 }
 
 .bookbox{
-    margin : 5px;
-    padding : 5px;
-    width : auto;
-    text-align : center;
-    height : 250px;
-    border : 1px solid #f1f1f1;
-    border-radius : 5px;
+  margin : 5px;
+  padding : 5px;
+  width : auto;
+  text-align : center;
+  height : 250px;
+  border : 1px solid #f1f1f1;
+  border-radius : 5px;
 }
 
 .fixedBookHeight{
@@ -54,7 +54,6 @@ body {
   text-align: center;
   padding-top: 35vh;
 }
-
 
 .splashTitle {
   font-size: 100px;

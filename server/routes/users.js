@@ -1,12 +1,14 @@
 const express = require('express');
 
 const router = express.Router();
+
 const passport = require('passport');
 
 const User = require('../models/user');
 
 if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv');
+
   dotenv.load();
 }
 
@@ -15,15 +17,15 @@ const helper = require('sendgrid').mail;
 const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 router.route('/')
-  .get((req,res) => {
-    User.find({},(err, users) => {
+  .get((req, res) => {
+    User.find({}, (err, users) => {
       res.status(err ? 400 : 200).send(err || users);
-    }).populate('favorites cart')
+    }).populate('favorites cart');
   })
-  .post((req,res) => {
-    User.create(req.body,(err, user) => {
+  .post((req, res) => {
+    User.create(req.body, (err, user) => {
       res.status(err ? 400 : 200).send(err || user);
-    })
+    });
   });
 
 router.route('/register')
@@ -40,7 +42,6 @@ router.route('/register')
       picture: req.body.picture
     }), req.body.password, (err, user) => {
       if (err) {
-        console.error(err);
         res.redirect('/');
       } else {
         passport.authenticate('local')(req, res, () => {
@@ -49,10 +50,10 @@ router.route('/register')
               return next(err);
             }
 
-            let from_email = new helper.Email('admin@bookshare.tk');
+            const from_email = new helper.Email('admin@bookshare.tk');
             const to_email = new helper.Email(req.body.email);
-            const subject = `Thank you for registering`;
-            let content = new helper.Content('text/plain',
+            const subject = 'Thank you for registering';
+            const content = new helper.Content('text/plain',
               `Hello ${req.body.firstName},
 
               Thank you for registering with BookShare! Now you can buy and sell books with other students.
@@ -68,15 +69,15 @@ router.route('/register')
               - The BookShare Team
               `
             );
-            let mail = new helper.Mail(from_email, subject, to_email, content);
+            const mail = new helper.Mail(from_email, subject, to_email, content);
 
-            let request = sg.emptyRequest({
+            const request = sg.emptyRequest({
               method: 'POST',
               path: '/v3/mail/send',
-              body: mail.toJSON(),
+              body: mail.toJSON()
             });
 
-            sg.API (request, function(error, response) {
+            sg.API(request, function (error, response) {
               console.log(response.statusCode);
               console.log(response.body);
               console.log(response.headers);
@@ -84,17 +85,17 @@ router.route('/register')
           });
         });
       }
-    })
+    });
   });
 
 router.post('/login', passport.authenticate('local'), ((req, res) => {
-  User.findOne({username: req.body.username}, (err, user) => {
+  User.findOne({ username: req.body.username }, (err, user) => {
     res.status(err ? 400 : 200).send(err || user);
   }).populate('favorites cart');
 }));
 
-router.post('/logout', ((req,res) => {
-  req.session.destroy((err) => {
+router.post('/logout', ((req, res) => {
+  req.session.destroy(() => {
     res.clearCookie('connect.sid', { path: '/' });
     res.redirect('/');
   });
@@ -103,46 +104,46 @@ router.post('/logout', ((req,res) => {
 
 router.route('/:id')
   .get((req, res) => {
-    User.find(req.params.id,(err, user) => {
+    User.find(req.params.id, (err, user) => {
       res.status(err ? 400 : 200).send(err || user);
     }).populate('favorites cart');
   })
   .put((req, res) => {
-    User.findByIdAndUpdate(req.params.id, {$set : req.body}, {new : true}, (err, user) => {
+    User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true }, (err, user) => {
       if (err) res.status(400).send(err);
       User.findById(req.params.id, (err, user) => {
-        res.status(err ? 400 : 200).send(err || user)
+        res.status(err ? 400 : 200).send(err || user);
       }).populate('favorites cart');
-   });
+    });
   })
-  .delete((req,res) => {
+  .delete((req, res) => {
     User.findByIdAndRemove(req.params.id, (err, user) => {
-      res.status(err ? 400 : 200).send(err || user.username + " deleted");
+      res.status(err ? 400 : 200).send(err || `${user.username} deleted`);
     });
   });
 
 router.put('/:userId/addFavorite/:bookId', (req, res) => {
-  User.findByIdAndUpdate(req.params.userId, { $addToSet: { "favorites": req.params.bookId}}, { new: true }, (err, user) => {
+  User.findByIdAndUpdate(req.params.userId, { $addToSet: { 'favorites': req.params.bookId } }, { new: true }, (err, user) => {
     if (err) res.status(400).send(err);
     User.findById(req.params.userId, (err, user) => {
-      res.status(err ? 400 : 200).send(err || user)
+      res.status(err ? 400 : 200).send(err || user);
     }).populate('favorites cart');
   });
 });
 
 router.put('/:userId/removeFavorite/:bookId', (req, res) => {
-  User.findByIdAndUpdate(req.params.userId, { $pull: { "favorites": req.params.bookId } }, { new: true }, (err, user) => {
+  User.findByIdAndUpdate(req.params.userId, { $pull: { 'favorites': req.params.bookId } }, { new: true }, (err, user) => {
     User.findById(req.params.userId, (err, user) => {
-      res.status(err ? 400 : 200).send(err || user)
+      res.status(err ? 400 : 200).send(err || user);
     }).populate('favorites cart');
-  })
+  });
 });
 
 router.put('/:userId/addToCart/:bookId', (req, res) => {
-  User.findByIdAndUpdate(req.params.userId, { $addToSet: {"cart": req.params.bookId}}, { new: true }, (err, user) => {
+  User.findByIdAndUpdate(req.params.userId, { $addToSet: { 'cart': req.params.bookId } }, { new: true }, (err, user) => {
     if (err) res.status(400).send(err);
     User.findById(req.params.userId, (err, user) => {
-      res.status(err ? 400 : 200).send(err || user)
+      res.status(err ? 400 : 200).send(err || user);
     }).populate('favorites cart');
   });
 });
@@ -151,7 +152,7 @@ router.put('/:userId/removeFromCart/:bookId', (req, res) => {
   User.findByIdAndUpdate(req.params.userId, { $pull: { 'cart': req.params.bookId } }, { new: true }, (err, user) => {
     if (err) res.status(400).send(err);
     User.findById(req.params.userId, (err, user) => {
-      res.status(err ? 400 : 200).send(err || user)
+      res.status(err ? 400 : 200).send(err || user);
     }).populate('favorites cart');
   });
 });
