@@ -27,7 +27,7 @@ class Main extends Component {
     if (!getCookie(COOKIE_LOGIN)) {
       mainView = (
         <div className="splash">
-          <h1 className="splashTitle">Book Finder</h1>
+          <h1 className="splashTitle">BookShare</h1>
           <Link to="/login"><RaisedButton style={btnStyle} label="Login" /></Link>
           <Link to="/register"><RaisedButton style={btnStyle} label="Register" /></Link>
         </div>
