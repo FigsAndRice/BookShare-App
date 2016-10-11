@@ -5,6 +5,7 @@ A market for keeping track of books you own, putting books out for sale, and buy
 Technologies used:
 * React-Redux
 * SendGrid (email API)
+* Passport.js (user authentication)
 * Amazon Web Services
 * MongoDB
 * Node.js
